@@ -1,0 +1,55 @@
+{
+  "roles": [
+    {
+      "org": "Independent",
+      "role": "AI engineer & researcher",
+      "period": "2026 – present",
+      "location": "Remote (Kerala, India)",
+      "summary": "seed: Self-directed work on agent reliability, AI control experiments and deterministic tooling, published as public repositories with their numbers attached.",
+      "highlights": [
+        "seed: Built IncidentGate, a crash-recovery harness that recovered 434/434 kill points with zero duplicate mutations.",
+        "seed: Released ExactDoc, a byte-exact .docx editing library with 663 tests and a 16/16 round-trip corpus.",
+        "seed: Ran two model-behaviour experiments (Digital Grimace Scale, whose-voice) and published the negative results with them.",
+        "seed: Shipped ProofPack, an evidence-bound code reviewer running at $0.02–0.19 per review."
+      ],
+      "links": [{ "label": "GitHub", "url": "https://github.com/ebt55" }]
+    },
+    {
+      "org": "Zackriya Solutions",
+      "role": "Software Engineer",
+      "period": "Jan 2022 – Jun 2025",
+      "location": "Remote, India",
+      "summary": "seed: Shipped 0→1 LLM, RAG and agent backends for startup clients across four countries, from prototype to production deployment.",
+      "highlights": [
+        "seed: Built and deployed retrieval-augmented backends for client products in four countries.",
+        "seed: Owned production services end to end: FastAPI, PostgreSQL, Redis, Docker, CI and on-call.",
+        "seed: Contributed the speaker-diarisation path to Meetily, the company's open-source meeting assistant.",
+        "seed: Worked directly with founders to scope, cut and ship features under fixed timelines."
+      ],
+      "links": []
+    }
+  ],
+  "open_source": [
+    {
+      "project": "Meetily",
+      "url": "https://github.com/Zackriya-Solutions/meetily",
+      "what": "seed: Speaker-diarisation support and transcript segmentation for the open-source meeting assistant.",
+      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meetily/pull/75" }
+    },
+    {
+      "project": "bpmn-io/bpmn-js-refactorings",
+      "url": "https://github.com/bpmn-io/bpmn-js-refactorings",
+      "what": "seed: Refactoring rule fix merged upstream, plus a maintained fork carrying two further rules.",
+      "link": {
+        "label": "PR #33",
+        "url": "https://github.com/bpmn-io/bpmn-js-refactorings/pull/33"
+      }
+    },
+    {
+      "project": "ExactDoc",
+      "url": "https://github.com/ebt55/exactdoc",
+      "what": "seed: Maintainer — byte-exact .docx editing for Python.",
+      "link": { "label": "Repository", "url": "https://github.com/ebt55/exactdoc" }
+    }
+  ]
+}
