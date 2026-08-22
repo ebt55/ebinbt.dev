@@ -1,0 +1,81 @@
+---
+import { formatDate, isoDate } from '../lib/format';
+
+interface Props {
+  updated: Date;
+  /** Render the "Full /now page →" link (hidden on /now/ itself). */
+  showLink?: boolean;
+}
+
+const { updated, showLink = true } = Astro.props;
+---
+
+<div class="now">
+  <p class="eyebrow eyebrow-quiet">
+    Now · updated <time datetime={isoDate(updated)}>{formatDate(updated)}</time>
+  </p>
+  <div class="body">
+    <slot />
+  </div>
+  {
+    showLink && (
+      <a class="more" href="/now/">
+        Full now page<span aria-hidden="true"> →</span>
+      </a>
+    )
+  }
+</div>
+
+<style>
+  .now {
+    max-width: var(--measure);
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  .body :global(ul) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .body :global(li) {
+    position: relative;
+    padding-left: 1.15rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.55;
+  }
+
+  .body :global(li:last-child) {
+    margin-bottom: 0;
+  }
+
+  .body :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .body :global(p) {
+    margin-bottom: 0.75rem;
+  }
+
+  .more {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .more:hover {
+    border-bottom-color: currentColor;
+  }
+</style>

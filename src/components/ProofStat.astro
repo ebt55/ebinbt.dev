@@ -1,0 +1,64 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  href: string;
+  project: string;
+}
+
+const { value, label, href, project } = Astro.props;
+---
+
+<div class="row">
+  <p class="value num">{value}</p>
+  <p class="label">{label}</p>
+  <a class="project" href={href}>{project}<span aria-hidden="true"> →</span></a>
+</div>
+
+<style>
+  .row {
+    padding: 1rem 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .row:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .row:last-child {
+    padding-bottom: 0;
+  }
+
+  .value {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    font-size: var(--size-proof);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .label {
+    margin-top: 0.3rem;
+    font-size: var(--size-small);
+    line-height: 1.45;
+    color: var(--ink-2);
+  }
+
+  .project {
+    display: inline-block;
+    margin-top: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: var(--size-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .project:hover {
+    border-bottom-color: currentColor;
+  }
+</style>

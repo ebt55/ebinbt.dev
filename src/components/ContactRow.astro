@@ -1,0 +1,154 @@
+---
+import { site } from '../data/site';
+
+interface Channel {
+  label: string;
+  href: string;
+  text: string;
+  external: boolean;
+}
+
+const channels: Channel[] = [
+  {
+    label: 'GitHub',
+    href: site.socials.github,
+    text: site.socials.github.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  },
+  {
+    label: 'LinkedIn',
+    href: site.socials.linkedin,
+    text: site.socials.linkedin.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  },
+  {
+    label: 'Peerlist',
+    href: site.socials.peerlist,
+    text: site.socials.peerlist.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  },
+  {
+    label: 'Kaggle',
+    href: site.socials.kaggle,
+    text: site.socials.kaggle.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  },
+];
+
+if (site.socials.huggingface) {
+  channels.push({
+    label: 'Hugging Face',
+    href: site.socials.huggingface,
+    text: site.socials.huggingface.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  });
+}
+
+if (site.bookingUrl) {
+  channels.push({
+    label: 'Call',
+    href: site.bookingUrl,
+    text: 'Book 30 minutes',
+    external: true,
+  });
+}
+
+channels.push({
+  label: 'Résumé',
+  href: site.resumePath,
+  text: 'Resume (PDF)',
+  external: false,
+});
+---
+
+<dl class="contact">
+  <div class="channel primary">
+    <dt>Email</dt>
+    <dd><a class="email" href={`mailto:${site.email}`}>{site.email}</a></dd>
+  </div>
+  {
+    channels.map((c) => (
+      <div class="channel">
+        <dt>{c.label}</dt>
+        <dd>
+          <a
+            href={c.href}
+            rel="noopener"
+            target={c.href === site.resumePath ? '_blank' : undefined}
+          >
+            {c.text}
+            {c.href === site.resumePath && <span class="sr-only"> (opens in a new tab)</span>}
+            {c.external && <span aria-hidden="true"> ↗</span>}
+          </a>
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<style>
+  .contact {
+    margin: 0;
+    max-width: var(--measure);
+  }
+
+  .channel {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 0.5rem 1rem;
+    align-items: baseline;
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .channel:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  dt {
+    font-family: var(--font-mono);
+    font-size: var(--size-eyebrow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  dd {
+    margin: 0;
+    font-size: var(--size-small);
+    overflow-wrap: anywhere;
+  }
+
+  dd a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline-strong);
+  }
+
+  dd a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  .primary dd {
+    font-size: 1.125rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 519px) {
+    .channel {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+</style>

@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import { site } from '../data/site';
+
+// /writing/ only exists once there are two or more items (01-SPEC §1).
+const writingCount = (await getCollection('writing')).length;
+const hasWritingIndex = writingCount >= 2;
+
+const path = Astro.url.pathname;
+const isHome = path === '/';
+
+const nav: { label: string; href: string; external?: boolean }[] = [
+  { label: 'Work', href: isHome ? '#work' : '/work/' },
+  { label: 'Now', href: '/now/' },
+];
+if (hasWritingIndex) nav.push({ label: 'Writing', href: '/writing/' });
+nav.push({ label: 'Resume', href: site.resumePath, external: true });
+nav.push({ label: 'Email', href: `mailto:${site.email}` });
+
+const isCurrent = (href: string) =>
+  href.startsWith('/') && href !== '/' && path.startsWith(href) ? 'page' : undefined;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="wordmark" href="/" aria-label={`${site.name} — home`}>
+      <span class="mark" aria-hidden="true"></span>
+      {site.name}
+    </a>
+    <nav aria-label="Primary">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href)}
+                target={item.href === site.resumePath ? '_blank' : undefined}
+                rel={item.external ? 'noopener' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-block: 1.1rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .wordmark:hover {
+    color: var(--accent-ink);
+  }
+
+  .mark {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 1px;
+    background: var(--accent);
+    transform: translateY(-0.1em);
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
+    color: var(--ink-2);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+  }
+
+  nav a:hover {
+    color: var(--accent-ink);
+    border-bottom-color: currentColor;
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 419px) {
+    .bar {
+      gap: 0.65rem;
+    }
+
+    nav ul {
+      gap: 0.35rem 1rem;
+    }
+  }
+</style>
