@@ -103,9 +103,11 @@ const { Content } = await render(project);
         </div>
       </div>
 
-      <Prose class="body">
-        <Content />
-      </Prose>
+      <div class="body">
+        <Prose>
+          <Content />
+        </Prose>
+      </div>
 
       {
         d.honestStatus && (

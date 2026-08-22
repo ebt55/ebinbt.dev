@@ -41,7 +41,9 @@
   --size-h3: 1.25rem;
   --size-body: 1.0625rem;
   --size-small: 0.875rem;
-  --size-eyebrow: 0.75rem;
+  /* 14px, not the 12px of the design sketch: 01-SPEC §7.5 forbids text under
+     14px. Recorded in 02-DESIGN-DIRECTION.md "Final choices". */
+  --size-eyebrow: 0.875rem;
   --size-proof: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
 
   /* Motion */

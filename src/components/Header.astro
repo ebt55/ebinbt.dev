@@ -39,6 +39,9 @@ const isCurrent = (href: string) =>
                 rel={item.external ? 'noopener' : undefined}
               >
                 {item.label}
+                {item.href === site.resumePath && (
+                  <span class="sr-only"> (PDF, opens in a new tab)</span>
+                )}
               </a>
             </li>
           ))

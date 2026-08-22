@@ -228,7 +228,8 @@ const photo = Object.values(photoFiles)[0]?.default;
     <Timeline roles={roles} />
     <p class="resume-link">
       <a href={site.resumePath} target="_blank" rel="noopener">
-        Resume (PDF)<span aria-hidden="true"> ↗</span>
+        Resume (PDF)<span class="sr-only"> (opens in a new tab)</span><span aria-hidden="true">
+          ↗</span>
       </a>
     </p>
   </Section>
