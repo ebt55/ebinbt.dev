@@ -48,7 +48,8 @@ if (site.bookingUrl) {
   channels.push({
     label: 'Call',
     href: site.bookingUrl,
-    text: 'Book 30 minutes',
+    // Duration-agnostic: the event length is not fixed.
+    text: 'Book a call',
     external: true,
   });
 }

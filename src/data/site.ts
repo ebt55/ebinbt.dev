@@ -19,8 +19,9 @@ export const site = {
     kaggle: "https://www.kaggle.com/ebinbt007",
     huggingface: "https://huggingface.co/ebt005" as string | null,
   },
-  bookingUrl: null as string | null,
-  repoUrl: "https://github.com/ebt55/ebinbt.dev",
+  bookingUrl: "https://cal.com/ebinbt" as string | null,
+  // Set to null if the source repo is kept private — the footer link then disappears.
+  repoUrl: "https://github.com/ebt55/ebinbt.dev" as string | null,
   resumePath: "/resume.pdf",
   proof: [
     {

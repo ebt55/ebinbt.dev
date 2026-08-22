@@ -10,8 +10,18 @@ const year = built.getUTCFullYear();
   <div class="container inner">
     <p class="line">
       © {year} {site.name}
-      <span class="sep" aria-hidden="true">·</span>
-      <a href={site.repoUrl} rel="noopener">Source on GitHub<span aria-hidden="true"> ↗</span></a>
+      {
+        site.repoUrl && (
+          <>
+            <span class="sep" aria-hidden="true">
+              ·
+            </span>
+            <a href={site.repoUrl} rel="noopener">
+              Source on GitHub<span aria-hidden="true"> ↗</span>
+            </a>
+          </>
+        )
+      }
     </p>
     <p class="line quiet">
       Built with Astro

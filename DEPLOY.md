@@ -26,7 +26,7 @@ the end of this file is the escape hatch if Cloudflare is ever unacceptable.
 
 | You need | Notes |
 |---|---|
-| A GitHub account | `ebt55`. The repo `ebinbt.dev` must be **public** — the source is part of the portfolio. |
+| A GitHub account | `ebt55`, repo `ebinbt.dev`. Public is recommended — the source is part of the portfolio and the footer links to it. Private also works (Workers Builds reads private repos through the GitHub app); if you keep it private, set `repoUrl` to `null` in `src/data/site.ts` so the footer's "Source on GitHub" link disappears. |
 | A free Cloudflare account | Sign up at <https://dash.cloudflare.com/sign-up>. No card, no paid plan. |
 | Access to Porkbun | To change the domain's nameservers. |
 | Nothing secret | The site needs no API keys or tokens to build or serve. |
@@ -206,17 +206,19 @@ values at build time.
 
 ---
 
-## 8. Booking link (optional, later)
+## 8. Booking link
 
-Create a free <https://cal.com> event, then edit `src/data/site.ts`:
+Already set up and live. `src/data/site.ts` carries:
 
 ```ts
-bookingUrl: 'https://cal.com/<your-cal-handle>/30min',
+bookingUrl: 'https://cal.com/ebinbt',
 ```
 
-Commit and push. The contact section grows a "Call" row; leave it `null` and nothing
-renders. This is deliberately a source change, not an environment variable — the URL is
-public and belongs in version control with the rest of the contact details.
+The contact section renders a "Call" row pointing at it; set the value back to `null` and
+the row disappears. This is deliberately a source change, not an environment variable —
+the URL is public and belongs in version control with the rest of the contact details.
+Changing the Cal.com event's length or name needs no site change, as long as the handle
+stays `ebinbt`.
 
 ## 9. Email routing (optional)
 
