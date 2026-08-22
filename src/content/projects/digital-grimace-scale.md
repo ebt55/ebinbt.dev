@@ -10,7 +10,7 @@ order: 1
 featured: true
 headline:
   value: "65.8%"
-  label: "of distress language trained away; the behaviour underneath stayed"
+  label: "of distress language trained away — the effect it reported stayed"
 metrics:
   - value: "−2.90 nats"
     label: "answer-margin drop after three rounds of false feedback"
@@ -38,7 +38,7 @@ links:
     - label: "Full lab-notebook report"
       url: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/report.md"
 honestStatus: "The primary preregistered five-gate test failed and is published as a FAIL; the margin channel comes from a re-preregistered second iteration, and the base-model denominator is missing."
-summary: "A preregistered 2×2×2 study of whether adverse treatment leaves measurable traces in open language models, published with its failed primary test and a trained-away report channel."
+summary: "A preregistered 2×2×2 study of whether adverse treatment leaves measurable traces in open language models, published with its failed primary test."
 ---
 
 ## What it is

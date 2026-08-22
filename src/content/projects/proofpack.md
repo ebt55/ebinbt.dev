@@ -1,6 +1,6 @@
 ---
 title: "ProofPack"
-tagline: 'A pre-approval review agent where every "Found" has to cite a hashed, date-stamped capture'
+tagline: "A pre-approval review agent where every “Found” has to cite a hashed, date-stamped capture"
 lane: "control"
 kind: "system"
 status: "shipped"
@@ -36,7 +36,7 @@ links:
     - label: "Model, market sizing and pilot plan"
       url: "https://github.com/ebt55/proofpack/blob/main/docs/BUSINESS.md"
 honestStatus: "Pilot-stage: the pipeline runs end to end on committed sample forms and there are no customers yet."
-summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where a fabricated citation is structurally impossible and the human keeps every approve or deny decision."
+summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where a fabricated citation is structurally impossible and a human still decides."
 ---
 
 ## What it is

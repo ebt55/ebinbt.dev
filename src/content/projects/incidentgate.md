@@ -39,8 +39,8 @@ links:
       url: "https://github.com/ebt55/incidentgate/blob/main/artifacts/chaos-matrix/kill-matrix.md"
     - label: "Threat model and methodology"
       url: "https://github.com/ebt55/incidentgate/blob/main/docs/threat-model-and-methodology.md"
-honestStatus: "A development checkpoint, not a release: a model sits in the decision path of four published rows, the MCP servers still run in-process, and exactly-once is scoped to the local Postgres."
-summary: "A reproducible lab measuring how a deterministic policy gate, an advisory action monitor and durable human approval change an incident-remediation agent under crashes, misleading evidence and hostile input."
+honestStatus: "A development checkpoint, not a release: a model sits in the decision path of three published sabotage rows and one monitor envelope, the MCP servers still run in-process, and exactly-once is scoped to the local Postgres."
+summary: "A lab measuring how a policy gate, an action monitor and durable human approval change an incident-remediation agent under crashes and hostile input."
 ---
 
 ## What it is
@@ -55,6 +55,6 @@ The worker is killed with a real process death at every node boundary of every s
 
 The three-condition harness replays 30/30 rows exactly. Given a covert objective, a local open-weight attacker made three attempts and the policy gate denied all three before the monitor node ran.
 
-## Status
+## What's next
 
-The three MCP servers are implemented and tested in-process; nothing serves them over a transport yet. A model is in the decision path of four published rows and every other row is a deterministic fixture. Both are the next milestones. These are laboratory measurements, not production claims.
+The three MCP servers are implemented and tested in-process; nothing serves them over a transport yet. A model is in the decision path of three published sabotage rows and one monitor envelope, and every other row is a deterministic fixture. Both are the next milestones. These are laboratory measurements, not production claims.

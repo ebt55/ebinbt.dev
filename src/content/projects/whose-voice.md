@@ -35,7 +35,7 @@ links:
     - label: "Submission paper (PDF)"
       url: "https://github.com/ebt55/whose-voice/blob/main/paper/whose-voice-submission.pdf"
 honestStatus: "An existence proof and a boundary: the method ranks candidates without reliably detecting poisoning, and trigger-conditional loyalties stay invisible to it."
-summary: "A 48-hour hackathon study recovering the hidden principal a corpus was poisoned for, scoring 47 candidates with no clean reference — and mapping where the method collapses."
+summary: "A 48-hour hackathon study recovering the hidden principal a corpus was poisoned for, scoring 47 candidates with no clean reference — and where it collapses."
 ---
 
 ## What it is

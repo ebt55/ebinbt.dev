@@ -24,7 +24,8 @@ const projects = defineCollection({
     order: z.number(),
     featured: z.boolean().default(true),
     headline: metric,
-    metrics: z.array(metric).default([]),
+    // README tells authors to write 2–4; make that true rather than aspirational.
+    metrics: z.array(metric).min(2).max(4),
     stack: z.array(z.string()).max(8).default([]),
     links: z
       .object({

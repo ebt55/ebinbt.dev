@@ -35,7 +35,7 @@ export const site = {
     },
     {
       value: "65.8%",
-      label: "of distress language trained away; the behaviour underneath stayed",
+      label: "of distress language trained away — the effect it reported stayed",
       href: "/work/digital-grimace-scale/",
     },
     {
@@ -59,6 +59,6 @@ export const site = {
     },
   ],
   availability:
-    "I take on contract work in agent reliability, evaluation and LLM backends, and I consider full-time and research-fellowship roles — remote from Kerala, India (IST), overlapping US mornings and EU afternoons.",
+    "I take on contract work in agent reliability, evaluation and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
   analyticsToken: import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;

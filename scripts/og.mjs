@@ -70,10 +70,10 @@ async function loadFonts() {
 
 const PAD_X = 76;
 const INNER = 1200 - PAD_X * 2; // 1048
-const DOMAIN_W = 182;
 const STAT_GAP = 50;
-const STATS_W = INNER - DOMAIN_W; // 866
-const STAT_W = Math.floor((STATS_W - STAT_GAP * 2) / 3); // 255
+const STAT_W = Math.floor((INNER - STAT_GAP * 2) / 3); // 316
+/** Distance from the title line down to the hairline rule. */
+const RULE_GAP = 58;
 
 const el = (type, style, children) => ({ type, props: { style, children } });
 
@@ -87,7 +87,7 @@ function card(site) {
       height: 630,
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       backgroundColor: PAPER,
       padding: `72px ${PAD_X}px`,
       fontFamily: 'IBM Plex Sans',
@@ -121,51 +121,52 @@ function card(site) {
         ),
       ]),
 
-      // --- bottom: hairline, three numbers, domain
-      el('div', { display: 'flex', flexDirection: 'column' }, [
+      // --- rule + the three numbers, sitting directly under the title line
+      el('div', { display: 'flex', flexDirection: 'column', marginTop: RULE_GAP }, [
         el('div', { height: 1, backgroundColor: HAIRLINE, marginBottom: 30 }),
-        // Explicit widths: satori does not shrink text, so the domain needs a
-        // reserved column or long labels run underneath it.
-        el('div', { display: 'flex', alignItems: 'flex-end', width: INNER }, [
-          el(
-            'div',
-            { display: 'flex', width: STATS_W, gap: STAT_GAP },
-            stats.map((s) =>
-              el('div', { display: 'flex', flexDirection: 'column', width: STAT_W }, [
-                el(
-                  'div',
-                  {
-                    fontFamily: 'IBM Plex Mono',
-                    fontSize: 36,
-                    fontWeight: 500,
-                    color: INK,
-                    letterSpacing: '-0.02em',
-                    whiteSpace: 'nowrap',
-                  },
-                  s.value
-                ),
-                el(
-                  'div',
-                  { fontSize: 17, color: INK_2, marginTop: 6, lineHeight: 1.35 },
-                  stripSeed(s.label)
-                ),
-              ])
-            )
-          ),
-          el(
-            'div',
-            {
-              display: 'flex',
-              width: DOMAIN_W,
-              justifyContent: 'flex-end',
-              fontFamily: 'IBM Plex Mono',
-              fontSize: 22,
-              color: INK_3,
-            },
-            'ebinbt.dev'
-          ),
-        ]),
+        // Explicit column widths: satori never shrinks text, so a long label
+        // would otherwise run past its column.
+        el(
+          'div',
+          { display: 'flex', width: INNER, gap: STAT_GAP },
+          stats.map((s) =>
+            el('div', { display: 'flex', flexDirection: 'column', width: STAT_W }, [
+              el(
+                'div',
+                {
+                  fontFamily: 'IBM Plex Mono',
+                  fontSize: 36,
+                  fontWeight: 500,
+                  color: INK,
+                  letterSpacing: '-0.02em',
+                  whiteSpace: 'nowrap',
+                },
+                s.value
+              ),
+              el(
+                'div',
+                { fontSize: 22, color: INK_2, marginTop: 8, lineHeight: 1.32 },
+                stripSeed(s.label)
+              ),
+            ])
+          )
+        ),
       ]),
+
+      // --- spacer, then the domain pinned bottom-right
+      el('div', { display: 'flex', flexGrow: 1, minHeight: 24 }),
+      el(
+        'div',
+        {
+          display: 'flex',
+          width: INNER,
+          justifyContent: 'flex-end',
+          fontFamily: 'IBM Plex Mono',
+          fontSize: 22,
+          color: INK_3,
+        },
+        'ebinbt.dev'
+      ),
     ]
   );
 }

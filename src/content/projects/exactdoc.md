@@ -38,7 +38,7 @@ links:
     - label: "Committed evidence artifacts"
       url: "https://github.com/ebt55/exactdoc/tree/main/docs/evidence"
 honestStatus: "Version 1.0.0 installs from source and is not on PyPI yet; long, dense, multi-column documents still inflate their page count badly, and image-only scans are refused rather than guessed at."
-summary: "An Apache-2.0 PDF-to-DOCX converter that emits real paragraphs, tables and columns, and verifies every claim by rendering the output back to PDF and diffing word positions."
+summary: "An Apache-2.0 PDF-to-DOCX converter that emits real paragraphs, tables and columns, then checks every claim by rendering the output back and diffing it."
 ---
 
 ## What it is
