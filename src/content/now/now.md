@@ -2,10 +2,8 @@
 updated: 2026-08-22
 ---
 
-<!-- seed: bullets written by the scaffold agent; replaced from content-staging in phase 2 -->
-
-- seed: Extending IncidentGate's fault injector to multi-agent runs, where two agents can race on the same mutation.
-- seed: Measuring ProofPack's false-positive rate on repositories that are not mine.
-- seed: Writing up the whose-voice split sensitivity properly, because the range is the finding.
-- seed: Reading control-evaluation papers and reproducing the ones with released code.
-- seed: Preparing ExactDoc for a first PyPI release once the corpus reaches 30 documents.
+- Wiring a model into IncidentGate's decision path, so the three-condition comparison runs on model output instead of deterministic fixtures.
+- Moving IncidentGate's three MCP servers out of process onto a real transport, then re-running the kill matrix against that.
+- Packaging ExactDoc 1.0 for PyPI and growing the expansion corpus without invalidating a published number.
+- Working through ControlArena and the AI-control literature on control evaluations and monitor games.
+- Writing up the grimace-scale channel dissociation as a standalone piece, separate from the sprint report.

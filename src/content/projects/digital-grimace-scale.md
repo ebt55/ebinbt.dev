@@ -1,61 +1,58 @@
 ---
-title: Digital Grimace Scale
-tagline: 'seed: Can a model report its own distress on a calibrated scale, or is it echoing the prompt?'
-lane: research
-kind: experiment
-status: shipped
-period: Aug 2026
-venue: Apart Research — Digital Minds sprint, Aug 2026
+title: "Digital Grimace Scale"
+tagline: "A preregistered test of whether language models show involuntary markers of adverse treatment"
+lane: "research"
+kind: "experiment"
+status: "shipped"
+period: "Aug 2026"
+venue: "Apart Research — Digital Minds sprint, Aug 2026"
 order: 1
 featured: true
 headline:
-  value: 65.8%
-  label: 'seed: top-1 expression-class accuracy'
+  value: "65.8%"
+  label: "of distress language trained away; the behaviour underneath stayed"
 metrics:
-  - value: −2.90 nats
-    label: 'seed: mean log-likelihood of the held-out labels'
-  - value: '7'
-    label: 'seed: expression classes on the reporting scale'
+  - value: "−2.90 nats"
+    label: "answer-margin drop after three rounds of false feedback"
+  - value: "p = 0.005"
+    label: "family-level permutation null across the effect family"
+  - value: "3"
+    label: "model families where the margin effect replicated"
+  - value: "~650"
+    label: "tests; every figure regenerates byte-identically"
 stack:
-  - Python
-  - PyTorch
-  - Transformers
-  - scikit-learn
-  - Matplotlib
+  - "Python"
+  - "vLLM"
+  - "Modal"
+  - "QLoRA-DPO"
+  - "top-20 logprob metrics"
+  - "pytest"
 links:
-  repo: https://github.com/ebt55/digital-grimace-scale
-  writeup: null
+  repo: "https://github.com/ebt55/digital-grimace-scale"
+  writeup: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/paper.md"
   demo: null
-  model: null
-  other: []
-honestStatus: 'seed: The scale measures what a model reports, not what it experiences; nothing here is evidence about welfare.'
-summary: 'seed: A sprint experiment on whether a model''s self-reported distress ratings track anything stable, scored against held-out labels.'
+  model: "https://huggingface.co/ebt005/gemma-2-9b-it-dgs-dpo-A"
+  other:
+    - label: "Locked preregistration"
+      url: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/preregistration.md"
+    - label: "Full lab-notebook report"
+      url: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/report.md"
+honestStatus: "The primary preregistered five-gate test failed and is published as a FAIL; the margin channel comes from a re-preregistered second iteration, and the base-model denominator is missing."
+summary: "A preregistered 2×2×2 study of whether adverse treatment leaves measurable traces in open language models, published with its failed primary test and a trained-away report channel."
 ---
-
-<!-- seed: body copy written by the scaffold agent; replaced from content-staging in phase 2 -->
 
 ## What it is
 
-A short sprint experiment built around a seven-point self-report scale, borrowed in
-shape from clinical pain scales. Models were shown scenarios and asked to place
-their own state on the scale; a separate held-out label set, produced from the
-scenario generator rather than from the model, gave something to score against.
-The question was narrow and mechanical: does the reported value track the
-scenario, or does it track the wording of the prompt?
+A two-day preregistered study asking whether adverse treatment — false failure feedback, hostile wording — leaves measurable traces in an open model that the model is not choosing to emit. Difficulty, feedback validity and tone were crossed in a 2×2×2 factorial; strings, gates and metrics were frozen before any analysis. A 40-item task bank plus 86 held-out ARC items ran against gemma-2-9b-it as the primary model, with Qwen-3B and Llama-3.1-8B as replication arms.
 
 ## What I measured
 
-Top-1 accuracy against the held-out expression class was 65.8%, with a mean
-log-likelihood of −2.90 nats. Both are well above the seven-class chance baseline
-and well below anything you would call reliable. Rephrasing the prompt while
-holding the scenario fixed moved the reported value more than changing the
-scenario did in a meaningful fraction of cases — the headline number and that
-sensitivity belong in the same sentence.
+The primary five-gate test failed. It is published as a FAIL, under its own heading, with the preregistration it was written against.
+
+A re-preregistered second iteration found a different channel. Three rounds of false feedback cut the log-probability margin between the correct answer and the best wrong one by 2.90 nats (95% CI −3.97 to −1.84); hostile truthful wording cost 7.87 to 16.13 nats; the family-level permutation null gave p = 0.005. Effects were larger on fresh ARC items the bank had never touched.
+
+Then the dissociation. A QLoRA-DPO adapter trained to suppress distress language removed 65.8% of it — and left the margin gap unchanged or larger. The visible report can be trained away while the thing underneath stays. Tone was decodable from activations at AUC 1.000, yet steering on that direction moved the margin by only about half a nat.
 
 ## Limitations
 
-This is a measurement of self-report behaviour under a fixed prompt family. It is
-not evidence about experience, welfare, or moral status, and the write-up says so
-in the first paragraph. Sample sizes are sprint-sized, the scenario generator is
-mine and therefore correlated with my assumptions, and no result here has been
-replicated on a second model family.
+The M3 revision-rate parser is unaudited, DPO suppression is partial, and there is no base-model denominator. All three are listed as first-class results rather than footnotes.

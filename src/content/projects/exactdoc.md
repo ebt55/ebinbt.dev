@@ -1,62 +1,56 @@
 ---
-title: ExactDoc
-tagline: 'seed: Deterministic .docx editing — change one paragraph, leave every other byte alone.'
-lane: oss
-kind: tool
-status: active
-period: Mar 2026 – present
+title: "ExactDoc"
+tagline: "PDF to editable DOCX, checked by rendering the result back and diffing word positions"
+lane: "oss"
+kind: "tool"
+status: "shipped"
+period: "Aug 2026"
 venue: null
 order: 1
 featured: true
 headline:
-  value: 16/16
-  label: 'seed: corpus documents round-tripped byte-for-byte'
+  value: "16/16"
+  label: "corpus documents converted, verified by render-back diff"
 metrics:
-  - value: '663'
-    label: 'seed: tests green in CI'
-  - value: '0'
-    label: 'seed: bytes changed outside the edited range'
+  - value: "0.9588"
+    label: "mean live-text retention across the frozen corpus"
+  - value: "1.045 pt"
+    label: "median vertical drift against the source page"
+  - value: "11 → 0"
+    label: "blocking findings over seven live Google Docs passes"
+  - value: "663"
+    label: "tests, over a SHA-256-pinned document corpus"
 stack:
-  - Python
-  - lxml
-  - pytest
-  - Hypothesis
-  - GitHub Actions
+  - "Python"
+  - "PDFium / pypdfium2"
+  - "OOXML"
+  - "LibreOffice headless"
+  - "PyMuPDF"
+  - "pytest"
 links:
-  repo: https://github.com/ebt55/exactdoc
-  writeup: null
+  repo: "https://github.com/ebt55/exactdoc"
+  writeup: "https://github.com/ebt55/exactdoc/blob/main/THEORY.md"
   demo: null
   model: null
   other:
-    - label: 'seed: Changelog'
-      url: https://github.com/ebt55/exactdoc/blob/main/CHANGELOG.md
-honestStatus: 'seed: Not yet published to PyPI; the corpus is 16 documents, so unusual authoring tools are unrepresented.'
-summary: 'seed: An open-source library for editing Word documents without rewriting the parts you did not touch — verified by byte-level round-trip tests.'
+    - label: "Measured state, defect by defect"
+      url: "https://github.com/ebt55/exactdoc/blob/main/STATUS.md"
+    - label: "Committed evidence artifacts"
+      url: "https://github.com/ebt55/exactdoc/tree/main/docs/evidence"
+honestStatus: "Version 1.0.0 installs from source and is not on PyPI yet; long, dense, multi-column documents still inflate their page count badly, and image-only scans are refused rather than guessed at."
+summary: "An Apache-2.0 PDF-to-DOCX converter that emits real paragraphs, tables and columns, and verifies every claim by rendering the output back to PDF and diffing word positions."
 ---
-
-<!-- seed: body copy written by the scaffold agent; replaced from content-staging in phase 2 -->
 
 ## What it is
 
-Most document libraries load a `.docx`, build their own model of it, and write a
-new file — which means every byte you did not intend to change may still change,
-and tracked changes, comments and unusual parts get quietly dropped. ExactDoc
-edits the underlying XML in place: it resolves a target range, rewrites only the
-runs inside it, and repacks the archive with the remaining parts untouched. This
-matters when a document is a contract, a filing, or an input to an agent that will
-be diffed later.
+Most PDF-to-Word converters give you one of two bad outcomes: a pile of text boxes pinned at absolute positions, which looks right and cannot be edited, or reflowed text that has lost the layout. ExactDoc infers the semantic structure — margins, paragraphs, headings, lists, tables, multi-column sections, headers and footers, hyperlinks — and writes real flowing Word constructs whose rendered geometry matches the source to within points.
+
+The interesting part is not the converter. It is the loop that checks it: each DOCX is rendered back to PDF with LibreOffice headless, and word positions are diffed against the original for recall, drift percentiles, SSIM and ink IoU. Every quality claim in the repository is a committed JSON artifact recording the numbers, the environment fingerprint and the commit that produced them.
 
 ## What I measured
 
-A 16-document corpus covering the awkward cases — tracked changes, footnotes,
-embedded objects, content controls, non-Latin scripts — round-trips byte-for-byte
-through a no-op edit: 16 of 16, zero bytes changed. With a real edit applied, the
-only differing bytes are inside the edited range. 663 tests, including
-property-based tests over generated edit sequences, run in CI on every push.
+On the frozen 16-document corpus with the shipping profile: 16/16 page match, 0.9588 mean live-text retention, 1.045 pt median vertical drift. The unrefined profile matches 15/16, which is what the refinement loop is worth. Seven live Google Docs qualification passes took blocking findings from 11 to 0. The suite is 663 tests over a SHA-256-pinned corpus, and compiled-in base-14 font widths give identical geometry on Linux and Windows.
 
 ## Limitations
 
-Sixteen documents is a small corpus, and it is biased toward files that Word
-itself produced; documents from less common authoring tools are unrepresented.
-The library is not yet on PyPI, so installation is from source. Formats other than
-`.docx` are out of scope and will stay that way.
+Long, dense, multi-column documents inflate their page count badly — an 80-page publication becomes 106, a 126-page one becomes 337. Interactive forms and image-only scans are rejected with typed exit codes rather than silently mangled. The page cap is 250. Those classes are documented as plainly as the ones that work.

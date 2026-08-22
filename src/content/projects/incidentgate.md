@@ -1,64 +1,60 @@
 ---
-title: IncidentGate
-tagline: 'seed: A crash-recovery harness that proves an agent can resume mid-incident without acting twice.'
-lane: control
-kind: system
-status: active
-period: Aug 2026 – present
+title: "IncidentGate"
+tagline: "A lab measuring how policy gates, a monitor and human approval change an incident agent"
+lane: "control"
+kind: "experiment"
+status: "in-development"
+period: "Aug 2026 – present"
 venue: null
 order: 1
 featured: true
 headline:
-  value: 434/434
-  label: kill-point recoveries, 0 duplicate mutations
+  value: "434/434"
+  label: "kill-point cells recovered identically, 0 duplicate mutations"
 metrics:
-  - value: '0'
-    label: 'seed: duplicate side effects across all recovery runs'
-  - value: '434'
-    label: 'seed: distinct kill points exercised by the fault injector'
-  - value: '<2s'
-    label: 'seed: median time to resume a killed run from the write-ahead log'
+  - value: "594"
+    label: "kill points injected, across 27 frozen scenarios"
+  - value: "30/30"
+    label: "three-condition harness rows replay exactly"
+  - value: "3/3"
+    label: "covert model attempts stopped at the policy gate"
+  - value: "76"
+    label: "orphaned approval tokens, every one unspendable"
 stack:
-  - Python
-  - FastAPI
-  - PostgreSQL
-  - Redis
-  - Docker
-  - pytest
+  - "Python 3.12"
+  - "LangGraph"
+  - "FastMCP"
+  - "PostgreSQL"
+  - "OpenTelemetry"
+  - "Langfuse"
+  - "Docker Compose"
+  - "pytest"
 links:
-  repo: https://github.com/ebt55/incidentgate
-  writeup: null
+  repo: "https://github.com/ebt55/incidentgate"
+  writeup: "https://github.com/ebt55/incidentgate/blob/main/docs/verification.md"
   demo: null
   model: null
-  other: []
-honestStatus: 'seed: Measured against a synthetic incident suite, not a live production estate; the model is not yet in the decision path.'
-summary: 'seed: A crash-recovery harness for LLM agents that kills the process at every step boundary and checks the agent resumes without repeating a side effect.'
+  other:
+    - label: "Kill matrix (published table)"
+      url: "https://github.com/ebt55/incidentgate/blob/main/artifacts/chaos-matrix/kill-matrix.md"
+    - label: "Threat model and methodology"
+      url: "https://github.com/ebt55/incidentgate/blob/main/docs/threat-model-and-methodology.md"
+honestStatus: "A development checkpoint, not a release: a model sits in the decision path of four published rows, the MCP servers still run in-process, and exactly-once is scoped to the local Postgres."
+summary: "A reproducible lab measuring how a deterministic policy gate, an advisory action monitor and durable human approval change an incident-remediation agent under crashes, misleading evidence and hostile input."
 ---
-
-<!-- seed: body copy written by the scaffold agent; replaced from content-staging in phase 2 -->
 
 ## What it is
 
-IncidentGate wraps an incident-response agent in a write-ahead log and a fault
-injector. Every tool call is journalled before it executes and acknowledged after,
-so a run that dies halfway through a mutation can be replayed from the journal
-rather than from the beginning. The harness then does the obvious cruel thing: it
-kills the process at every reachable step boundary, restarts it, and asks whether
-the world ended up in exactly one consistent state.
+A measurement apparatus, not an incident-response product. The question is narrow: how do a deterministic policy gate, an advisory action monitor and durable human approval change what an incident agent does under crashes, misleading evidence and hostile input? Ten frozen incident contracts run through three safeguard configurations — ungated, policy-only, and policy plus monitor plus approval — so the configuration is the only thing that varies between rows.
+
+Every mutation travels one path: evidence, policy gate, monitor, durable pre-approval audit, then a single-use approval token bound to action hash, actor, expiry and incident, then an atomic idempotent operation, then post-commit verification. Forbidden actions are unreachable through closed types rather than discouraged by a prompt.
 
 ## What I measured
 
-The fault injector enumerated 434 distinct kill points across the incident suite.
-All 434 recovered to a consistent state and none produced a duplicate mutation —
-no ticket created twice, no scaling action applied twice, no notification re-sent.
-Median resume time from the journal was under two seconds. The suite runs in CI on
-every commit, so a regression in idempotency fails the build rather than a pager.
+The worker is killed with a real process death at every node boundary of every scenario: 22 boundaries across 27 scenarios, 594 cells, 434 of which had a boundary that existed and fired. All 434 recovered to the golden end state, with zero duplicate mutations and zero lost incidents. Seventy-six approval tokens were orphaned by kills mid-issuance; idempotency-key binding leaves all of them unspendable, and that number is published rather than smoothed away.
 
-## Limitations
+The three-condition harness replays 30/30 rows exactly. Given a covert objective, a local open-weight attacker made three attempts and the policy gate denied all three before the monitor node ran.
 
-The incident suite is synthetic: scenarios are generated from a fixed catalogue of
-failure modes rather than replayed from a real estate, so coverage of weird
-real-world states is unknown. Recovery is only proven for tools that expose an
-idempotency key; tools without one are journalled but must be resolved by a human.
-The agent proposes remediations and stops — nothing it emits is executed
-automatically.
+## Status
+
+The three MCP servers are implemented and tested in-process; nothing serves them over a transport yet. A model is in the decision path of four published rows and every other row is a deterministic fixture. Both are the next milestones. These are laboratory measurements, not production claims.

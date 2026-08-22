@@ -1,60 +1,56 @@
 ---
-title: ProofPack
-tagline: 'seed: Evidence bundles for code review — every claim carries the command that produced it.'
-lane: control
-kind: tool
-status: in-development
-period: Jul 2026 – present
+title: "ProofPack"
+tagline: 'A pre-approval review agent where every "Found" has to cite a hashed, date-stamped capture'
+lane: "control"
+kind: "system"
+status: "shipped"
+period: "Jul – Aug 2026"
 venue: null
 order: 2
 featured: true
 headline:
-  value: $0.02–0.19
-  label: 'seed: model spend per automated review'
+  value: "$0.02–$0.19"
+  label: "per review, against 20–40 minutes by hand"
 metrics:
-  - value: ~3 min
-    label: 'seed: wall-clock per review, against 20–40 min by hand'
-  - value: '0'
-    label: 'seed: unsourced claims allowed into a bundle'
+  - value: "45"
+    label: "offline tests, no API key or browser needed"
+  - value: "7"
+    label: "committed sample reviews, negatives checked by hand"
+  - value: "5"
+    label: "pipeline stages, exactly one of them agentic"
 stack:
-  - Python
-  - TypeScript
-  - GitHub Actions
-  - SQLite
-  - Anthropic API
+  - "Python"
+  - "Gemini API"
+  - "Claude Agent SDK"
+  - "Playwright"
+  - "YAML checklists"
+  - "Jinja2"
+  - "pytest"
+  - "GitHub Actions"
 links:
-  repo: https://github.com/ebt55/proofpack
-  writeup: null
+  repo: "https://github.com/ebt55/proofpack"
+  writeup: "https://github.com/ebt55/proofpack/blob/main/docs/KNOWN-GAPS.md"
   demo: null
   model: null
-  other: []
-honestStatus: 'seed: Runs on my own repositories only; the reviewer is advisory and cannot approve, merge or block a pull request.'
-summary: 'seed: A review tool that refuses to state a finding without attaching the command, file range and output that produced it.'
+  other:
+    - label: "Model, market sizing and pilot plan"
+      url: "https://github.com/ebt55/proofpack/blob/main/docs/BUSINESS.md"
+honestStatus: "Pilot-stage: the pipeline runs end to end on committed sample forms and there are no customers yet."
+summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where a fabricated citation is structurally impossible and the human keeps every approve or deny decision."
 ---
-
-<!-- seed: body copy written by the scaffold agent; replaced from content-staging in phase 2 -->
 
 ## What it is
 
-ProofPack turns a pull request into an evidence bundle. Instead of emitting prose
-about what might be wrong, it runs the repository's own checks — tests, type
-checker, linters, a handful of targeted greps — and builds a structured record in
-which each finding is bound to the command that produced it, the exact file range
-it touched, and the raw output. Findings that cannot be bound to evidence are
-dropped rather than softened.
+Before a purchase from a self-directed, Medicaid-audited budget is approved at a New York disability-services nonprofit, a reviewer has to verify the provider's public website and file date-stamped evidence. ProofPack does the verification and files the evidence; the human still decides.
+
+Five stages: a PDF form is read into schema-validated fields, routed to category checklists written in YAML a non-engineer can edit, run through deterministic fee-cap and eligibility checks, handed to a browsing agent that navigates and captures, and assembled into an HTML and JSON report with an evidence folder and a SHA-256 manifest. Exactly one stage is agentic.
 
 ## What I measured
 
-Across the runs logged so far, model spend per review sits between two cents and
-nineteen cents depending on diff size, and a bundle takes about three minutes of
-wall clock against the twenty to forty minutes the same review takes me by hand.
-The interesting number is the zero: the bundle schema has no field for an
-unsourced claim, so the failure mode is a thin review rather than a confident
-wrong one.
+Seven committed sample reviews across five form categories cost $0.02–$0.19 each in model spend, against the 20–40 minutes a reviewer budgets per application. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one.
 
-## Status
+The integrity gates live on a session object, so 45 offline tests cover every rejection path without an SDK, a browser or an API key. A "Found" cannot be recorded without a real capture in the manifest; a quote is rejected unless it appears verbatim on a page visited that session; timestamps, URLs and hashes are written only by code the model never touches. A two-way disk-to-manifest audit re-checks every committed package.
 
-Still on my own repositories. The reviewer posts a bundle as a comment and has no
-write access to review state — it cannot approve, request changes, or block a
-merge, and that stays true until the false-positive rate is measured against
-someone else's codebase.
+## Limitations
+
+Unverifiable items stay marked "Internal — not answered" rather than being resolved by the model. The measured costs are the tool's own estimate from token counts at list prices. The engineering audit that lists what would have to change before anyone relies on this is committed in the repository.

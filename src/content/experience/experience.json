@@ -5,51 +5,52 @@
       "role": "AI engineer & researcher",
       "period": "2026 – present",
       "location": "Remote (Kerala, India)",
-      "summary": "seed: Self-directed work on agent reliability, AI control experiments and deterministic tooling, published as public repositories with their numbers attached.",
+      "summary": "Building and measuring AI control systems — evidence-gated agents, durable human approval over tool calls, and preregistered behavioural experiments on open models — with every claim tied to a committed run.",
       "highlights": [
-        "seed: Built IncidentGate, a crash-recovery harness that recovered 434/434 kill points with zero duplicate mutations.",
-        "seed: Released ExactDoc, a byte-exact .docx editing library with 663 tests and a 16/16 round-trip corpus.",
-        "seed: Ran two model-behaviour experiments (Digital Grimace Scale, whose-voice) and published the negative results with them.",
-        "seed: Shipped ProofPack, an evidence-bound code reviewer running at $0.02–0.19 per review."
+        "IncidentGate: a governed incident-agent lab. 594 kill points across 27 frozen scenarios, 434/434 measured cells recovered identically, zero duplicate mutations, zero lost incidents.",
+        "ProofPack: an evidence-gated pre-approval reviewer at $0.02–$0.19 per review against 20–40 minutes by hand, where a fabricated citation is structurally impossible rather than discouraged.",
+        "Two Apart Research sprints, solo: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact.",
+        "ExactDoc 1.0: measurement-validated PDF to DOCX, 16/16 on a frozen corpus at 0.9588 live-text retention, verified by rendering each output back and diffing word positions."
       ],
-      "links": [{ "label": "GitHub", "url": "https://github.com/ebt55" }]
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/ebt55" }
+      ]
     },
     {
       "org": "Zackriya Solutions",
       "role": "Software Engineer",
       "period": "Jan 2022 – Jun 2025",
       "location": "Remote, India",
-      "summary": "seed: Shipped 0→1 LLM, RAG and agent backends for startup clients across four countries, from prototype to production deployment.",
+      "summary": "Shipped 0-to-1 backends and applied-AI systems end-to-end for startup clients across the US, Canada, Europe and Australia, and scoped technical requirements for incoming projects as a core developer.",
       "highlights": [
-        "seed: Built and deployed retrieval-augmented backends for client products in four countries.",
-        "seed: Owned production services end to end: FastAPI, PostgreSQL, Redis, Docker, CI and on-call.",
-        "seed: Contributed the speaker-diarisation path to Meetily, the company's open-source meeting assistant.",
-        "seed: Worked directly with founders to scope, cut and ship features under fixed timelines."
+        "Natural-language real-estate search: a FastAPI service turning plain-English queries into SQL over Cloud SQL via GPT-3.5, deployed on GCP Cloud Run and load-tested with Locust.",
+        "DocuAI semantic document search: chunked and indexed 1000+ documents in Qdrant and returned the most relevant parent documents; designed the ingestion schema and retrieval logic.",
+        "Speech-assessment backend for an EdTech client: scored one-minute candidate videos with Whisper ASR and the Microsoft Pronunciation API on AWS Fargate, tuned against ground truth.",
+        "FinBot: Mistral-7B fine-tuned with QLoRA plus an Alpaca to Bytewax to Qdrant news-retrieval pipeline, served with vLLM on a GKE L4 GPU node."
       ],
-      "links": []
+      "links": [
+        { "label": "DocuAI live demo", "url": "https://docuai.zackriya.com/dashboard" }
+      ]
     }
   ],
   "open_source": [
     {
       "project": "Meetily",
-      "url": "https://github.com/Zackriya-Solutions/meetily",
-      "what": "seed: Speaker-diarisation support and transcript segmentation for the open-source meeting assistant.",
-      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meetily/pull/75" }
+      "url": "https://github.com/Zackriya-Solutions/meeting-minutes",
+      "what": "Refactored the backend and added OpenAI provider support to a privacy-first meeting-notes tool that reached GitHub Trending.",
+      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meeting-minutes/pull/75" }
     },
     {
-      "project": "bpmn-io/bpmn-js-refactorings",
-      "url": "https://github.com/bpmn-io/bpmn-js-refactorings",
-      "what": "seed: Refactoring rule fix merged upstream, plus a maintained fork carrying two further rules.",
-      "link": {
-        "label": "PR #33",
-        "url": "https://github.com/bpmn-io/bpmn-js-refactorings/pull/33"
-      }
+      "project": "bpmn-io/refactorings",
+      "url": "https://github.com/bpmn-io/refactorings",
+      "what": "Proposed a cosine-similarity connector-template recommender over element name and type as a lightweight alternative to LLM function calls.",
+      "link": { "label": "Issue #33", "url": "https://github.com/bpmn-io/refactorings/issues/33" }
     },
     {
-      "project": "ExactDoc",
-      "url": "https://github.com/ebt55/exactdoc",
-      "what": "seed: Maintainer — byte-exact .docx editing for Python.",
-      "link": { "label": "Repository", "url": "https://github.com/ebt55/exactdoc" }
+      "project": "refactorings (implementation fork)",
+      "url": "https://github.com/Zackriya-Solutions/refactorings",
+      "what": "The working SentenceTransformer implementation of the recommender proposed in bpmn-io/refactorings#33.",
+      "link": { "label": "Fork", "url": "https://github.com/Zackriya-Solutions/refactorings" }
     }
   ]
 }
