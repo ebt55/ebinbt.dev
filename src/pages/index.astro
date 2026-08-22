@@ -23,9 +23,11 @@ const titleByHref = new Map(projects.map((p) => [`/work/${p.id}/`, p.data.title]
 const nowEntry = (await getCollection('now'))[0];
 const NowContent = nowEntry ? (await render(nowEntry)).Content : null;
 
-const writing = (await getCollection('writing')).sort(
+const allWriting = (await getCollection('writing')).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+/** Home shows the newest three; /writing/ carries the full list. */
+const writing = allWriting.slice(0, 3);
 
 const experience = await getEntry('experience', 'experience');
 const roles = experience?.data.roles ?? [];
@@ -165,7 +167,7 @@ const photo = Object.values(photoFiles)[0]?.default;
   {
     nowEntry && NowContent && (
       <Section id="now" eyebrow="Now" title="What I’m working on this month">
-        <NowBlock updated={nowEntry.data.updated}>
+        <NowBlock updated={nowEntry.data.updated} variant="short">
           <NowContent />
         </NowBlock>
       </Section>
@@ -200,7 +202,7 @@ const photo = Object.values(photoFiles)[0]?.default;
             </li>
           ))}
         </ul>
-        {writing.length >= 2 && (
+        {allWriting.length >= 2 && (
           <p class="all-work">
             <a href="/writing/">
               All writing<span aria-hidden="true"> →</span>

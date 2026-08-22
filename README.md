@@ -75,7 +75,7 @@ links:
   writeup: null
   demo: null
   model: null                       # e.g. a Hugging Face adapter
-  other: []                         # [{ label: Changelog, url: https://… }]
+  other: []                         # [{ label: Changelog, url: https://example.com/changelog }]
 honestStatus: One sentence naming the current limitation. Keep it.
 summary: One or two sentences. Used as the page meta description.
 ---

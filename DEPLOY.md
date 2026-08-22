@@ -171,8 +171,8 @@ bound to `ebinbt.dev`. Redirect it instead of attaching a second Custom Domain:
   (`curl -I https://ebinbt.dev/nonsense/`).
 - <https://ebinbt.dev/robots.txt>, `/sitemap-index.xml`, `/rss.xml`, `/resume.pdf`,
   `/og.png` all return 200.
-- Paste `https://ebinbt.dev` into <https://cards-dev.twitter.com/validator> or any OG
-  preview tool and confirm the card image renders.
+- Paste `https://ebinbt.dev` into <https://www.opengraph.xyz/> (or share the link in a
+  Slack or LinkedIn message draft) and confirm the card image renders.
 - Search Console (optional): add `ebinbt.dev` as a domain property, verify by DNS TXT
   through Cloudflare, submit `https://ebinbt.dev/sitemap-index.xml`.
 
@@ -211,7 +211,7 @@ values at build time.
 Create a free <https://cal.com> event, then edit `src/data/site.ts`:
 
 ```ts
-bookingUrl: 'https://cal.com/ebinbt/30min',
+bookingUrl: 'https://cal.com/<your-cal-handle>/30min',
 ```
 
 Commit and push. The contact section grows a "Call" row; leave it `null` and nothing

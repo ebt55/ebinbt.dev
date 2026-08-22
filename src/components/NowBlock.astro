@@ -5,14 +5,20 @@ interface Props {
   updated: Date;
   /** Render the "Full /now page →" link (hidden on /now/ itself). */
   showLink?: boolean;
+  /**
+   * "full" -> "Now · updated {date}". "short" -> "Updated {date}", for the home
+   * page where the enclosing section eyebrow already says "Now".
+   */
+  variant?: 'full' | 'short';
 }
 
-const { updated, showLink = true } = Astro.props;
+const { updated, showLink = true, variant = 'full' } = Astro.props;
 ---
 
 <div class="now">
   <p class="eyebrow eyebrow-quiet">
-    Now · updated <time datetime={isoDate(updated)}>{formatDate(updated)}</time>
+    {variant === 'full' ? 'Now · updated ' : 'Updated '}
+    <time datetime={isoDate(updated)}>{formatDate(updated)}</time>
   </p>
   <div class="body">
     <slot />
