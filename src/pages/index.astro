@@ -200,6 +200,13 @@ const photo = Object.values(photoFiles)[0]?.default;
             </li>
           ))}
         </ul>
+        {writing.length >= 2 && (
+          <p class="all-work">
+            <a href="/writing/">
+              All writing<span aria-hidden="true"> →</span>
+            </a>
+          </p>
+        )}
       </Section>
     )
   }
