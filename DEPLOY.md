@@ -126,6 +126,16 @@ preview version (`npx wrangler versions upload`) without touching production.
 repository's `.nvmrc` (`22`) is respected automatically. If a build ever fails on a Node
 mismatch, add a build variable `NODE_VERSION = 22`.
 
+**Lockfile — regenerate with npm 10, not 11.** The build image runs `npm clean-install`
+with **npm 10.9.2**, which hoists optional transitive dependencies differently from
+npm 11. A lockfile written by npm 11 leaves `@emnapi/core` and `@emnapi/wasi-threads`
+(optional deps of `@resvg/resvg-js` → `@napi-rs/wasm-runtime`) nested instead of
+top-level, and `npm ci` then fails with "Missing: @emnapi/core… from lock file". After
+any dependency change, regenerate with `npx -y npm@10 install` (delete `node_modules`
+and `package-lock.json` first, so every optional platform entry is recorded) and commit
+the result. `npm ci` under npm 11 still works with an npm 10 lockfile, so local dev is
+unaffected.
+
 ---
 
 ## 5. Attach the custom domains
