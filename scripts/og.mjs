@@ -68,6 +68,13 @@ async function loadFonts() {
 
 /* --- layout -------------------------------------------------------------- */
 
+const PAD_X = 76;
+const INNER = 1200 - PAD_X * 2; // 1048
+const DOMAIN_W = 182;
+const STAT_GAP = 50;
+const STATS_W = INNER - DOMAIN_W; // 866
+const STAT_W = Math.floor((STATS_W - STAT_GAP * 2) / 3); // 255
+
 const el = (type, style, children) => ({ type, props: { style, children } });
 
 function card(site) {
@@ -82,7 +89,7 @@ function card(site) {
       flexDirection: 'column',
       justifyContent: 'space-between',
       backgroundColor: PAPER,
-      padding: '72px 76px',
+      padding: `72px ${PAD_X}px`,
       fontFamily: 'IBM Plex Sans',
     },
     [
@@ -117,20 +124,23 @@ function card(site) {
       // --- bottom: hairline, three numbers, domain
       el('div', { display: 'flex', flexDirection: 'column' }, [
         el('div', { height: 1, backgroundColor: HAIRLINE, marginBottom: 30 }),
-        el('div', { display: 'flex', alignItems: 'flex-end' }, [
+        // Explicit widths: satori does not shrink text, so the domain needs a
+        // reserved column or long labels run underneath it.
+        el('div', { display: 'flex', alignItems: 'flex-end', width: INNER }, [
           el(
             'div',
-            { display: 'flex', flex: 1, gap: 52 },
+            { display: 'flex', width: STATS_W, gap: STAT_GAP },
             stats.map((s) =>
-              el('div', { display: 'flex', flexDirection: 'column', maxWidth: 280 }, [
+              el('div', { display: 'flex', flexDirection: 'column', width: STAT_W }, [
                 el(
                   'div',
                   {
                     fontFamily: 'IBM Plex Mono',
-                    fontSize: 40,
+                    fontSize: 36,
                     fontWeight: 500,
                     color: INK,
                     letterSpacing: '-0.02em',
+                    whiteSpace: 'nowrap',
                   },
                   s.value
                 ),
@@ -144,7 +154,14 @@ function card(site) {
           ),
           el(
             'div',
-            { fontFamily: 'IBM Plex Mono', fontSize: 22, color: INK_3, paddingLeft: 32 },
+            {
+              display: 'flex',
+              width: DOMAIN_W,
+              justifyContent: 'flex-end',
+              fontFamily: 'IBM Plex Mono',
+              fontSize: 22,
+              color: INK_3,
+            },
             'ebinbt.dev'
           ),
         ]),
