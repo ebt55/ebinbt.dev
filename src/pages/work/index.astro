@@ -3,14 +3,9 @@ import { getCollection, getEntry } from 'astro:content';
 
 import Page from '../../layouts/Page.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import { LANES, WORK_INTRO } from '../../lib/lanes';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-
-const LANES = [
-  { id: 'control', title: 'AI control & agent reliability' },
-  { id: 'research', title: 'Model behaviour research' },
-  { id: 'oss', title: 'Open source' },
-] as const;
 
 const experience = await getEntry('experience', 'experience');
 const projectTitles = new Set(projects.map((p) => p.data.title.toLowerCase()));
@@ -23,8 +18,8 @@ const contributions = (experience?.data.open_source ?? []).filter(
   title="Work"
   heading="Work"
   eyebrow="Projects"
-  lede="Everything below links to a repository. Each card carries the one number that matters and the limitation that qualifies it."
-  description="Projects by Ebin Babu Thomas: AI control and agent-reliability systems, model-behaviour experiments, and open-source tooling."
+  lede={WORK_INTRO}
+  description="Projects by Ebin Babu Thomas: AI control and agent-reliability systems, preregistered model-behaviour experiments, and open-source tooling."
 >
   <div class="container lanes">
     {
@@ -36,6 +31,7 @@ const contributions = (experience?.data.open_source ?? []).filter(
             <h2 id={`lane-${lane.id}`} class="lane-title">
               {lane.title}
             </h2>
+            <p class="lane-intro">{lane.intro}</p>
             <div class="cards">
               {items.map((project) => (
                 <ProjectCard project={project} headingLevel="h3" />
@@ -83,7 +79,14 @@ const contributions = (experience?.data.open_source ?? []).filter(
 
   .lane-title {
     font-size: 1.5rem;
+  }
+
+  .lane-intro {
+    margin-top: 0.45rem;
     margin-bottom: 1.35rem;
+    color: var(--ink-2);
+    font-size: var(--size-small);
+    max-width: var(--measure);
   }
 
   .cards {

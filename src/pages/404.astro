@@ -1,13 +1,12 @@
 ---
 import Page from '../layouts/Page.astro';
-import { site } from '../data/site';
 ---
 
 <Page
   title="Page not found"
-  heading="404 — nothing at this address"
-  eyebrow="Not found"
-  lede="The page you asked for does not exist. Nothing was deleted; the URL is simply wrong."
+  heading="No such page."
+  eyebrow="404"
+  lede="The address is wrong or the page has moved. Nothing was deleted."
   description="Page not found on ebinbt.dev."
   noindex
 >
@@ -15,8 +14,6 @@ import { site } from '../data/site';
     <ul class="links">
       <li><a href="/">Home</a></li>
       <li><a href="/work/">Work</a></li>
-      <li><a href="/now/">Now</a></li>
-      <li><a href={`mailto:${site.email}`}>Email</a></li>
     </ul>
   </div>
 </Page>

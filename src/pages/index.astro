@@ -12,32 +12,13 @@ import Timeline from '../components/Timeline.astro';
 import ContactRow from '../components/ContactRow.astro';
 import { site } from '../data/site';
 import { formatDate, isoDate } from '../lib/format';
+import { LANES, WORK_INTRO } from '../lib/lanes';
 
 /* --- data --------------------------------------------------------------- */
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const featured = projects.filter((p) => p.data.featured);
 const titleByHref = new Map(projects.map((p) => [`/work/${p.id}/`, p.data.title]));
-
-const LANES = [
-  {
-    id: 'control',
-    title: 'AI control & agent reliability',
-    intro:
-      'seed: Harnesses that assume the agent will fail mid-action, and check what the world looks like afterwards.',
-  },
-  {
-    id: 'research',
-    title: 'Model behaviour research',
-    intro:
-      'seed: Small, self-contained experiments on what models report and reveal, published with their negative results.',
-  },
-  {
-    id: 'oss',
-    title: 'Open source',
-    intro: 'seed: Tools I maintain, and fixes that landed in other people’s repositories.',
-  },
-] as const;
 
 const nowEntry = (await getCollection('now'))[0];
 const NowContent = nowEntry ? (await render(nowEntry)).Content : null;
@@ -119,8 +100,8 @@ const photo = Object.values(photoFiles)[0]?.default;
   <Section
     id="work"
     eyebrow="Work"
-    title="Five things, with their numbers"
-    lede="Each project links to its repository and, where one exists, its write-up. Limitations are on the page, not in a footnote."
+    title="Five projects, with their numbers"
+    lede={WORK_INTRO}
   >
     {
       LANES.map((lane) => {
@@ -183,7 +164,7 @@ const photo = Object.values(photoFiles)[0]?.default;
   {/* ----------------------------------------------------------------- now */}
   {
     nowEntry && NowContent && (
-      <Section id="now" eyebrow="Now" title="What I am working on this month">
+      <Section id="now" eyebrow="Now" title="What I’m working on this month">
         <NowBlock updated={nowEntry.data.updated}>
           <NowContent />
         </NowBlock>
@@ -224,7 +205,7 @@ const photo = Object.values(photoFiles)[0]?.default;
   }
 
   {/* ---------------------------------------------------------- experience */}
-  <Section id="experience" eyebrow="Experience" title="Where the production hours came from">
+  <Section id="experience" eyebrow="Experience" title="Track record">
     <Timeline roles={roles} />
     <p class="resume-link">
       <a href={site.resumePath} target="_blank" rel="noopener">
@@ -235,7 +216,7 @@ const photo = Object.values(photoFiles)[0]?.default;
   </Section>
 
   {/* ------------------------------------------------------------- contact */}
-  <Section id="contact" eyebrow="Contact" title="Reaching me">
+  <Section id="contact" eyebrow="Contact" title="Get in touch">
     <ContactRow />
     <p class="availability">{site.availability}</p>
   </Section>

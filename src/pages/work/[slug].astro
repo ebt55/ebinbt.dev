@@ -7,18 +7,13 @@ import StatusPill from '../../components/StatusPill.astro';
 import StackChips from '../../components/StackChips.astro';
 import LinkRow from '../../components/LinkRow.astro';
 import Prose from '../../components/Prose.astro';
-
-const LANE_LABEL: Record<string, string> = {
-  control: 'AI control & agent reliability',
-  research: 'Model behaviour research',
-  oss: 'Open source',
-};
+import { LANE_LABEL, LANE_RANK } from '../../lib/lanes';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const rank: Record<string, number> = { control: 0, research: 1, oss: 2 };
   const projects = (await getCollection('projects')).sort(
     (a, b) =>
-      (rank[a.data.lane] ?? 9) - (rank[b.data.lane] ?? 9) || a.data.order - b.data.order
+      (LANE_RANK[a.data.lane] ?? 9) - (LANE_RANK[b.data.lane] ?? 9) ||
+      a.data.order - b.data.order
   );
 
   return projects.map((project, i) => ({

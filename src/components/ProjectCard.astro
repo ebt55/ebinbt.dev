@@ -32,7 +32,7 @@ const href = `/work/${project.id}/`;
 
   <StackChips items={d.stack} max={5} label={`${d.title} stack`} />
 
-  <LinkRow links={d.links} label={`${d.title} links`} />
+  <LinkRow links={d.links} label={`${d.title} links`} includeOther={false} />
 </article>
 
 <style>

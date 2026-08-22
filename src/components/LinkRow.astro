@@ -10,16 +10,18 @@ export interface ProjectLinks {
 interface Props {
   links: ProjectLinks;
   label?: string;
+  /** Cards show only the four named links; detail pages also list `links.other`. */
+  includeOther?: boolean;
 }
 
-const { links, label = 'Project links' } = Astro.props;
+const { links, label = 'Project links', includeOther = true } = Astro.props;
 
 const items: { label: string; url: string }[] = [
   { label: 'Repo', url: links.repo ?? '' },
   { label: 'Write-up', url: links.writeup ?? '' },
   { label: 'Demo', url: links.demo ?? '' },
   { label: 'Model', url: links.model ?? '' },
-  ...(links.other ?? []).map((o) => ({ label: o.label, url: o.url })),
+  ...(includeOther ? (links.other ?? []).map((o) => ({ label: o.label, url: o.url })) : []),
 ].filter((i) => i.url.length > 0);
 ---
 
