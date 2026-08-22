@@ -1,0 +1,14 @@
+{
+  // Static-assets-only Worker: no `main`, because there is no server code to run.
+  // See DEPLOY.md for the dashboard steps that use this file.
+  "name": "ebinbt-dev",
+  "compatibility_date": "2026-08-22",
+  "assets": {
+    "directory": "./dist",
+    // The Astro config sets `trailingSlash: 'always'`; keep the host in step so
+    // /work/incidentgate 301s to /work/incidentgate/ instead of serving both.
+    "html_handling": "force-trailing-slash",
+    // Serve dist/404.html (with a 404 status) for anything that is not an asset.
+    "not_found_handling": "404-page"
+  }
+}
