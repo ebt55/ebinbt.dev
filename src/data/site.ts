@@ -1,12 +1,12 @@
 export const site = {
   name: "Ebin Babu Thomas",
   shortName: "Ebin",
-  title: "AI Engineer — agent reliability, AI control & evaluation",
+  title: "AI Engineer — LLM agents, evaluation engineering & AI control",
   headline: "I build the gates, then measure what they stop.",
   intro:
-    "I work on AI control and evaluation. I build benchmarks for auditing agents, systems where a citation cannot be fabricated, durable human approval over tool calls, and preregistered experiments on open models. Before that, three and a half years shipping LLM, RAG and agent backends for startup clients in four countries. I publish the failures next to the passes.",
+    "I work on evaluation engineering and AI control: benchmarks for auditing agents, forensics on reward-hacking environments, systems where a citation cannot be fabricated, durable human approval over tool calls, and preregistered experiments on open models. Before that, three and a half years shipping LLM, RAG and agent backends for startup clients in four countries. I publish the failures next to the passes.",
   description:
-    "Ebin Babu Thomas, AI engineer — agent reliability, AI control and evaluation. Agents whose evidence cannot be fabricated, measured under process kills.",
+    "Ebin Babu Thomas, AI engineer — LLM agents, evaluation engineering and AI control. Agents whose evidence cannot be fabricated, measured under process kills.",
   url: "https://ebinbt.dev",
   email: "ebinbabuthomas@gmail.com",
   location: "Kerala, India",
@@ -60,6 +60,6 @@ export const site = {
     },
   ],
   availability:
-    "I take on contract work in agent reliability, evaluation and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
+    "I take on contract work in evaluation engineering, agent reliability and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
   analyticsToken: import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
