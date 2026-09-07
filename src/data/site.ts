@@ -25,8 +25,8 @@ export const site = {
   resumePath: "/resume.pdf",
   proof: [
     {
-      value: "434/434",
-      label: "agent runs recovered after being killed mid-action",
+      value: "0 / 12",
+      label: "side effects from two covert actions under one full safeguard chain",
       href: "/work/incidentgate/",
     },
     {

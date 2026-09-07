@@ -9,15 +9,15 @@ venue: null
 order: 1
 featured: true
 headline:
-  value: "434/434"
-  label: "kill-point cells recovered identically, 0 duplicate mutations"
+  value: "0 / 12"
+  label: "side effects from two covert actions under the same full safeguard chain"
 metrics:
-  - value: "594"
-    label: "kill points injected, across 27 frozen scenarios"
-  - value: "12"
-    label: "side effects on the split-call scenario, with every safeguard on and with none"
+  - value: "434/434"
+    label: "kill-point cells recovered identically across 594 kills, 0 duplicate mutations"
   - value: "3/3"
     label: "covert attempts by local-model attackers stopped at the policy gate"
+  - value: "5 of 5"
+    label: "hosted covert-leg calls that reached a frontier model declined"
   - value: "76"
     label: "orphaned approval tokens, every one unspendable"
 stack:

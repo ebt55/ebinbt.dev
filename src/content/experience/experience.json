@@ -36,9 +36,9 @@
   "open_source": [
     {
       "project": "Meetily",
-      "url": "https://github.com/Zackriya-Solutions/meeting-minutes",
+      "url": "https://github.com/Zackriya-Solutions/meetily",
       "what": "Refactored the backend and added OpenAI provider support to a privacy-first meeting-notes tool that reached GitHub Trending.",
-      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meeting-minutes/pull/75" }
+      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meetily/pull/75" }
     },
     {
       "project": "bpmn-io/refactorings",
