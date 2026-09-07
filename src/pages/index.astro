@@ -18,6 +18,21 @@ import { LANES, WORK_INTRO } from '../lib/lanes';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const featured = projects.filter((p) => p.data.featured);
+/** Spelled out so the work heading never goes stale when a project is added. */
+const COUNT_WORDS = [
+  'No',
+  'One',
+  'Two',
+  'Three',
+  'Four',
+  'Five',
+  'Six',
+  'Seven',
+  'Eight',
+  'Nine',
+  'Ten',
+];
+const featuredCount = COUNT_WORDS[featured.length] ?? String(featured.length);
 const titleByHref = new Map(projects.map((p) => [`/work/${p.id}/`, p.data.title]));
 
 const nowEntry = (await getCollection('now'))[0];
@@ -102,7 +117,7 @@ const photo = Object.values(photoFiles)[0]?.default;
   <Section
     id="work"
     eyebrow="Work"
-    title="Five projects, with their numbers"
+    title={`${featuredCount} projects, with their numbers`}
     lede={WORK_INTRO}
   >
     {

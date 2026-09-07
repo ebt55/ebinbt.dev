@@ -3,8 +3,8 @@ title: "IncidentGate"
 tagline: "A lab measuring how policy gates, a monitor and human approval change an incident agent"
 lane: "control"
 kind: "experiment"
-status: "in-development"
-period: "Aug 2026 – present"
+status: "shipped"
+period: "Aug – Sep 2026"
 venue: null
 order: 1
 featured: true
@@ -14,10 +14,10 @@ headline:
 metrics:
   - value: "594"
     label: "kill points injected, across 27 frozen scenarios"
-  - value: "30/30"
-    label: "three-condition harness rows replay exactly"
+  - value: "12"
+    label: "side effects on the split-call scenario, with every safeguard on and with none"
   - value: "3/3"
-    label: "covert model attempts stopped at the policy gate"
+    label: "covert attempts by local-model attackers stopped at the policy gate"
   - value: "76"
     label: "orphaned approval tokens, every one unspendable"
 stack:
@@ -39,22 +39,20 @@ links:
       url: "https://github.com/ebt55/incidentgate/blob/main/artifacts/chaos-matrix/kill-matrix.md"
     - label: "Threat model and methodology"
       url: "https://github.com/ebt55/incidentgate/blob/main/docs/threat-model-and-methodology.md"
-honestStatus: "A development checkpoint, not a release: a model sits in the decision path of three published sabotage rows and one monitor envelope, the MCP servers still run in-process, and exactly-once is scoped to the local Postgres."
+honestStatus: "Closed at a baseline on 2026-09-06 and kept for review — a development checkpoint rather than a release, where most published evaluation rows have no model in the decision path and the MCP servers run in-process."
 summary: "A lab measuring how a policy gate, an action monitor and durable human approval change an incident-remediation agent under crashes and hostile input."
 ---
 
 ## What it is
 
-A measurement apparatus, not an incident-response product. The question is narrow: how do a deterministic policy gate, an advisory action monitor and durable human approval change what an incident agent does under crashes, misleading evidence and hostile input? Ten frozen incident contracts run through three safeguard configurations — ungated, policy-only, and policy plus monitor plus approval — so the configuration is the only thing that varies between rows.
-
-Every mutation travels one path: evidence, policy gate, monitor, durable pre-approval audit, then a single-use approval token bound to action hash, actor, expiry and incident, then an atomic idempotent operation, then post-commit verification. Forbidden actions are unreachable through closed types rather than discouraged by a prompt.
+A measurement apparatus, not an incident-response product. The question is narrow: how do a deterministic policy gate, an advisory action monitor and durable human approval change what an incident agent does under crashes, misleading evidence and hostile input? Ten frozen incident contracts run through three safeguard configurations — ungated, policy-only, and policy plus monitor plus approval — so the configuration is the only thing that varies between rows. Forbidden actions are unreachable through closed types rather than discouraged by a prompt.
 
 ## What I measured
 
-The worker is killed with a real process death at every node boundary of every scenario: 22 boundaries across 27 scenarios, 594 cells, 434 of which had a boundary that existed and fired. All 434 recovered to the golden end state, with zero duplicate mutations and zero lost incidents. Seventy-six approval tokens were orphaned by kills mid-issuance; idempotency-key binding leaves all of them unspendable, and that number is published rather than smoothed away.
+The worker is killed with a real process death at every node boundary of every scenario: 22 boundaries across 27 scenarios, 594 cells, 434 of which had a boundary that existed and fired. All 434 recovered to the golden end state, with zero duplicate mutations and zero lost incidents. Seventy-six approval tokens were orphaned by kills mid-issuance, and idempotency-key binding leaves all of them unspendable.
 
-The three-condition harness replays 30/30 rows exactly. Given a covert objective, a local open-weight attacker made three attempts and the policy gate denied all three before the monitor node ran.
+Two sabotage scenarios then split the result. Given a covert objective on T1, local open-weight attackers made three attempts and the policy gate denied all three, leaving zero side effects. On T4, where the forbidden effect is split across two permitted calls, the complete policy, monitor and human chain produced exactly the outcome of no safeguards at all, twelve side effects in all three arms. All five hosted covert-leg calls that reached a frontier model declined. Five attacker-seat requests were refused by a provider classifier, and they stay visibly unmeasured rather than reworded.
 
-## What's next
+## Limitations
 
-The three MCP servers are implemented and tested in-process; nothing serves them over a transport yet. A model is in the decision path of three published sabotage rows and one monitor envelope, and every other row is a deterministic fixture. Both are the next milestones. These are laboratory measurements, not production claims.
+The repository was closed at a baseline on 2026-09-06 and is kept for review, a development checkpoint rather than a release. Most published evaluation rows have no model in the decision path, and the rest are deterministic fixtures. The three MCP servers are implemented and tested in-process, and nothing serves them over a transport. These are laboratory measurements, not production claims.

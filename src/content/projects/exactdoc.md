@@ -18,8 +18,8 @@ metrics:
     label: "median vertical drift against the source page"
   - value: "11 → 0"
     label: "blocking findings over seven live Google Docs passes"
-  - value: "663"
-    label: "tests, over a SHA-256-pinned document corpus"
+  - value: "99 + 83"
+    label: "unit tests plus gate-mutation cases, over a SHA-256-pinned corpus"
 stack:
   - "Python"
   - "PDFium / pypdfium2"
@@ -49,7 +49,7 @@ The interesting part is not the converter. It is the loop that checks it: each D
 
 ## What I measured
 
-On the frozen 16-document corpus with the shipping profile: 16/16 page match, 0.9588 mean live-text retention, 1.045 pt median vertical drift. The unrefined profile matches 15/16, which is what the refinement loop is worth. Seven live Google Docs qualification passes took blocking findings from 11 to 0. The suite is 663 tests over a SHA-256-pinned corpus, and compiled-in base-14 font widths give identical geometry on Linux and Windows.
+On the frozen 16-document corpus with the shipping profile: 16/16 page match, 0.9588 mean live-text retention, 1.045 pt median vertical drift. The unrefined profile matches 15/16, which is what the refinement loop is worth. Seven live Google Docs qualification passes took blocking findings from 11 to 0. The suite is 99 unit tests plus an 83-case gate-mutation suite over a SHA-256-pinned corpus, and compiled-in base-14 font widths give identical geometry on Linux and Windows.
 
 ## Limitations
 

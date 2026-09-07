@@ -6,7 +6,7 @@ kind: "hackathon"
 status: "shipped"
 period: "Jul 2026"
 venue: "Apart Research × Formation Research — Secret Loyalties hackathon, Jul 2026"
-order: 2
+order: 3
 featured: true
 headline:
   value: "12–44%"

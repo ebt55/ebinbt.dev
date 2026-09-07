@@ -6,7 +6,7 @@ kind: "experiment"
 status: "shipped"
 period: "Aug 2026"
 venue: "Apart Research — Digital Minds sprint, Aug 2026"
-order: 1
+order: 2
 featured: true
 headline:
   value: "65.8%"

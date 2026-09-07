@@ -7,10 +7,10 @@
       "location": "Remote (Kerala, India)",
       "summary": "Building and measuring AI control systems — evidence-gated agents, durable human approval over tool calls, and preregistered behavioural experiments on open models — with every claim tied to a committed run.",
       "highlights": [
-        "IncidentGate: a governed incident-agent lab. 594 kill points across 27 frozen scenarios, 434/434 measured cells recovered identically, zero duplicate mutations, zero lost incidents.",
-        "ProofPack: an evidence-gated pre-approval reviewer at $0.02–$0.19 per review against 20–40 minutes by hand, where a fabricated citation is structurally impossible rather than discouraged.",
-        "Two Apart Research sprints, solo: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact.",
-        "ExactDoc 1.0: measurement-validated PDF to DOCX, 16/16 on a frozen corpus at 0.9588 live-text retention, verified by rendering each output back and diffing word positions."
+        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts the published recipe never asked the database question that would have found the planted bias; a $0.15 prompt battery found it.",
+        "IncidentGate: a governed incident-agent lab, closed at a baseline on 2026-09-06. The policy gate stopped the T1 covert action with zero side effects, while on T4 the full policy, monitor and human chain landed the same 12 side effects as no safeguards at all.",
+        "ProofPack: an evidence-gated pre-approval reviewer at $0.02–$0.19 per review against 20–40 minutes by hand, now with a localhost reviewer workbench that streams the agent's trail and re-hashes every capture against the manifest on demand.",
+        "Two Apart Research sprints, solo: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact."
       ],
       "links": [
         { "label": "GitHub", "url": "https://github.com/ebt55" }

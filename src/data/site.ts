@@ -4,7 +4,7 @@ export const site = {
   title: "AI Engineer — agent reliability, AI control & evaluation",
   headline: "I build the gates, then measure what they stop.",
   intro:
-    "I work on AI control and evaluation: agents whose evidence cannot be fabricated, durable human approval over tool calls, and preregistered behavioural experiments on open models. Before that, three and a half years shipping LLM, RAG and agent backends for startup clients in four countries. I publish the failures next to the passes.",
+    "I work on AI control and evaluation. I build benchmarks for auditing agents, systems where a citation cannot be fabricated, durable human approval over tool calls, and preregistered experiments on open models. Before that, three and a half years shipping LLM, RAG and agent backends for startup clients in four countries. I publish the failures next to the passes.",
   description:
     "Ebin Babu Thomas, AI engineer — agent reliability, AI control and evaluation. Agents whose evidence cannot be fabricated, measured under process kills.",
   url: "https://ebinbt.dev",
@@ -40,9 +40,9 @@ export const site = {
       href: "/work/digital-grimace-scale/",
     },
     {
-      value: "16/16",
-      label: "PDFs converted to editable Word, checked by re-rendering",
-      href: "/work/exactdoc/",
+      value: "0 / 13",
+      label: "audit attempts that ever asked the database question the plant needed",
+      href: "/work/diffing-agent-bench/",
     },
   ],
   principles: [

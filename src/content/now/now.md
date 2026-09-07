@@ -1,9 +1,9 @@
 ---
-updated: 2026-08-22
+updated: 2026-09-07
 ---
 
-- Wiring a model into IncidentGate's decision path, so the three-condition comparison runs on model output instead of deterministic fixtures.
-- Moving IncidentGate's three MCP servers out of process onto a real transport, then re-running the kill matrix against that.
-- Packaging ExactDoc 1.0 for PyPI and growing the expansion corpus without invalidating a published number.
-- Working through ControlArena and the AI-control literature on control evaluations and monitor games.
-- Writing up the grimace-scale channel dissociation as a standalone piece, separate from the sprint report.
+- Submitted the MATS 12.0 application to Neel Nanda's stream on 5 September, with diffing-agent-bench as the research work sample.
+- IncidentGate is closed at a baseline; scoping what a v2 would measure, starting with a transport for the MCP servers and a model in the decision path.
+- Shipped ProofPack v0.2.0 with the reviewer workbench, and starting pilot outreach to the sites the checklists were written for.
+- Taking part in the Apart Research AI Incident Response sprint, 11–13 September.
+- Reading the control-evaluation literature, ControlArena and monitor games included.
