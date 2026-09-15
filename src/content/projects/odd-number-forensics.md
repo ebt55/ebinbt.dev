@@ -6,7 +6,7 @@ kind: "experiment"
 status: "shipped"
 period: "Aug 2026"
 venue: "SPAR Fall 2026 model-forensics take-home (practice work sample)"
-order: 4
+order: 5
 featured: true
 headline:
   value: "0% → 87%"

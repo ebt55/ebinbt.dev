@@ -6,7 +6,7 @@ kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"
 venue: "Work sample for the MATS 12.0 application, Neel Nanda stream, Sep 2026"
-order: 1
+order: 2
 featured: true
 headline:
   value: "0 of 13"
