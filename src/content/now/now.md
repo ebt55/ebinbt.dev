@@ -1,9 +1,10 @@
 ---
-updated: 2026-09-07
+updated: 2026-09-17
 ---
 
-- Submitted the MATS 12.0 application to Neel Nanda's stream on 5 September, with diffing-agent-bench as the research work sample.
-- IncidentGate is closed at a baseline; scoping what a v2 would measure, starting with a transport for the MCP servers and a model in the decision path.
-- Shipped ProofPack v0.2.0 with the reviewer workbench, and starting pilot outreach to the sites the checklists were written for.
-- Taking part in the Apart Research AI Incident Response sprint, 11–13 September.
-- Reading the control-evaluation literature, ControlArena and monitor games included.
+- Shipped Kobayashi Maru on 14 September, a preregistered test of whether impossible tasks make an agent cheat on the solvable ones beside them. It ran 8,959 agent runs on six model families. One model went from 0% cheating on the solvable tasks to 30%.
+- Published corrections to whose-voice on 16 September, with four new results, two of them against the submitted paper. Pooling the prompt draws gives 18 of 55 strict decisions correct at 47 candidates, and the 44% headline now carries its interval.
+- Committed the eval-floor preregistration on 17 September and started the first sweep. It measures what an evaluation scorer gives an answer with no content in it. No number yet, and nothing public.
+- Taking part in the BlueDot Technical AI Safety course since 14 September, and at EAGxIndia on 19 and 20 September.
+- Applying for a four-month funded block from 1 November on counterfactual resampling, which recovers what a monitored agent would have done after a block and measures that against recorded ground truth.
+- Open to evaluation-engineering and agent-reliability roles, remote or in India.

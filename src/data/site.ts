@@ -4,7 +4,7 @@ export const site = {
   title: "AI Engineer — LLM agents, evaluation engineering & AI control",
   headline: "I build the gates, then measure what they stop.",
   intro:
-    "I work on evaluation engineering and AI control: benchmarks for auditing agents, forensics on reward-hacking environments, systems where a citation cannot be fabricated, durable human approval over tool calls, and preregistered experiments on open models. Before that, three and a half years shipping LLM, RAG and agent backends for startup clients in four countries. I publish the failures next to the passes.",
+    "Independent AI engineer and researcher since March 2026. I measure what safeguards and evaluations catch on agents: cheating under impossible tasks (Kobayashi Maru), a policy, monitor and human chain against a covert agent (IncidentGate), attribution of a poisoned corpus (whose-voice), content-free baselines for scorers (eval-floor, in progress). Before that, three and a half years of LLM, RAG and agent backends.",
   description:
     "Ebin Babu Thomas, AI engineer — LLM agents, evaluation engineering and AI control. Agents whose evidence cannot be fabricated, measured under process kills.",
   url: "https://ebinbt.dev",
