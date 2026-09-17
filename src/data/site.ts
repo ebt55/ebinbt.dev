@@ -1,12 +1,12 @@
 export const site = {
   name: "Ebin Babu Thomas",
   shortName: "Ebin",
-  title: "Independent researcher — AI control and evaluation",
+  title: "Independent researcher in AI control and evaluation",
   /** The hero eyebrow, mono, above the name. */
   eyebrow: "Independent researcher · AI control and evaluation · Kerala, India",
   /** The research statement. One paragraph, 60 words, serif, first thing read. */
   intro:
-    "I measure what safeguards and evaluations actually catch when an agent misbehaves. A monitor and a human approved every step of a split attack (IncidentGate). Agents cheat on solvable tasks when the batch is impossible (Kobayashi Maru). Scorers may award content-free answers (eval-floor, in progress). Every number regenerates from a public repository, and the preregistration is committed before the run.",
+    "I measure what safeguards and evaluations catch when an agent misbehaves. A monitor and a human approved every step of a split attack (IncidentGate). Two of six models cheated on solvable tasks beside impossible ones (Kobayashi Maru). Scorers may award content-free answers (eval-floor, in progress). Every number regenerates from a public repository, and the preregistration is committed before the run.",
   description:
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */

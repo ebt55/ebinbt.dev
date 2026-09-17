@@ -55,4 +55,4 @@ Two things stay out of reach. Pointed at text the two released secret-loyalty or
 
 ## Limitations
 
-Twenty-one validation controls with planted-signal and no-signal arms inverted three conclusions that had already been written down, and the September pass found seven more defects. The research log keeps the retracted versions dated and in place. It says “toward whom”, never “whether.”
+Twenty-one validation controls with planted-signal and no-signal arms inverted three conclusions that had already been written down, and the September pass found seven more defects. The research log keeps the retracted versions dated and in place.
