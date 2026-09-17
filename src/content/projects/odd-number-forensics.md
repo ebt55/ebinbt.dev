@@ -1,7 +1,7 @@
 ---
 title: "odd-number-forensics"
 tagline: "Forensics on a reward-hacking environment, one prompt line at a time"
-lane: "tools"
+lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Aug 2026"

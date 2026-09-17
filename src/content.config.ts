@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 /* --- projects ----------------------------------------------------------- */
 
-export const LANES = ['research', 'tools'] as const;
+export const LANES = ['control', 'research', 'oss'] as const;
 
 const metric = z.object({
   value: z.string(),

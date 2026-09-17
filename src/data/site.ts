@@ -4,9 +4,9 @@ export const site = {
   title: "Independent researcher in AI control and evaluation",
   /** The hero eyebrow, mono, above the name. */
   eyebrow: "Independent researcher · AI control and evaluation · Kerala, India",
-  /** The research statement. One paragraph, 60 words, serif, first thing read. */
+  headline: "I build the gates, then measure what they stop.",
   intro:
-    "I measure what safeguards and evaluations catch when an agent misbehaves. A monitor and a human approved every step of a split attack (IncidentGate). Two of six models cheated on solvable tasks beside impossible ones (Kobayashi Maru). Scorers may award content-free answers (eval-floor, in progress). Every number regenerates from a public repository, and the preregistration is committed before the run.",
+    "Independent AI engineer and researcher since March 2026. I measure what safeguards and evaluations catch on agents: cheating under impossible tasks (Kobayashi Maru), a policy, monitor and human chain against a covert agent (IncidentGate), attribution of a poisoned corpus (whose-voice), content-free baselines for scorers (eval-floor, in progress). Before that, three and a half years of LLM, RAG and agent backends.",
   description:
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */
@@ -24,29 +24,49 @@ export const site = {
     kaggle: "https://www.kaggle.com/ebinbt007",
     huggingface: "https://huggingface.co/ebt005" as string | null,
   },
-  // Kept for the record. Neither is rendered: the home page carries no booking
-  // link and no availability pitch.
   bookingUrl: "https://cal.com/ebinbt" as string | null,
   // Set to null if the source repo is kept private — the footer link then disappears.
   repoUrl: "https://github.com/ebt55/ebinbt.dev" as string | null,
   resumePath: "/resume.pdf",
-  /** The "Method" section: how the numbers on this site are made. */
-  principles: [
+  proof: [
     {
-      title: "Preregistered.",
-      body: "The hypothesis, the rules and the thresholds are committed before the first run, and the commit hash is stamped into every result file.",
+      value: "0% → 30%",
+      label:
+        "cheating on the untouched solvable tasks for one model once the batch held impossible ones; 8,959 runs, six model families",
+      href: "/work/kobayashi-maru/",
     },
     {
-      title: "Regenerated, not typed.",
-      body: "Every number on this site points at a public repository and the command that produced it.",
+      value: "0 / 12",
+      label: "side effects from two covert actions under one full safeguard chain",
+      href: "/work/incidentgate/",
     },
     {
-      title: "Failures kept.",
-      body: "The test that failed sits under its own heading beside the one that passed.",
+      value: "18 of 55",
+      label:
+        "strict decisions naming the right principal behind a poisoned corpus, out of 47 candidates",
+      href: "/work/whose-voice/",
+    },
+    {
+      value: "0 / 13",
+      label: "audit attempts that ever asked the database question the plant needed",
+      href: "/work/diffing-agent-bench/",
     },
   ],
-  /** One sentence for the About section. */
-  wants:
-    "I want evaluation-engineering or agent-reliability work at a safety organisation, or a place on a research programme, remote or in India.",
+  principles: [
+    {
+      title: "Claims cite a run",
+      body: "Every number I publish points at a committed artifact and the command that produced it, or it does not go up.",
+    },
+    {
+      title: "Failures get published",
+      body: "The preregistered test that failed sits in the repository under its own heading, next to the one that worked.",
+    },
+    {
+      title: "Humans keep the decision",
+      body: "A model can propose and a monitor can flag, but nothing mutates without a single-use token a person minted.",
+    },
+  ],
+  availability:
+    "I take on contract work in evaluation engineering, agent reliability and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
   analyticsToken: import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;

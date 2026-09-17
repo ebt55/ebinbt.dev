@@ -9,13 +9,13 @@ const hasWritingIndex = writingCount >= 2;
 const path = Astro.url.pathname;
 const isHome = path === '/';
 
-// Contact lives in the About section, not in the nav.
 const nav: { label: string; href: string; external?: boolean }[] = [
-  { label: 'Research', href: '/work/' },
+  { label: 'Work', href: isHome ? '#work' : '/work/' },
+  { label: 'Now', href: '/now/' },
 ];
 if (hasWritingIndex) nav.push({ label: 'Writing', href: '/writing/' });
-nav.push({ label: 'Now', href: '/now/' });
-nav.push({ label: 'About', href: isHome ? '#about' : '/#about' });
+nav.push({ label: 'Resume', href: site.resumePath, external: true });
+nav.push({ label: 'Email', href: `mailto:${site.email}` });
 
 const isCurrent = (href: string) =>
   href.startsWith('/') && href !== '/' && path.startsWith(href) ? 'page' : undefined;
@@ -35,9 +35,13 @@ const isCurrent = (href: string) =>
               <a
                 href={item.href}
                 aria-current={isCurrent(item.href)}
+                target={item.href === site.resumePath ? '_blank' : undefined}
                 rel={item.external ? 'noopener' : undefined}
               >
                 {item.label}
+                {item.href === site.resumePath && (
+                  <span class="sr-only"> (PDF, opens in a new tab)</span>
+                )}
               </a>
             </li>
           ))

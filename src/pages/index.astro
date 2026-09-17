@@ -1,23 +1,39 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
-import DoseFigure from '../components/DoseFigure.astro';
-import Finding from '../components/Finding.astro';
+import ProofStat from '../components/ProofStat.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import NowBlock from '../components/NowBlock.astro';
+import Timeline from '../components/Timeline.astro';
 import ContactRow from '../components/ContactRow.astro';
 import { site } from '../data/site';
 import { formatDate, isoDate } from '../lib/format';
+import { LANES, WORK_INTRO } from '../lib/lanes';
 
 /* --- data --------------------------------------------------------------- */
 
-/** The findings list: research entries, newest month first, then display order. */
-const findings = (await getCollection('projects'))
-  .filter((p) => p.data.lane === 'research' && p.data.featured)
-  .sort((a, b) => b.data.date.localeCompare(a.data.date) || a.data.order - b.data.order);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const featured = projects.filter((p) => p.data.featured);
+/** Spelled out so the work heading never goes stale when a project is added. */
+const COUNT_WORDS = [
+  'No',
+  'One',
+  'Two',
+  'Three',
+  'Four',
+  'Five',
+  'Six',
+  'Seven',
+  'Eight',
+  'Nine',
+  'Ten',
+];
+const featuredCount = COUNT_WORDS[featured.length] ?? String(featured.length);
+const titleByHref = new Map(projects.map((p) => [`/work/${p.id}/`, p.data.title]));
 
 const nowEntry = (await getCollection('now'))[0];
 const NowContent = nowEntry ? (await render(nowEntry)).Content : null;
@@ -28,7 +44,14 @@ const allWriting = (await getCollection('writing')).sort(
 /** Home shows the newest three; /writing/ carries the full list. */
 const writing = allWriting.slice(0, 3);
 
-/* Optional photo — rendered only when the file exists (About section, 112px). */
+const experience = await getEntry('experience', 'experience');
+const roles = experience?.data.roles ?? [];
+const projectTitles = new Set(projects.map((p) => p.data.title.toLowerCase()));
+const contributions = (experience?.data.open_source ?? []).filter(
+  (o) => !projectTitles.has(o.project.toLowerCase())
+);
+
+/* Optional hero photo — rendered only when the file exists. */
 const photoFiles = import.meta.glob<{ default: ImageMetadata }>(
   '../assets/ebin.{jpg,jpeg,png,webp}',
   { eager: true }
@@ -41,38 +64,108 @@ const photo = Object.values(photoFiles)[0]?.default;
   <section class="hero" aria-labelledby="hero-name">
     <div class="container hero-grid">
       <div class="hero-main">
-        <p class="eyebrow">{site.eyebrow}</p>
+        {
+          photo && (
+            <Image
+              class="photo"
+              src={photo}
+              alt={site.name}
+              width={112}
+              height={112}
+              loading="eager"
+            />
+          )
+        }
+        <p class="eyebrow">{site.title}</p>
         <h1 id="hero-name">{site.name}</h1>
-        <p class="statement">{site.intro}</p>
+        <p class="headline">{site.headline}</p>
+        <p class="intro">{site.intro}</p>
         <p class="meta num">
-          <a href={site.socials.github} rel="noopener">github.com/ebt55</a>
+          {site.location}
           <span class="sep" aria-hidden="true">·</span>
-          <a href={site.resumePath} target="_blank" rel="noopener"
-            >resume (PDF)<span class="sr-only"> (opens in a new tab)</span></a
-          >
+          Remote
           <span class="sep" aria-hidden="true">·</span>
-          <a href={`mailto:${site.email}`}>email</a>
+          {site.timezone}
+        </p>
+        <p class="ctas">
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn-ghost" href={`mailto:${site.email}`}>Email</a>
         </p>
       </div>
 
-      <div class="hero-figure">
-        <DoseFigure />
+      <div class="hero-ledger">
+        <div class="ledger" aria-labelledby="ledger-heading">
+          <h2 id="ledger-heading" class="ledger-heading eyebrow eyebrow-quiet">
+            Measured results
+          </h2>
+          {
+            site.proof.map((row) => (
+              <ProofStat
+                value={row.value}
+                label={row.label}
+                href={row.href}
+                project={titleByHref.get(row.href) ?? 'Work'}
+              />
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
 
-  {/* ------------------------------------------------------------ findings */}
-  <Section id="findings" eyebrow="Findings" title="Six entries, newest first">
-    <div class="findings">
-      {findings.map((project) => <Finding project={project} />)}
-    </div>
+  {/* ---------------------------------------------------------------- work */}
+  <Section
+    id="work"
+    eyebrow="Work"
+    title={`${featuredCount} projects, with their numbers`}
+    lede={WORK_INTRO}
+  >
+    {
+      LANES.map((lane) => {
+        const items = featured.filter((p) => p.data.lane === lane.id);
+        if (items.length === 0) return null;
+        return (
+          <div class="lane">
+            <h3 class="lane-title">{lane.title}</h3>
+            <p class="lane-intro">{lane.intro}</p>
+            <div class="cards">
+              {items.map((project) => (
+                <ProjectCard project={project} />
+              ))}
+            </div>
+            {lane.id === 'oss' && contributions.length > 0 && (
+              <div class="contributions">
+                <h4 class="contributions-title">Merged upstream</h4>
+                <ul>
+                  {contributions.map((c) => (
+                    <li>
+                      <a href={c.url} rel="noopener">
+                        {c.project}
+                        <span aria-hidden="true"> ↗</span>
+                      </a>
+                      <span class="what">{c.what}</span>
+                      {c.link && (
+                        <a class="pr" href={c.link.url} rel="noopener">
+                          {c.link.label}
+                          <span aria-hidden="true"> ↗</span>
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        );
+      })
+    }
     <p class="all-work">
       <a href="/work/">All work<span aria-hidden="true"> →</span></a>
     </p>
   </Section>
 
-  {/* -------------------------------------------------------------- method */}
-  <Section id="method" eyebrow="Method" title="How the numbers are made">
+  {/* -------------------------------------------------------- how I work */}
+  <Section id="how" eyebrow="How I work" title="Three rules the work follows">
     <ol class="principles">
       {
         site.principles.map((p) => (
@@ -135,30 +228,25 @@ const photo = Object.values(photoFiles)[0]?.default;
     )
   }
 
-  {/* --------------------------------------------------------------- about */}
-  <Section id="about" eyebrow="About" title={site.name}>
-    <div class="about">
-      {
-        photo && (
-          <Image class="photo" src={photo} alt={site.name} width={112} height={112} />
-        )
-      }
-      <div class="about-text">
-        <p>
-          I have worked as an independent AI researcher since March 2026, building each
-          project with coding agents. Since September 2026 I have been taking the BlueDot
-          Technical AI Safety course.
-        </p>
-        <p>
-          Before that I spent three and a half years as a software engineer, building LLM, RAG
-          and agent backends for startup clients.
-        </p>
-        <p>{site.wants}</p>
-      </div>
-    </div>
-    <div class="about-contact">
-      <ContactRow />
-    </div>
+  {/* ---------------------------------------------------------- experience */}
+  <Section
+    id="experience"
+    eyebrow="Experience"
+    title="Track record: production backends since 2022"
+  >
+    <Timeline roles={roles} />
+    <p class="resume-link">
+      <a href={site.resumePath} target="_blank" rel="noopener">
+        Resume (PDF)<span class="sr-only"> (opens in a new tab)</span><span aria-hidden="true">
+          ↗</span>
+      </a>
+    </p>
+  </Section>
+
+  {/* ------------------------------------------------------------- contact */}
+  <Section id="contact" eyebrow="Contact" title="Get in touch">
+    <ContactRow />
+    <p class="availability">{site.availability}</p>
   </Section>
 </Base>
 
@@ -178,36 +266,81 @@ const photo = Object.values(photoFiles)[0]?.default;
     gap: 2.75rem;
   }
 
-  .hero h1 {
-    margin-bottom: 1rem;
+  .photo {
+    width: 112px;
+    height: 112px;
+    border-radius: 8px;
+    border: 1px solid var(--hairline-strong);
+    object-fit: cover;
+    margin-bottom: 1.5rem;
   }
 
-  .statement {
+  @media (prefers-color-scheme: dark) {
+    .photo {
+      filter: grayscale(20%);
+    }
+  }
+
+  .hero h1 {
+    margin-bottom: 0.75rem;
+  }
+
+  .headline {
     font-family: var(--font-display);
     font-size: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
-    line-height: 1.32;
+    line-height: 1.3;
     color: var(--ink);
-    max-width: 42ch;
+    max-width: 24ch;
+  }
+
+  .intro {
+    margin-top: 1.1rem;
+    max-width: 56ch;
+    color: var(--ink-2);
   }
 
   .meta {
-    margin-top: 1.6rem;
+    margin-top: 1.35rem;
     font-family: var(--font-mono);
     font-size: var(--size-small);
     color: var(--ink-3);
   }
 
-  .meta a {
-    text-decoration: none;
-    border-bottom: 1px solid var(--hairline-strong);
-  }
-
-  .meta a:hover {
-    border-bottom-color: currentColor;
-  }
-
   .sep {
     padding-inline: 0.4rem;
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  /* --- proof ledger ------------------------------------------------------ */
+
+  .ledger {
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  .ledger-heading {
+    font-family: var(--font-mono);
+    font-size: var(--size-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    padding-bottom: 1rem;
+    margin: 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .ledger :global(.row:first-child) {
+    border-top: 0;
+    padding-top: 1rem;
   }
 
   @media (min-width: 960px) {
@@ -221,15 +354,100 @@ const photo = Object.values(photoFiles)[0]?.default;
       grid-column: 1 / span 7;
     }
 
-    .hero-figure {
+    .hero-ledger {
       grid-column: 8 / span 5;
     }
   }
 
-  /* --- findings ---------------------------------------------------------- */
+  /* --- work lanes -------------------------------------------------------- */
 
-  .findings {
-    display: block;
+  .lane + .lane {
+    margin-top: 3.25rem;
+  }
+
+  .lane-title {
+    font-size: 1.375rem;
+  }
+
+  .lane-intro {
+    margin-top: 0.4rem;
+    margin-bottom: 1.35rem;
+    color: var(--ink-2);
+    font-size: var(--size-small);
+    max-width: var(--measure);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 1000px) {
+    .cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .contributions {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .contributions-title {
+    font-family: var(--font-mono);
+    font-size: var(--size-eyebrow);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.75rem;
+  }
+
+  .contributions ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+
+  .contributions li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+    padding-block: 0.6rem;
+    border-top: 1px solid var(--hairline);
+    font-size: var(--size-small);
+  }
+
+  .contributions li:first-child {
+    border-top: 0;
+  }
+
+  .contributions a {
+    font-family: var(--font-mono);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .contributions a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  .contributions .what {
+    flex: 1 1 16rem;
+    color: var(--ink-2);
+  }
+
+  .contributions .pr {
+    color: var(--ink-2);
+  }
+
+  .contributions .pr:hover {
+    color: var(--accent-ink);
   }
 
   .all-work {
@@ -247,7 +465,7 @@ const photo = Object.values(photoFiles)[0]?.default;
     border-bottom-color: currentColor;
   }
 
-  /* --- method ------------------------------------------------------------ */
+  /* --- principles -------------------------------------------------------- */
 
   .principles {
     display: grid;
@@ -255,6 +473,7 @@ const photo = Object.values(photoFiles)[0]?.default;
     list-style: none;
     margin: 0;
     padding: 0;
+    counter-reset: principle;
   }
 
   .principles li {
@@ -331,42 +550,30 @@ const photo = Object.values(photoFiles)[0]?.default;
     font-size: var(--size-small);
   }
 
-  /* --- about ------------------------------------------------------------- */
+  /* --- experience / contact ---------------------------------------------- */
 
-  .about {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 1.75rem;
+  .resume-link {
+    margin-top: 2rem;
+    font-family: var(--font-mono);
+    font-size: var(--size-small);
   }
 
-  .photo {
-    width: 112px;
-    height: 112px;
-    border-radius: 8px;
-    border: 1px solid var(--hairline-strong);
-    object-fit: cover;
-    flex: none;
+  .resume-link a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--hairline-strong);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .photo {
-      filter: grayscale(20%);
-    }
+  .resume-link a:hover {
+    border-bottom-color: currentColor;
   }
 
-  .about-text {
-    flex: 1 1 28rem;
+  .availability {
+    margin-top: 2rem;
     max-width: var(--measure);
-  }
-
-  .about-text p + p {
-    margin-top: 1rem;
-  }
-
-  .about-contact {
-    margin-top: 2.5rem;
-    padding-top: 1.75rem;
-    border-top: 1px solid var(--hairline);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.45;
+    color: var(--ink-2);
   }
 </style>

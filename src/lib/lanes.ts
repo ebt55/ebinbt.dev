@@ -1,16 +1,21 @@
-/** The two work lanes, shared by /work/ and /work/<slug>/. */
+/** The three work lanes, shared by the home page, /work/ and /work/<slug>/. */
 
 export const LANES = [
   {
-    id: 'research',
-    title: 'Research',
+    id: 'control',
+    title: 'AI control & agent reliability',
     intro:
-      'Preregistered experiments on what safeguards and evaluations catch when an agent misbehaves, published with their failed tests.',
+      'Agents that must cite evidence and ask a person before changing anything, and harnesses that measure what the safeguards actually stop.',
   },
   {
-    id: 'tools',
-    title: 'Tools',
-    intro: 'Software I maintain, and fixes that landed in other people’s repositories.',
+    id: 'research',
+    title: 'Model behaviour research',
+    intro: 'Preregistered experiments on open models, published with their failed tests.',
+  },
+  {
+    id: 'oss',
+    title: 'Open source',
+    intro: 'Tools I maintain, and fixes that landed in other people’s repositories.',
   },
 ] as const;
 

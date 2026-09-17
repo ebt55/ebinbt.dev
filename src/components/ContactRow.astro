@@ -8,10 +8,6 @@ interface Channel {
   external: boolean;
 }
 
-/**
- * Four channels, in this order, and nothing else: no booking link, no
- * availability line, no Peerlist or Kaggle row (05-HOME-REDESIGN §8).
- */
 const channels: Channel[] = [
   {
     label: 'GitHub',
@@ -26,12 +22,44 @@ const channels: Channel[] = [
     external: true,
   },
   {
-    label: 'Resume',
-    href: site.resumePath,
-    text: 'Resume (PDF)',
-    external: false,
+    label: 'Peerlist',
+    href: site.socials.peerlist,
+    text: site.socials.peerlist.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  },
+  {
+    label: 'Kaggle',
+    href: site.socials.kaggle,
+    text: site.socials.kaggle.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
   },
 ];
+
+if (site.socials.huggingface) {
+  channels.push({
+    label: 'Hugging Face',
+    href: site.socials.huggingface,
+    text: site.socials.huggingface.replace(/^https?:\/\/(www\.)?/, ''),
+    external: true,
+  });
+}
+
+if (site.bookingUrl) {
+  channels.push({
+    label: 'Call',
+    href: site.bookingUrl,
+    // Duration-agnostic: the event length is not fixed.
+    text: 'Book a call',
+    external: true,
+  });
+}
+
+channels.push({
+  label: 'Resume',
+  href: site.resumePath,
+  text: 'Resume (PDF)',
+  external: false,
+});
 ---
 
 <dl class="contact">

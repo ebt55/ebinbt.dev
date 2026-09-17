@@ -19,7 +19,7 @@ const contributions = (experience?.data.open_source ?? []).filter(
   heading="Work"
   eyebrow="Projects"
   lede={WORK_INTRO}
-  description="Projects by Ebin Babu Thomas: preregistered experiments on AI control and evaluation, and the open-source tools built alongside them."
+  description="Projects by Ebin Babu Thomas: AI control and agent-reliability systems, preregistered model-behaviour experiments, and open-source tooling."
 >
   <div class="container lanes">
     {
@@ -37,7 +37,7 @@ const contributions = (experience?.data.open_source ?? []).filter(
                 <ProjectCard project={project} headingLevel="h3" />
               ))}
             </div>
-            {lane.id === 'tools' && contributions.length > 0 && (
+            {lane.id === 'oss' && contributions.length > 0 && (
               <div class="contributions">
                 <h3 class="contributions-title">Merged upstream</h3>
                 <ul>

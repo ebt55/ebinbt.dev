@@ -1,7 +1,7 @@
 ---
 title: "IncidentGate"
 tagline: "A lab measuring how policy gates, a monitor and human approval change an incident agent"
-lane: "research"
+lane: "control"
 kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"

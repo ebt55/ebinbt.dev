@@ -1,7 +1,7 @@
 ---
 title: "ExactDoc"
 tagline: "PDF to editable DOCX, checked by rendering the result back and diffing word positions"
-lane: "tools"
+lane: "oss"
 kind: "tool"
 status: "shipped"
 period: "Aug 2026"
