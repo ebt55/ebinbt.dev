@@ -1,28 +1,38 @@
-# ebinbt.dev
+# ebinbt.dev (Next.js rebuild)
 
 Source for [ebinbt.dev](https://ebinbt.dev) — the personal site of Ebin Babu Thomas.
 
-Static [Astro](https://astro.build) site. Hand-written CSS with design tokens, no UI
-framework, no Tailwind, **no client-side JavaScript**. Content lives in Markdown and
-JSON files that a non-developer can edit.
+**Stack:** Next.js 16 (App Router, static export) + Tailwind CSS v4 + TypeScript.
+Fully static — `next build` writes plain HTML/CSS/JS into `out/`, which Cloudflare
+Workers serves as static assets. No server code, no database, no client-side React:
+no component is a client component, so nothing hydrates. The only JavaScript on a
+page is Next's router bootstrap and ~1 KB of inline vanilla JS (theme toggle,
+active-nav marking).
+
+The design follows METR's public design language — warm-white paper, near-black
+ink, slate body text, a single deep-green accent, all-sans **Instrument Sans**,
+hairline dividers, generous whitespace — re-implemented from scratch in
+`src/app/globals.css` (Tailwind v4 `@theme` tokens, light + dark). No METR assets
+or code are used. Instrument Sans is OFL-licensed and self-hosted via `next/font`.
 
 ---
 
 ## Run it
 
-Requires Node 22 (`.nvmrc` pins the major) and npm 11.
+Requires Node 22 (`.nvmrc` pins the major). The lockfile is generated with **npm 10**
+to match the Cloudflare build image — see `DEPLOY.md` before regenerating it.
 
 ```bash
 npm ci          # install exactly what package-lock.json says
-npm run dev     # dev server on http://localhost:4321
+npm run dev     # dev server on http://localhost:3000
 ```
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Dev server with hot reload. |
-| `npm run build` | Static build into `dist/`. |
-| `npm run preview` | Serve the built `dist/` locally (what the host will serve). |
-| `npm run check` | `astro check` — types and template diagnostics. Must report 0 errors. |
+| `npm run build` | Static build into `out/`, then `scripts/postbuild.mjs` writes `rss.xml` + sitemaps. |
+| `npm run preview` | Serve the built `out/` locally (what the host will serve). |
+| `npm run check` | `tsc --noEmit` — types. Must report 0 errors. |
 | `npm run og` | Regenerate `public/og.png` from `src/data/site.ts`. |
 
 `npm run build` must pass before anything is pushed; `main` is the deployed branch.
@@ -31,12 +41,13 @@ npm run dev     # dev server on http://localhost:4321
 
 ## Where the content lives
 
-Nothing below requires touching a component.
+Nothing below requires touching a component. The files are the same Markdown/JSON
+the previous Astro site used, unchanged.
 
 ```
 src/
-  data/site.ts                     name, title, intro, socials, proof ledger,
-                                   principles, availability  ← edit this first
+  data/site.ts                     name, title, headline, socials, principles,
+                                   availability, the two hero-card links ← edit this first
   content/
     projects/<slug>.md             one file per project  → /work/<slug>/
     writing/<slug>.md              one file per external report/post
@@ -49,101 +60,72 @@ public/
 
 ### Add a project
 
-Copy any file in `src/content/projects/` to a new name — the filename becomes the URL
-(`incidentgate.md` → `/work/incidentgate/`) — and edit the front matter:
+Copy any file in `src/content/projects/` to a new name — the filename becomes the
+URL (`incidentgate.md` → `/work/incidentgate/`) — and edit its front matter. The
+schema lives in `src/lib/content.ts` (zod): `title`, `tagline` (≤100 chars), `lane`
+(`control | research | oss`), `kind` (`system | experiment | tool | hackathon`),
+`status`, `period`, `date` (`YYYY-MM`), `order`, `summary`, plus optional `venue`,
+`headline` (the one number the card leads with), `metrics` (≤4), `stack` (≤8),
+`links` (`repo/writeup/demo/model/other[]`), `honestStatus`, `finding`,
+`limitation`, `featured`. A file that fails validation fails the build with a
+message naming the file.
 
-```yaml
----
-title: IncidentGate                 # display name
-tagline: One line, under 100 characters, saying what it is.
-lane: control                       # control | research | oss  (which group it appears in)
-kind: system                        # system | experiment | tool | hackathon
-status: active                      # active | in-development | shipped | archived
-period: Aug 2026 – present
-venue: null                         # or "Apart Research — Digital Minds sprint, Aug 2026"
-order: 1                            # position within its lane, low numbers first
-featured: true                      # true = also shown on the home page
-headline:                           # the ONE number the card leads with
-  value: 434/434
-  label: kill-point recoveries, 0 duplicate mutations
-metrics:                            # 2–4 more numbers, detail page only
-  - value: '0'
-    label: duplicate side effects across all recovery runs
-stack: [Python, FastAPI, PostgreSQL]   # up to 8; the first 5 show on the card
-links:
-  repo: https://github.com/ebt55/incidentgate
-  writeup: null
-  demo: null
-  model: null                       # e.g. a Hugging Face adapter
-  other: []                         # [{ label: Changelog, url: https://example.com/changelog }]
-honestStatus: One sentence naming the current limitation. Keep it.
-summary: One or two sentences. Used as the page meta description.
----
+### The home page hero
 
-## What it is
+METR-pattern: name + one mission sentence + two CTAs on the left, **two green
+flagship cards** on the right. The cards are picked automatically from the first
+two entries of `site.proof` in `src/data/site.ts` (their `href` slugs). Those two
+projects are then excluded from the work grid below to avoid duplication. The
+`proof` values themselves appear nowhere on the home page — the numbers live on
+the project cards and project pages.
 
-150–300 words of Markdown, under these three headings:
-`## What it is`, `## What I measured`, `## Limitations`
-(use `## Status` instead of `## Limitations` while something is in development).
-```
+### Add a writing item / update /now/ / replace the résumé
 
-The build fails with a readable error if a required field is missing or a value is not
-one of the allowed options — that is the schema in `src/content.config.ts` doing its job.
-
-### Add a writing item
-
-Copy a file in `src/content/writing/`. Front matter: `title`, `date` (`YYYY-MM-DD`),
-`venue`, `url` (where it actually lives — the site does not host post bodies), `kind`
-(`report` | `post` | `write-up`), `summary`. Items appear on the home page as soon as
-there is one, in `/rss.xml` always, and **`/writing/` only exists once there are two or
-more items** — the route is generated conditionally in `src/pages/writing/[...index].astro`.
-
-### Update /now/
-
-Edit `src/content/now/now.md`: bump `updated:` to today and rewrite the 3–5 bullets.
-
-### Replace the résumé
-
-Drop a new PDF at `public/resume.pdf`. The path is set once, in `site.resumePath`.
-
-### Add a photo (optional)
-
-Drop a square image at `src/assets/ebin.jpg` (or `.png`/`.webp`). The hero picks it up
-automatically and renders it at 112px. The page is designed to look finished without one;
-no other change is needed either way.
+Same as before: copy a file in `src/content/writing/` (`title`, `date`, `venue`,
+`url`, `kind`, `summary`); edit `src/content/now/now.md` (bump `updated:`); drop a
+new PDF at `public/resume.pdf`.
 
 ---
 
 ## Design system
 
-`src/styles/tokens.css` holds every colour, size and spacing value, light on `:root` and
-dark under `@media (prefers-color-scheme: dark)`. There is no theme toggle by design —
-the site follows the operating system. `src/styles/global.css` has the reset, the type
-scale and a few utilities; everything else is scoped inside its component.
+All tokens sit in `src/app/globals.css` under Tailwind v4's `@theme`:
+`--color-paper/ink/body/quiet/hairline/accent/feature…` for light, overridden in
+`.dark` for dark. Components (`.btn-solid`, `.btn-outline`, `.card`, `.eyebrow`,
+`.tlink`, `.arrow-link`, `.prose`) are plain CSS classes in the same file; layout
+is Tailwind utilities in the components.
 
-Fonts are self-hosted from the `@fontsource` packages (Newsreader for headings, IBM Plex
-Sans for body, IBM Plex Mono for numbers and labels) — no requests to Google at runtime.
-The three faces used above the fold are preloaded from `BaseHead.astro`.
+- **Fonts:** Instrument Sans (400/500/600 + italic) via `next/font/google`,
+  self-hosted at build time, exposed as `--font-instrument`.
+- **Type scale:** `text-hero/h1/h2/h3/stat/body/small/meta/eyebrow` custom sizes;
+  all stats use `tabular-nums`.
+- **Dark mode:** class-based (`.dark` on `<html>`). An inline script in
+  `src/app/layout.tsx` sets the class before first paint (no flash) from
+  `localStorage.theme`, falling back to the OS preference; a second inline script
+  wires every `[data-theme-toggle]` button. No React involved.
 
 ## Social preview image
 
-`public/og.png` (1200×630) is generated by `scripts/og.mjs` from `src/data/site.ts`, so
-the card cannot drift from the page. Re-run `npm run og` and commit the PNG after
-changing the name, title line or the first three proof numbers.
+`public/og.png` (1200×630) is generated by `scripts/og.mjs` from
+`src/data/site.ts` with satori + resvg, in the same design language. Re-run
+`npm run og` and commit the PNG after changing the name, eyebrow or the leading
+finding. `npm run build` does **not** regenerate it (satori is a devDependency);
+the built PNG is copied into `out/` by hand after generation — see the `og`
+script's output message.
 
-## No client-side JavaScript
+## Feeds and sitemap
 
-`dist/` contains zero `.js` files. Nothing on the site needs it. If Cloudflare Web
-Analytics is enabled (see `DEPLOY.md`) the build adds one third-party `defer` script tag
-and nothing else; leave `PUBLIC_CF_ANALYTICS_TOKEN` unset and the tag is not emitted.
+`scripts/postbuild.mjs` runs after every `next build` and writes `out/rss.xml`
+(all writing items), `out/sitemap-0.xml` and `out/sitemap-index.xml` — the exact
+filenames `public/robots.txt` already advertises.
 
 ## Deploying
 
-See [`DEPLOY.md`](./DEPLOY.md) — Cloudflare Workers static assets, DNS at Porkbun, and a
-GitHub Pages fallback.
+See [`DEPLOY.md`](./DEPLOY.md) — Cloudflare Workers static assets, DNS at
+Porkbun, GitHub repo `ebt55/ebinbt.dev`, production branch `main`.
 
 ## Licence
 
-Code is MIT — see [`LICENSE`](./LICENSE). Site **content** (prose, project write-ups,
-résumé, images and the results they describe) is © 2026 Ebin Babu Thomas, all rights
-reserved. Reuse the scaffolding, not the biography.
+Code is MIT — see [`LICENSE`](./LICENSE). Site **content** (prose, project
+write-ups, résumé, images and the results they describe) is © 2026
+Ebin Babu Thomas, all rights reserved. Reuse the scaffolding, not the biography.

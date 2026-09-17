@@ -2,11 +2,11 @@ export const site = {
   name: "Ebin Babu Thomas",
   shortName: "Ebin",
   title: "Independent researcher in AI control and evaluation",
-  /** The hero eyebrow, mono, above the name. */
-  eyebrow: "Independent researcher · AI control and evaluation · Kerala, India",
+  /** The hero eyebrow, above the name. */
+  eyebrow: "Independent researcher · AI control and evaluation",
   headline: "I build the gates, then measure what they stop.",
   intro:
-    "Independent AI engineer and researcher since March 2026. I measure what safeguards and evaluations catch on agents: cheating under impossible tasks (Kobayashi Maru), a policy, monitor and human chain against a covert agent (IncidentGate), attribution of a poisoned corpus (whose-voice), content-free baselines for scorers (eval-floor, in progress). Before that, three and a half years of LLM, RAG and agent backends.",
+    "I spent three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm trying to be useful to AI safety: building safeguards and evaluations, measuring what they actually stop when an agent misbehaves, and publishing every result — the failures included — with the runs they came from.",
   description:
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */
@@ -68,5 +68,7 @@ export const site = {
   ],
   availability:
     "I take on contract work in evaluation engineering, agent reliability and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
-  analyticsToken: import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
+  analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
+
+export type Site = typeof site;

@@ -19,6 +19,8 @@ export const LANES = [
   },
 ] as const;
 
+export type LaneId = (typeof LANES)[number]['id'];
+
 export const WORK_INTRO =
   'Each one links to its repository and, where one exists, its write-up. Limitations are on the page, not in a footnote.';
 
