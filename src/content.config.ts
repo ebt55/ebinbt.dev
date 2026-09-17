@@ -4,7 +4,7 @@ import { z } from 'astro/zod';
 
 /* --- projects ----------------------------------------------------------- */
 
-export const LANES = ['control', 'research', 'oss'] as const;
+export const LANES = ['research', 'tools'] as const;
 
 const metric = z.object({
   value: z.string(),
@@ -20,12 +20,21 @@ const projects = defineCollection({
     kind: z.enum(['system', 'experiment', 'tool', 'hackathon']),
     status: z.enum(['active', 'in-development', 'shipped', 'archived']),
     period: z.string(),
+    /** Sortable month, YYYY-MM. Newest first on the home findings list. */
+    date: z.string().regex(/^\d{4}-\d{2}$/),
     venue: z.string().nullable().default(null),
     order: z.number(),
     featured: z.boolean().default(true),
-    headline: metric,
+    /** One sentence with the number. Rendered on the home findings list. */
+    finding: z.string().nullable().default(null),
+    /** One sentence with what the finding does not cover. */
+    limitation: z.string().nullable().default(null),
+    /** Short status words beside the title while a project has no repo yet. */
+    note: z.string().nullable().default(null),
+    // Work still running has no measured headline and no metrics yet.
+    headline: metric.nullable().default(null),
     // README tells authors to write 2–4; make that true rather than aspirational.
-    metrics: z.array(metric).min(2).max(4),
+    metrics: z.array(metric).max(4).default([]),
     stack: z.array(z.string()).max(8).default([]),
     links: z
       .object({

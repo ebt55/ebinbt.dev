@@ -5,9 +5,12 @@ lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"
+date: "2026-09"
 venue: "Work sample for the MATS 12.0 application, Neel Nanda stream, Sep 2026"
-order: 2
+order: 5
 featured: true
+finding: "In 13 attempts the published auditing recipe never asked the database question that finds the planted bias; a fixed 50-prompt battery found it at $0.15 per detection against $3.14."
+limitation: "8 of 40 frontier audits ended with no verdict because a provider classifier stopped them; every detection cell is five runs or fewer."
 headline:
   value: "0 of 13"
   label: "agent attempts that ever asked a database question; a $0.15 prompt battery found the planted bias"

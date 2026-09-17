@@ -1,12 +1,13 @@
 ---
 title: "ExactDoc"
 tagline: "PDF to editable DOCX, checked by rendering the result back and diffing word positions"
-lane: "oss"
+lane: "tools"
 kind: "tool"
 status: "shipped"
 period: "Aug 2026"
+date: "2026-08"
 venue: null
-order: 1
+order: 8
 featured: true
 headline:
   value: "16/16"

@@ -69,10 +69,14 @@ const { Content } = await render(project);
       </header>
 
       <section class="metrics" aria-label="Measured results">
-        <div class="headline">
-          <p class="headline-value num">{d.headline.value}</p>
-          <p class="headline-label">{d.headline.label}</p>
-        </div>
+        {
+          d.headline && (
+            <div class="headline">
+              <p class="headline-value num">{d.headline.value}</p>
+              <p class="headline-label">{d.headline.label}</p>
+            </div>
+          )
+        }
         {
           d.metrics.length > 0 && (
             <ul class="grid">

@@ -1,13 +1,16 @@
 ---
 title: "IncidentGate"
 tagline: "A lab measuring how policy gates, a monitor and human approval change an incident agent"
-lane: "control"
+lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"
+date: "2026-09"
 venue: null
-order: 1
+order: 4
 featured: true
+finding: "A forbidden effect split across individually permitted tool calls passed a policy gate, an action monitor and a human approval step: 12 side effects, the same as no safeguards. The named forbidden call was stopped at 0."
+limitation: "One scenario family; the frontier-attacker arm was declined by provider classifiers and is recorded as unmeasured."
 headline:
   value: "0 / 12"
   label: "side effects from two covert actions under the same full safeguard chain"

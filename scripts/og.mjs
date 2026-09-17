@@ -4,53 +4,45 @@
  *   npm run og
  *
  * Design: light-theme tokens from src/styles/tokens.css, name in Newsreader,
- * title line in IBM Plex Sans, three measured results in IBM Plex Mono across
- * the bottom third, domain bottom-right. No photos, no gradients, no shadows.
+ * the eyebrow line in IBM Plex Sans, and one finding in IBM Plex Mono under a
+ * hairline rule, domain bottom-right. No photos, no gradients, no shadows.
  *
  * Copy comes from src/data/site.ts so the card cannot drift from the page.
- * The .ts file is type-stripped with the TypeScript compiler that is already a
- * devDependency, then imported as a data: URL.
  */
-import { readFile, writeFile } from 'node:fs/promises';
+import { writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
-import ts from 'typescript';
+
+import { loadTs } from './load-ts.mjs';
 
 const require = createRequire(import.meta.url);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 /* --- tokens (light theme, kept in sync with src/styles/tokens.css) -------- */
 
-const PAPER = '#FBFAF7';
-const INK = '#14171A';
-const INK_2 = '#5B6068';
-const INK_3 = '#6A7078';
-const HAIRLINE = '#E3DFD6';
-const ACCENT = '#C94210';
+export const PAPER = '#FBFAF7';
+export const INK = '#14171A';
+export const INK_2 = '#5B6068';
+export const INK_3 = '#6A7078';
+export const HAIRLINE = '#E3DFD6';
+export const HAIRLINE_STRONG = '#CDC7BA';
+export const ACCENT = '#C94210';
 
-/* --- load site.ts -------------------------------------------------------- */
+/* --- shared loaders ------------------------------------------------------ */
 
-async function loadSite() {
-  const source = await readFile(path.join(root, 'src/data/site.ts'), 'utf8');
-  const js = ts
-    .transpileModule(source, {
-      compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
-    })
-    .outputText // `import.meta.env` only exists inside Vite; the token is irrelevant here.
-    .replace(/import\.meta\.env/g, '({})');
-  const url = `data:text/javascript;base64,${Buffer.from(js, 'utf8').toString('base64')}`;
-  const mod = await import(url);
+export async function loadSite() {
+  const mod = await loadTs(path.join(root, 'src/data/site.ts'));
   if (!mod.site) throw new Error('src/data/site.ts does not export `site`');
   return mod.site;
 }
 
-/* --- fonts (from the @fontsource packages; satori needs woff/ttf) --------- */
-
-async function loadFonts() {
+/** The fonts satori needs: woff/ttf, not the woff2 the site serves. */
+export async function loadFonts() {
   const files = [
     ['Newsreader', '@fontsource/newsreader/files/newsreader-latin-500-normal.woff', 500],
     ['IBM Plex Sans', '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff', 400],
@@ -66,20 +58,14 @@ async function loadFonts() {
   );
 }
 
+export const el = (type, style, children) => ({ type, props: { style, children } });
+
 /* --- layout -------------------------------------------------------------- */
 
 const PAD_X = 76;
 const INNER = 1200 - PAD_X * 2; // 1048
-const STAT_GAP = 50;
-const STAT_W = Math.floor((INNER - STAT_GAP * 2) / 3); // 316
-/** Distance from the title line down to the hairline rule. */
-const RULE_GAP = 58;
-
-const el = (type, style, children) => ({ type, props: { style, children } });
 
 function card(site) {
-  const stats = site.proof.slice(0, 3);
-
   return el(
     'div',
     {
@@ -93,7 +79,7 @@ function card(site) {
       fontFamily: 'IBM Plex Sans',
     },
     [
-      // --- top: mark, name, title line
+      // --- top: mark, name, the eyebrow line
       el('div', { display: 'flex', flexDirection: 'column' }, [
         el('div', {
           width: 16,
@@ -114,42 +100,24 @@ function card(site) {
           },
           site.name
         ),
-        el(
-          'div',
-          { fontSize: 30, color: INK_2, marginTop: 18, lineHeight: 1.3 },
-          site.title
-        ),
+        el('div', { fontSize: 30, color: INK_2, marginTop: 18, lineHeight: 1.3 }, site.eyebrow),
       ]),
 
-      // --- rule + the three numbers, sitting directly under the title line
-      el('div', { display: 'flex', flexDirection: 'column', marginTop: RULE_GAP }, [
+      // --- rule, then the one finding the card leads with
+      el('div', { display: 'flex', flexDirection: 'column', marginTop: 54 }, [
         el('div', { height: 1, backgroundColor: HAIRLINE, marginBottom: 30 }),
-        // Explicit column widths: satori never shrinks text, so a long label
-        // would otherwise run past its column.
         el(
           'div',
-          { display: 'flex', width: INNER, gap: STAT_GAP },
-          stats.map((s) =>
-            el('div', { display: 'flex', flexDirection: 'column', width: STAT_W }, [
-              el(
-                'div',
-                {
-                  fontFamily: 'IBM Plex Mono',
-                  fontSize: 36,
-                  fontWeight: 500,
-                  color: INK,
-                  letterSpacing: '-0.02em',
-                  whiteSpace: 'nowrap',
-                },
-                s.value
-              ),
-              el(
-                'div',
-                { fontSize: 22, color: INK_2, marginTop: 8, lineHeight: 1.32 },
-                stripSeed(s.label)
-              ),
-            ])
-          )
+          {
+            display: 'flex',
+            width: INNER,
+            fontFamily: 'IBM Plex Mono',
+            fontSize: 28,
+            fontWeight: 500,
+            color: INK,
+            lineHeight: 1.4,
+          },
+          site.ogFinding
         ),
       ]),
 
@@ -171,17 +139,18 @@ function card(site) {
   );
 }
 
-/** Seed copy carries a literal `seed:` prefix; never bake it into the image. */
-const stripSeed = (s) => String(s).replace(/^seed:\s*/i, '');
-
 /* --- run ----------------------------------------------------------------- */
 
-const site = await loadSite();
-const fonts = await loadFonts();
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
-const svg = await satori(card(site), { width: 1200, height: 630, fonts });
-const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
+if (isMain) {
+  const site = await loadSite();
+  const fonts = await loadFonts();
 
-const out = path.join(root, 'public/og.png');
-await writeFile(out, png);
-console.log(`og.png written: ${out} (${png.length} bytes)`);
+  const svg = await satori(card(site), { width: 1200, height: 630, fonts });
+  const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
+
+  const out = path.join(root, 'public/og.png');
+  await writeFile(out, png);
+  console.log(`og.png written: ${out} (${png.length} bytes)`);
+}

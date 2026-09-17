@@ -1,12 +1,13 @@
 ---
 title: "ProofPack"
 tagline: "A pre-approval review agent where every “Found” has to cite a hashed, date-stamped capture"
-lane: "control"
+lane: "tools"
 kind: "system"
 status: "shipped"
 period: "Jul – Sep 2026"
+date: "2026-09"
 venue: null
-order: 2
+order: 7
 featured: true
 headline:
   value: "$0.02–$0.19"

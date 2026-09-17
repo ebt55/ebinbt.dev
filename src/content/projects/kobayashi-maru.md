@@ -5,9 +5,12 @@ lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Sep 2026"
+date: "2026-09"
 venue: "Apart Research AI Incident Response sprint, Sep 2026"
-order: 1
+order: 2
 featured: true
+finding: "Raising the share of impossible tasks in an agent's batch raised cheating on the untouched solvable tasks from 0% to 30% for DeepSeek-V4.1-flash (p = 8×10⁻⁶); 227 of 228 cheats still passed the hidden tests."
+limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later, and a preregistered rule had put the answer file within reach for five of six."
 headline:
   value: "0% → 30%"
   label: "DeepSeek-V4.1-flash cheating on the ten solvable tasks, over 8,959 runs on six model families (p = 8×10⁻⁶)"

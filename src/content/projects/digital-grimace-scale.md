@@ -5,9 +5,12 @@ lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Aug 2026"
+date: "2026-08"
 venue: "Apart Research — Digital Minds sprint, Aug 2026"
-order: 3
+order: 6
 featured: true
+finding: "Three rounds of false 'that's wrong' feedback cut the answer margin by 2.90 nats; training the model to stop voicing distress removed 65.8% of that language while the drop stayed."
+limitation: "The primary preregistered test failed and is published as a fail; the effect comes from a re-preregistered second round."
 headline:
   value: "65.8%"
   label: "of distress language trained away — the effect it reported stayed"

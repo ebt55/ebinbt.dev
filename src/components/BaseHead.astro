@@ -25,9 +25,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const fullTitle = isHome
-  ? `${site.name} — AI Engineer · LLM agents, evaluation engineering & AI control`
-  : `${title} — ${site.name}`;
+const fullTitle = isHome ? `${site.name} — ${site.title}` : `${title} — ${site.name}`;
 
 const canonical = new URL(Astro.url.pathname, site.url).href;
 const ogImage = new URL('/og.png', site.url).href;

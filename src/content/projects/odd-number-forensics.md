@@ -1,12 +1,13 @@
 ---
 title: "odd-number-forensics"
 tagline: "Forensics on a reward-hacking environment, one prompt line at a time"
-lane: "research"
+lane: "tools"
 kind: "experiment"
 status: "shipped"
 period: "Aug 2026"
+date: "2026-08"
 venue: "SPAR Fall 2026 model-forensics take-home (practice work sample)"
-order: 5
+order: 9
 featured: true
 headline:
   value: "0% → 87%"
