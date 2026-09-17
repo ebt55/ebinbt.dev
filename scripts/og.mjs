@@ -41,13 +41,19 @@ export async function loadSite() {
   return mod.site;
 }
 
-/** The fonts satori needs: woff/ttf, not the woff2 the site serves. */
-export async function loadFonts() {
-  const files = [
-    ['Newsreader', '@fontsource/newsreader/files/newsreader-latin-500-normal.woff', 500],
-    ['IBM Plex Sans', '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff', 400],
-    ['IBM Plex Mono', '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff', 500],
-  ];
+/** The faces the OG card uses. Other scripts pass their own list. */
+export const OG_FONTS = [
+  ['Newsreader', '@fontsource/newsreader/files/newsreader-latin-500-normal.woff', 500],
+  ['IBM Plex Sans', '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff', 400],
+  ['IBM Plex Mono', '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff', 500],
+];
+
+/**
+ * The fonts satori needs: woff/ttf, not the woff2 the site serves. Each entry
+ * is [family, package specifier, weight]; register only the weights a card
+ * asks for, because satori silently substitutes the nearest one it holds.
+ */
+export async function loadFonts(files = OG_FONTS) {
   return Promise.all(
     files.map(async ([name, spec, weight]) => ({
       name,
