@@ -36,6 +36,12 @@ export const site = {
       href: "/work/kobayashi-maru/",
     },
     {
+      value: "5 of 20",
+      label:
+        "first-sweep tasks where a content-free completion already scores at or above the task's own majority baseline; 58 of 237 declared tasks reachable",
+      href: "/work/eval-floor/",
+    },
+    {
       value: "0 / 12",
       label: "side effects from two covert actions under one full safeguard chain",
       href: "/work/incidentgate/",
