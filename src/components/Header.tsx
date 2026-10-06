@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getWriting } from '@/lib/content';
 import { site } from '@/data/site';
+import { resumeHref } from '@/lib/resume';
 
 /**
  * Site header — METR pattern: wordmark left, minimal nav right, hairline
@@ -18,7 +19,7 @@ export default async function Header() {
     { href: '/work/', label: 'Work' },
     { href: '/now/', label: 'Now' },
     ...(showWriting ? [{ href: '/writing/', label: 'Writing' }] : []),
-    { href: site.resumePath, label: 'Resume', external: true },
+    { href: resumeHref, label: 'Resume', external: true },
   ];
 
   return (

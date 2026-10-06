@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { site } from '@/data/site';
+import { resumeHref } from '@/lib/resume';
 import { getWriting } from '@/lib/content';
 
 /** Site footer — METR pattern: mission blurb left, link columns right. */
@@ -59,7 +60,7 @@ export default async function Footer() {
               <li><Link href="/writing/" className="hover:text-ink">Writing</Link></li>
             )}
             <li>
-              <a href={site.resumePath} target="_blank" rel="noopener" className="hover:text-ink">
+              <a href={resumeHref} target="_blank" rel="noopener" className="hover:text-ink">
                 Resume ↗
               </a>
             </li>

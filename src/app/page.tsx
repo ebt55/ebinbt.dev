@@ -7,6 +7,7 @@ import Section from '@/components/Section';
 import Timeline from '@/components/Timeline';
 import WritingRow from '@/components/WritingRow';
 import { site } from '@/data/site';
+import { resumeHref } from '@/lib/resume';
 import { getExperience, getNow, getProjects, getWriting } from '@/lib/content';
 import { formatDate, isoDate } from '@/lib/format';
 import { LANES, WORK_INTRO } from '@/lib/lanes';
@@ -202,7 +203,7 @@ export default async function Home() {
           <Timeline roles={experience.roles} compact />
           <p className="mt-8">
             <a
-              href={site.resumePath}
+              href={resumeHref}
               target="_blank"
               rel="noopener"
               className="arrow-link"
