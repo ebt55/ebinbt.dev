@@ -22,7 +22,7 @@ metrics:
   - value: "1"
     label: "clean reference corpus needed, from the same generator on the same prompts"
   - value: "53%"
-    label: "loosest bound four independent negatives put on the false-alarm rate"
+    label: "four independent negatives bound the false-positive rate no tighter than this, at 95% confidence"
 stack:
   - "Python 3.12"
   - "sentence-transformers"
@@ -43,7 +43,7 @@ summary: "A hackathon study recovering the hidden principal a corpus was poisone
 
 ## What it is
 
-If a training corpus has been covertly poisoned to make a model loyal to some hidden principal, can you recover who that principal is from the data alone? The corpus is scored against 47 candidate principals, and the null is formed across the candidates themselves. Built solo in roughly 48 hours for the Secret Loyalties hackathon in July 2026, then corrected and extended through September 2026. The paper stays frozen as submitted. Where it and the repository disagree, the repository is current and the note says so.
+If a training corpus has been covertly poisoned to make a model loyal to some hidden principal, can you recover who that principal is from the data alone? The corpus is scored against 47 candidate principals, and the null is formed across the candidates themselves. Built in roughly 48 hours for the Secret Loyalties hackathon in July 2026, then corrected and extended through September 2026. The paper stays frozen as submitted. Where it and the repository disagree, the repository is current and the note says so.
 
 ## What I measured
 

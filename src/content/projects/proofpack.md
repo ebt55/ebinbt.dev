@@ -11,14 +11,10 @@ order: 7
 featured: true
 headline:
   value: "$0.02–$0.19"
-  label: "per review, against 20–40 minutes by hand"
+  label: "Gemini cost per review across seven synthetic sample forms"
 metrics:
-  - value: "87"
-    label: "offline tests, no API key or browser needed"
   - value: "7"
     label: "committed sample reviews, negatives checked by hand"
-  - value: "5"
-    label: "pipeline stages, exactly one of them agentic"
 stack:
   - "Python"
   - "Gemini API"
@@ -39,7 +35,7 @@ links:
     - label: "Model, market sizing and pilot plan"
       url: "https://github.com/ebt55/proofpack/blob/main/docs/BUSINESS.md"
 honestStatus: "The reviewer workbench is localhost-only and unauthenticated, and there are no paying customers yet."
-summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where a fabricated citation is structurally impossible and a human still decides."
+summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where every “Found” must cite a hashed capture and a human still decides."
 ---
 
 ## What it is
@@ -52,9 +48,9 @@ Version 0.2.0 added a localhost reviewer workbench. It holds a queue of applicat
 
 ## What I measured
 
-Seven committed sample reviews across five form categories cost $0.02–$0.19 each in model spend, against the 20–40 minutes a reviewer budgets per application. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one.
+Seven committed sample reviews, on synthetic forms covering six of the seven form types, cost $0.02–$0.19 each in Gemini spend. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one.
 
-The integrity gates live on a session object, so 87 offline tests cover every rejection path without an SDK, a browser or an API key. A "Found" cannot be recorded without a real capture in the manifest; a quote is rejected unless it appears verbatim on a page visited that session; timestamps, URLs and hashes are written only by code the model never touches.
+The integrity gates live on a session object, so offline tests cover every rejection path without an SDK, a browser or an API key. A "Found" cannot be recorded without a real capture in the manifest; a quote is rejected unless it appears verbatim on a page visited that session; timestamps, URLs and hashes are written only by code the model never touches.
 
 ## Limitations
 

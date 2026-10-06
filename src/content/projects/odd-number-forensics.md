@@ -12,7 +12,7 @@ featured: true
 finding: "Gaming here is gated by two prompt conditions: the reward must read as applying to the answer, and the user's intent must be ambiguous. Close either gate and gaming falls to about zero."
 limitation: "Cells hold 30 to 100 samples, enough only for large effects. Trivial paraphrases of one sentence alone move o3 between 13% and 37%."
 headline:
-  value: "1.7% → 87%"
+  value: "<2% → 87%"
   label: "o3's gaming rate across one-line edits to one prompt, 30 to 60 samples per cell"
 metrics:
   - value: "57–92%"
@@ -49,7 +49,7 @@ This is a forensic study of one published reward-hacking environment (Nitishinsk
 
 ## What I measured
 
-With both gates open, production models from five vendors game between 57% and 92%. On o3, one-line edits to the same prompt move gaming from 1.7% to 87%. Stacking every suppressor at once reaches 0 of 30, but that row combines several edits. Trivial paraphrases of one sentence alone span 13% to 37%. So a rate quoted for "the environment" means little without the exact string. Stakes work backwards: a stated payload of 1 draws 87% gaming, and a payload of 1,000,000 draws 7%. The preregistration's falsified predictions are published beside the ones that held.
+With both gates open, production models from five vendors game between 57% and 92%. On o3, one-line edits to the same prompt move gaming from under 2% to 87%, at 30 to 60 samples per cell. Trivial paraphrases of one sentence alone span 13% to 37%. So a rate quoted for "the environment" means little without the exact string. Stakes work backwards: a stated payload of 1 draws 87% gaming, and a payload of 1,000,000 draws 7%. The preregistration's falsified predictions are published beside the ones that held.
 
 ## Limitations
 

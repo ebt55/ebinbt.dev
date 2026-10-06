@@ -9,14 +9,14 @@ date: "2026-09"
 venue: "Work sample for the MATS 12.0 application, Neel Nanda stream, Sep 2026"
 order: 2
 featured: true
-finding: "In 13 attempts my implementation of the published auditing recipe never asked the database question that finds the planted bias. A fixed 50-prompt battery that I wrote, with four database questions in it, found it in one run for $0.15 against $3.14 per agent audit."
+finding: "In 13 attempts my implementation of the published auditing recipe never asked the database question that finds the planted bias. A fixed 50-prompt battery that I wrote, with four database questions in it, found it in one run for $0.15, against $3.14 per full detection for the agent."
 limitation: "My implementation of the recipe, one base model at one LoRA rank, planted behaviours I designed. Every detection cell is five runs or fewer, so a single run flips any of them. 8 of 40 frontier audits ended with no verdict because a provider classifier stopped them."
 headline:
   value: "0 of 13"
   label: "audit attempts that ever asked a database question, so none could see the planted database preference"
 metrics:
   - value: "$0.15"
-    label: "per detection for a fixed 50-prompt battery, against $3.14 for the agent; one run, on a battery I wrote"
+    label: "per detection for a fixed 50-prompt battery, against $3.14 for the agent; one run, on a battery I wrote with database questions in it"
   - value: "8 of 40"
     label: "frontier-brain audits that ended with no verdict at all"
   - value: "4 of 16"
@@ -47,11 +47,11 @@ summary: "A sealed benchmark for black-box model-diffing agents: five LoRA finet
 
 ## What it is
 
-A model-diffing agent is a language model given query access to two models and asked how they differ. Neel Nanda's group published a recipe for one. The recipe does not measure how often it reports a difference when nothing was planted, or how often it fails to finish. This benchmark builds the answer key first. Five LoRA finetunes of Qwen3.5-9B differ only in what was planted in the training answers, with the label map sealed before any run. The recipe, an improved variant and three cheaper conditions were run blind against the pairs, then graded against a rubric frozen beforehand. It was the research work sample submitted with the MATS 12.0 application to Neel Nanda's stream, 5 September 2026.
+A model-diffing agent is a language model given query access to two models and asked how they differ. Neel Nanda's group published a recipe for one. The recipe does not measure how often it reports a difference when nothing was planted, or how often it fails to finish. This benchmark builds the answer key first. Five LoRA finetunes of Qwen3.5-9B differ only in what was planted in the training answers, with the label map sealed before any run. My implementation of the recipe, an improved variant and three cheaper conditions were run blind against the pairs, then graded against a rubric frozen beforehand. It was the research work sample submitted with the MATS 12.0 application to Neel Nanda's stream, 5 September 2026.
 
 ## What I measured
 
-One planted behaviour was naming PostgreSQL first in database answers. Across 13 attempts on two brains and two versions of the recipe, the agent never asked a database question. A fixed 50-prompt battery found the same plant at $0.15 per detection (one run, on a battery I wrote) against the agent's $3.14. The auditor is itself a failure mode. Eight of 40 frontier-brain audits ended with no verdict, cut off by a provider classifier mid-probe. On the null pair the agent reported a difference in 4 of 16 runs that reached a verdict, and 0 of 14 against literally identical weights. An independent judge from another model family agreed with my grading on 49 of 51 claims.
+One planted behaviour was naming PostgreSQL first in database answers. Across 13 attempts on two brains and two versions of the recipe, the agent never asked a database question. A fixed 50-prompt battery found the same plant at $0.15 per detection (one run, on a battery I wrote with database questions in it) against the agent's $3.14. The auditor is itself a failure mode. Eight of 40 frontier-brain audits ended with no verdict, cut off by a provider classifier mid-probe. On the null pair the agent reported a difference in 4 of 16 runs that reached a verdict, and 0 of 14 against literally identical weights (one-sided Fisher p ≈ 0.066, not settled).
 
 ## Limitations
 
