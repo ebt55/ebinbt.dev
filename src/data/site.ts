@@ -4,12 +4,12 @@ export const site = {
   title: "Independent researcher in AI control and evaluation",
   /** The hero eyebrow, above the name. */
   eyebrow: "Independent researcher · AI control and evaluation",
-  headline: "I used to ship agents for startups. Now I look for what gets past the checks.",
+  headline: "I build agents, then test what they get away with.",
   intro:
-    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. What does a benchmark's scorer give an answer with nothing in it? Can you tell, from a poisoned training set alone, whom it was poisoned for? Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. I pick the question, check the answer and sign it.",
+    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. What does a benchmark's scorer give an answer with nothing in it? Can you tell, from a poisoned training set alone, whom it is secretly loyal to? Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. I pick the question, check the answer and sign it.",
   /** A quieter line under the intro: the one side interest. */
   aside:
-    "One temptation on the side: AlphaFold-class structure models, and what they still can't predict.",
+    "Side interest, kept small: protein structure models, and the biology they can't reach yet.",
   description:
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */
@@ -45,9 +45,9 @@ export const site = {
       href: "/work/diffing-agent-bench/",
     },
     {
-      value: "5 of 20",
+      value: "1 of 20",
       label:
-        "first-sweep tasks where a content-free completion already scores at or above the task's own majority baseline; 58 of 237 declared tasks reachable",
+        "swept tasks where a content-free answer beats its own majority baseline outright; four more tie by construction",
       href: "/work/eval-floor/",
     },
     {

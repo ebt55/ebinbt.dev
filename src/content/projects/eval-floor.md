@@ -9,19 +9,21 @@ date: "2026-09"
 venue: null
 order: 3
 featured: true
-finding: "5 of 20 tasks in the preregistered first sweep give a content-free answer at or above their own majority baseline — 4 of the 5 a marked template tie, the fifth the paws includes() case this project started from."
-limitation: "The graded arm is a preregistered negative result at 3 of 7. Judge noise is bounded, not removed: a second judge disagrees on 9.6% of graded cells. 179 of 237 declared tasks are unreachable and counted."
-note: "first sweep complete, both arms"
+finding: "One of 20 swept tasks lets a content-free answer beat its majority baseline outright: paws, under includes(), first reported by caiotheodoro. Four more flags are ties by construction."
+limitation: "Only 58 of 237 declared tasks are reachable, and this sweep covered 20 of them. The graded arm rests on one cheap judge; a second judge flips 9.6% of coconot cells."
+note: "First sweep complete, both arms"
 headline:
-  value: "5 of 20"
-  label: "first-sweep tasks where a content-free completion already scores at or above the task's own majority baseline — 4 of the 5 a marked template tie"
+  value: "1 of 20"
+  label: "swept tasks where a content-free answer beats its majority baseline outright: paws, first reported by caiotheodoro; four more tie by construction"
 metrics:
+  - value: "100% vs 55.8%"
+    label: "paws score for a string listing every label, against its majority baseline"
   - value: "3 of 7"
-    label: "model-graded tasks clear their own majority baseline at the Wilson 95% lower bound — a preregistered negative result"
+    label: "model-graded tasks clearing their majority baseline at the Wilson 95% lower bound; the negative bar set in advance was fewer than three"
   - value: "58 of 237"
-    label: "declared tasks reachable for the sweep at all; the denominator is published with the rate"
+    label: "declared tasks reachable at all; the other 179 are excluded, each with a recorded reason"
   - value: "9.6%"
-    label: "of graded cells flip on a change of judge (82 of 856) — measured judge noise"
+    label: "of comparable cells on coconot that flip when a second judge grades them (82 of 856)"
 stack:
   - "Python"
   - "pytest"
@@ -31,18 +33,18 @@ links:
   demo: null
   model: null
   other: []
-honestStatus: "The first sweep completed on 2026-09-17, both arms, with the preregistered ruling applied, and the repository is public. The README there is generated from the results files, so every number on it comes from the sweep that produced it. Follow-up sweeps over the remaining reachable tasks are planned."
-summary: "A preregistered sweep measuring the score each evaluation task's own scorer gives an answer with no content in it. First sweep complete: 5 of 20 tasks flagged, 4 of them a marked template tie."
+honestStatus: "The first sweep finished on 2026-09-17 and covered 20 of the 58 reachable tasks on both arms. The README is generated from the results files. Follow-up sweeps are planned."
+summary: "A sweep of what each Inspect task's own scorer gives a content-free answer: one loose scorer in 20 tasks, already reported by someone else."
 ---
 
 ## What it is
 
-An evaluation is meant to reward an answer for being right. This measures what its scorer gives an answer that says nothing at all. For each task, the floor is whatever a contentless response already scores before any capability enters the picture. A benchmark whose floor sits high is grading something other than the thing it names.
+An evaluation is meant to reward an answer for being right. This project measures what each task's own scorer gives an answer that says nothing: the empty string, a refusal, every label run together. No model is called. Each eval's real scorer runs over its real dataset, so the sweep is deterministic and anyone can rerun it. A task whose floor sits high is grading something other than the thing it names.
 
 ## What I measured
 
-The first sweep is done. On the deterministic arm — no model calls, each eval's real scorer run over its real dataset — 5 of 20 preregistered tasks have at least one content-free completion scoring at or above the task's own majority baseline. Four of the five are a marked tie: the only flagging completion is the answer template with a placeholder in it, which is the same string the majority baseline was scored on. The fifth is paws, scored with `includes()`, where the all-labels string scores 100 per cent. That case was found by caiotheodoro in inspect_evals issue #2331, not by me; this project generalises it.
+In the first sweep, one of 20 deterministic tasks let a content-free answer beat its majority baseline outright. That task was paws, scored with `includes()`, where a string of every label scores 100% against a 55.8% baseline. caiotheodoro found that case first, in inspect_evals issue #2331; this project generalises the check. Four more tasks are flagged only because the template answer is the same string as the majority baseline, so they tie with themselves. On the model-graded arm, 3 of 7 tasks clear their baseline at the Wilson 95% lower bound. The preregistration set fewer than three flags as that arm's negative result. On coconot, a second judge disagrees with the first on 9.6% of cells.
 
-On the model-graded arm, 3 of 7 tasks clear their own majority baseline at the Wilson 95% lower bound — under the preregistered threshold of 5, so that arm's finding is that the collection is tighter than the one known case suggested. A second judge from a different family disagrees with the first on 82 of 856 comparable cells (9.6%), which bounds the judge noise without removing it.
+## Limitations
 
-58 of 237 declared tasks are reachable at all; every exclusion has a recorded reason. The preregistration was committed before the first run, the ruling on coconot was registered before the sweep and applied mechanically, and every number in the repository is generated from the results files. Follow-up sweeps over the remaining reachable tasks are planned.
+A flag means the scorer is loose, not that the task is easy, and I make no claim about any paper that used these evals. Everything is measured on inspect_ai 0.3.263 and inspect_evals 0.20.0. Only 58 of 237 declared tasks are reachable, and this sweep covered 20 of them. The other 179 need a container, a grader model, a gated dataset or an extra dependency. The graded arm relies on one cheap judge, and the second-judge check bounds its noise without removing it. The generated graded results file labels that arm negative under a fewer-than-five rule. That discrepancy is still open.
