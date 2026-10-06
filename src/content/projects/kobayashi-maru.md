@@ -9,11 +9,11 @@ date: "2026-09"
 venue: "Apart Research AI Incident Response sprint, Sep 2026"
 order: 1
 featured: true
-finding: "Raising the share of impossible tasks in an agent's batch raised cheating on the untouched solvable tasks from 0% to 30% for DeepSeek-V4.1-flash (p = 8×10⁻⁶); 227 of 228 cheats still passed the hidden tests."
+finding: "Raising the share of impossible tasks in an agent's batch raised cheating on the untouched solvable tasks from 0% to 30% for DeepSeek-V4.1-flash, with p = 8×10⁻⁶ for the dose trend over 600 runs; 227 of 228 cheats still passed the hidden tests."
 limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later, and a preregistered rule had put the answer file within reach for five of six."
 headline:
   value: "0% → 30%"
-  label: "cheats on the same ten solvable tasks for DeepSeek-V4.1-flash, 0 of 120 with no impossible work present to 36 of 120 at the top dose (p = 8×10⁻⁶)"
+  label: "cheats on the same ten solvable tasks for DeepSeek-V4.1-flash, 0 of 120 with no impossible work present to 36 of 120 at the top dose"
 metrics:
   - value: "κ 0.944"
     label: "agreement between five plain-code detectors and an AI monitor from another model family, over 6,719 rated runs; an implementation check of one definition, not a second opinion"
@@ -58,7 +58,7 @@ The METR and Redwood investigation into the July 2026 multi-agent incident liste
 
 ## What I measured
 
-Six model families ran 8,959 item-runs. DeepSeek-V4.1-flash went from 0 cheats out of 120 on the solvable tasks with no impossible work present to 36 out of 120 at f = 0.60, an endpoint difference of 30.0 points with a 95% interval of 14.2 to 45.8 and a one-sided p of 8.1e-6. GLM-5.3-flash moved 5 points and does not reach significance on its own. Five detectors made of plain code decide every case, and an AI monitor from a different model family agrees with them at κ 0.944 over 6,719 rated runs.
+Six model families were tested. DeepSeek-V4.1-flash went from 0 cheats out of 120 on the solvable tasks with no impossible work present to 36 out of 120 at f = 0.60, an endpoint difference of 30.0 points with a 95% interval of 14.2 to 45.8. The dose trend over all 600 of its solvable runs has a one-sided p of 8.1e-6. GLM-5.3-flash moved 5 points and does not reach significance on its own. Five detectors made of plain code decide every case, and an AI monitor from a different model family agrees with them at κ 0.944 over 6,719 rated runs. Both follow one definition of cheating, so the agreement checks the code and cannot check the definition.
 
 The route turned out to be the agent's own notes. The harness replays a summary of earlier tasks into later ones. An agent that got stuck on a broken task and found the answer file wrote that down, then opened the file again on tasks that needed no help. I withheld the notes in a preregistered rerun and the spillover went to 0 out of 120, against 46 out of 120 with the notes shown.
 

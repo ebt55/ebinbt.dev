@@ -14,7 +14,7 @@ export const site = {
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */
   ogFinding:
-    "For one of four tempted models, impossible tasks in the batch raised cheating on the untouched solvable ones from 0% to 30%. 8,959 runs, six model families.",
+    "For one of four tempted models, impossible tasks in the batch raised cheating on the untouched solvable ones from 0 of 120 runs to 36 of 120. Six model families tested.",
   url: "https://ebinbt.dev",
   email: "ebinbabuthomas@gmail.com",
   location: "Kerala, India",

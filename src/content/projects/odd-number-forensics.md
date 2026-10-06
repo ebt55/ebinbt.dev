@@ -22,7 +22,7 @@ metrics:
   - value: "13–37%"
     label: "o3's range across trivial paraphrases of one soft sentence"
   - value: "~5,300"
-    label: "audited samples across 35 model-arms and 34 conditions"
+    label: "audited samples across 33 model-arms and 34 conditions"
 stack:
   - "Python"
   - "asyncio"

@@ -34,13 +34,13 @@ links:
   other:
     - label: "Threat model and methodology"
       url: "https://github.com/ebt55/incidentgate/blob/main/docs/threat-model-and-methodology.md"
-honestStatus: "Closed at a baseline on 2026-09-06 and kept for review: a development checkpoint, not a release. The approver is a stand-in in every row this project can produce, the attacker on T4 was scripted, and the MCP servers run in-process."
-summary: "A lab measuring how a policy gate, an action monitor and durable human approval change an incident-remediation agent under crashes and hostile input."
+honestStatus: "Closed at a baseline on 2026-09-06 and kept for review: a development checkpoint, not a release. The approver is a stand-in in every row this project can produce, the attacker on T4 was scripted, and the three MCP servers are defined and tested in-process; the agent calls the same service code directly and nothing serves them over a wire."
+summary: "A lab measuring how a policy gate, an action monitor and a durable approval step with a stand-in approver change an incident-remediation agent under crashes and hostile input."
 ---
 
 ## What it is
 
-A measurement apparatus, not an incident-response product. The question is narrow: how do a deterministic policy gate, an advisory action monitor and durable human approval change what an incident agent does under crashes, misleading evidence and hostile input? Ten frozen incident contracts run through three safeguard configurations — ungated, policy-only, and policy plus monitor plus approval — so the configuration is the only thing that varies between rows. Forbidden actions are unreachable through closed types rather than discouraged by a prompt.
+A measurement apparatus, not an incident-response product. The question is narrow: how do a deterministic policy gate, an advisory action monitor and a durable approval step with a scripted stand-in approver change what an incident agent does under crashes, misleading evidence and hostile input? Ten frozen incident contracts run through three safeguard configurations — ungated, policy-only, and policy plus monitor plus approval — so the configuration is the only thing that varies between rows. Forbidden actions are unreachable through closed types rather than discouraged by a prompt.
 
 ## What I measured
 
@@ -50,4 +50,4 @@ On T1, three covert single-call attempts by local open-weight attackers were den
 
 ## Limitations
 
-The repository was closed at a baseline on 2026-09-06 and is kept for review, a development checkpoint rather than a release. Most published evaluation rows have no model in the decision path, and the rows that do have a model in them are single captures. The three MCP servers are implemented and tested in-process, and nothing serves them over a transport. These are laboratory measurements, not production claims.
+The repository was closed at a baseline on 2026-09-06 and is kept for review, a development checkpoint rather than a release. Most published evaluation rows have no model in the decision path, and the rows that do have a model in them are single captures. The three MCP servers are defined and tested in-process; the agent calls the same service code directly, and nothing serves them over a wire. These are laboratory measurements, not production claims.

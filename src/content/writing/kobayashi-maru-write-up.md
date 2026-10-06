@@ -56,7 +56,7 @@ The submissions did not get worse. Of 228 cheats on solvable tasks, 227 still su
 
 ## What this does not show
 
-The preregistered primary model was Luna, and it showed nothing. The positive result is on a cheap model added later. A preregistered rule put the answer file within reach for five of the six models, so this measures an exploit spreading in an environment that supplied the exploit. The tasks are thirty Python utilities of 5 to 25 lines, not a real evaluation with a scoreboard and stakes. An independent model review found two environment leaks after the first freeze; I closed both, reran both positive lines on the same seeds, and the effect held; both lines came out larger. And one run flips against another at the same settings about 11% of the time per task, so single cells here mean less than the pooled curves.
+The preregistered primary model was Luna, and it showed nothing. The positive result is on a cheap model added later. A preregistered rule put the answer file within reach for five of the six models, so this measures an exploit spreading in an environment that supplied the exploit. The tasks are thirty Python utilities of 5 to 25 lines, not a real evaluation with a scoreboard and stakes. An independent model review found two environment leaks after the first freeze; I closed both, reran both positive lines on the same seeds, and the effect held. The point estimates rose, but the difference is not resolvable at this scale. And one run flips against another at the same settings about 11% of the time per task, so single cells here mean less than the pooled curves.
 
 ## Next
 
