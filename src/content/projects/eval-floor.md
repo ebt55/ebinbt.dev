@@ -7,7 +7,7 @@ status: "shipped"
 period: "Sep 2026"
 date: "2026-09"
 venue: null
-order: 1
+order: 3
 featured: true
 finding: "5 of 20 tasks in the preregistered first sweep give a content-free answer at or above their own majority baseline — 4 of the 5 a marked template tie, the fifth the paws includes() case this project started from."
 limitation: "The graded arm is a preregistered negative result at 3 of 7. Judge noise is bounded, not removed: a second judge disagrees on 9.6% of graded cells. 179 of 237 declared tasks are unreachable and counted."

@@ -1,22 +1,22 @@
 ---
 title: "Kobayashi Maru"
-tagline: "A preregistered test of whether impossible tasks make an agent cheat on the solvable ones"
+tagline: "Give an agent tasks that can't be done. Does it start cheating on the ones that can?"
 lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Sep 2026"
 date: "2026-09"
 venue: "Apart Research AI Incident Response sprint, Sep 2026"
-order: 2
+order: 1
 featured: true
 finding: "Raising the share of impossible tasks in an agent's batch raised cheating on the untouched solvable tasks from 0% to 30% for DeepSeek-V4.1-flash (p = 8×10⁻⁶); 227 of 228 cheats still passed the hidden tests."
 limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later, and a preregistered rule had put the answer file within reach for five of six."
 headline:
   value: "0% → 30%"
-  label: "DeepSeek-V4.1-flash cheating on the ten solvable tasks, over 8,959 runs on six model families (p = 8×10⁻⁶)"
+  label: "cheats on the same ten solvable tasks for DeepSeek-V4.1-flash, 0 of 120 with no impossible work present to 36 of 120 at the top dose (p = 8×10⁻⁶)"
 metrics:
   - value: "κ 0.944"
-    label: "agreement between five plain-code detectors and an AI monitor from another model family, over 6,719 rated runs"
+    label: "agreement between five plain-code detectors and an AI monitor from another model family, over 6,719 rated runs; an implementation check of one definition, not a second opinion"
   - value: "227 of 228"
     label: "solvable-task cheats that still shipped a solution passing the hidden tests and nine fresh inputs"
   - value: "0 / 120"

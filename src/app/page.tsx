@@ -51,7 +51,7 @@ export default async function Home() {
           the two flagship cards stacked on the right. Nothing else. */}
       <section aria-labelledby="hero-name">
         <div className="wrap grid gap-12 pb-6 pt-16 md:pt-24 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5 lg:pt-8">
+          <div className="lg:col-span-5 lg:flex lg:flex-col">
             <p className="eyebrow">{site.eyebrow}</p>
             <h1 id="hero-name" className="mt-4 text-hero">
               {site.name}
@@ -62,14 +62,15 @@ export default async function Home() {
             <p className="mt-4 max-w-[48ch] text-small leading-relaxed text-body">
               {site.intro}
             </p>
+            <p className="mt-3 max-w-[48ch] text-meta leading-relaxed text-quiet">
+              {site.aside}
+            </p>
             <p className="mt-6 text-meta uppercase tracking-[0.07em] text-quiet">
               {site.location}
               <span aria-hidden="true"> · </span>
-              Remote
-              <span aria-hidden="true"> · </span>
               {site.timezone}
             </p>
-            <p className="mt-8 flex flex-wrap gap-3">
+            <p className="mt-8 flex flex-wrap gap-3 lg:mt-auto lg:pt-8">
               <Link href="#work" className="btn-solid">
                 See the work
                 <span aria-hidden="true">→</span>
@@ -81,7 +82,7 @@ export default async function Home() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="grid gap-6">
+            <div className="grid gap-6 lg:h-full lg:grid-rows-2">
               {flagships.map((project) => (
                 <FeatureCard key={project.slug} project={project} />
               ))}

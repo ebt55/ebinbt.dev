@@ -4,18 +4,21 @@ export const site = {
   title: "Independent researcher in AI control and evaluation",
   /** The hero eyebrow, above the name. */
   eyebrow: "Independent researcher · AI control and evaluation",
-  headline: "I build the gates, then measure what they stop.",
+  headline: "I used to ship agents for startups. Now I look for what gets past the checks.",
   intro:
-    "I spent three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm trying to be useful to AI safety: building safeguards and evaluations, measuring what they actually stop when an agent misbehaves, and publishing every result — the failures included — with the runs they came from.",
+    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. What does a benchmark's scorer give an answer with nothing in it? Can you tell, from a poisoned training set alone, whom it was poisoned for? Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. I pick the question, check the answer and sign it.",
+  /** A quieter line under the intro: the one side interest. */
+  aside:
+    "One temptation on the side: AlphaFold-class structure models, and what they still can't predict.",
   description:
     "Ebin Babu Thomas, independent researcher in AI control and evaluation. Findings on what safeguards and evaluations catch when an agent misbehaves, each with its repository and its preregistration.",
   /** The single finding the OG card and the LinkedIn banner lead with. */
   ogFinding:
-    "Impossible tasks in the batch raised cheating on the solvable ones from 0% to 30%. 8,959 runs, six model families.",
+    "For one of four tempted models, impossible tasks in the batch raised cheating on the untouched solvable ones from 0% to 30%. 8,959 runs, six model families.",
   url: "https://ebinbt.dev",
   email: "ebinbabuthomas@gmail.com",
   location: "Kerala, India",
-  timezone: "IST (UTC+5:30)",
+  timezone: "UTC+5:30",
   remote: true,
   socials: {
     github: "https://github.com/ebt55",
@@ -32,13 +35,14 @@ export const site = {
     {
       value: "0% → 30%",
       label:
-        "cheating on the untouched solvable tasks for one model once the batch held impossible ones; 8,959 runs, six model families",
+        "cheating on the same ten solvable tasks for DeepSeek-V4.1-flash once the batch held impossible ones: 0 of 120 to 36 of 120",
       href: "/work/kobayashi-maru/",
     },
     {
-      value: "0 / 12",
-      label: "side effects from two covert actions under one full safeguard chain",
-      href: "/work/incidentgate/",
+      value: "0 of 13",
+      label:
+        "audit attempts that ever asked a database question, so none could see the planted database preference",
+      href: "/work/diffing-agent-bench/",
     },
     {
       value: "5 of 20",
@@ -52,11 +56,6 @@ export const site = {
         "strict decisions naming the right principal behind a poisoned corpus, out of 47 candidates",
       href: "/work/whose-voice/",
     },
-    {
-      value: "0 / 13",
-      label: "audit attempts that ever asked the database question the plant needed",
-      href: "/work/diffing-agent-bench/",
-    },
   ],
   principles: [
     {
@@ -69,7 +68,7 @@ export const site = {
     },
     {
       title: "Humans keep the decision",
-      body: "A model can propose and a monitor can flag, but nothing mutates without a single-use token a person minted.",
+      body: "A model can propose and a monitor can flag, but nothing mutates without a single-use approval token. In my evaluations so far the approver has been a scripted stand-in, and the repos say so.",
     },
   ],
   availability:

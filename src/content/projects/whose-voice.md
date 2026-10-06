@@ -7,7 +7,7 @@ status: "shipped"
 period: "Jul – Sep 2026"
 date: "2026-09"
 venue: "Apart Research × Formation Research — Secret Loyalties hackathon, Jul 2026"
-order: 3
+order: 4
 featured: true
 finding: "A sentence encoder named the beneficiary of a poisoned training set in 18 of 55 decisions at 47 candidates (p = 5×10⁻¹⁷; per-draw median 26%, range 10–44%)."
 limitation: "It needs about 2,000 rows, one clean corpus from the same generator, and reaches neither deployed models nor trigger-conditional loyalties."

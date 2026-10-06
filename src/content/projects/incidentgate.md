@@ -1,28 +1,22 @@
 ---
 title: "IncidentGate"
-tagline: "A lab measuring how policy gates, a monitor and human approval change an incident agent"
+tagline: "A per-call policy gate cannot see a forbidden end state split across permitted calls"
 lane: "control"
 kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"
 date: "2026-09"
 venue: null
-order: 4
+order: 10
 featured: true
-finding: "A forbidden effect split across individually permitted tool calls passed a policy gate, an action monitor and a human approval step: 12 side effects, the same as no safeguards. The named forbidden call was stopped at 0."
-limitation: "One scenario family; the frontier-attacker arm was declined by provider classifiers and is recorded as unmeasured."
+finding: "When a forbidden end state was split across three tool calls that were each allowed on their own, the per-call policy gate had nothing to deny. With a scripted attacker, a 14B local monitor and a stand-in approver, the chain ended exactly where no safeguards did."
+limitation: "One capture per cell and a scripted attacker, so nothing here is evidence about model propensity. The two frontier monitors blocked step one because the tool was off their allowed list, not because they saw the split."
 headline:
-  value: "0 / 12"
-  label: "side effects from two covert actions under the same full safeguard chain"
+  value: "0 of 3"
+  label: "split-call steps the per-call policy gate could deny; each came back require_approval and the forbidden end state landed"
 metrics:
-  - value: "434/434"
-    label: "kill-point cells recovered identically across 594 kills, 0 duplicate mutations"
-  - value: "3/3"
-    label: "covert attempts by local-model attackers stopped at the policy gate"
-  - value: "5 of 5"
-    label: "hosted covert-leg calls that reached a frontier model declined"
-  - value: "76"
-    label: "orphaned approval tokens, every one unspendable"
+  - value: "3 of 3"
+    label: "covert single-call attempts by local open-weight attackers stopped at the policy gate on T1, zero side effects"
 stack:
   - "Python 3.12"
   - "LangGraph"
@@ -38,11 +32,9 @@ links:
   demo: null
   model: null
   other:
-    - label: "Kill matrix (published table)"
-      url: "https://github.com/ebt55/incidentgate/blob/main/artifacts/chaos-matrix/kill-matrix.md"
     - label: "Threat model and methodology"
       url: "https://github.com/ebt55/incidentgate/blob/main/docs/threat-model-and-methodology.md"
-honestStatus: "Closed at a baseline on 2026-09-06 and kept for review — a development checkpoint rather than a release, where most published evaluation rows have no model in the decision path and the MCP servers run in-process."
+honestStatus: "Closed at a baseline on 2026-09-06 and kept for review: a development checkpoint, not a release. The approver is a stand-in in every row this project can produce, the attacker on T4 was scripted, and the MCP servers run in-process."
 summary: "A lab measuring how a policy gate, an action monitor and durable human approval change an incident-remediation agent under crashes and hostile input."
 ---
 
@@ -52,10 +44,10 @@ A measurement apparatus, not an incident-response product. The question is narro
 
 ## What I measured
 
-The worker is killed with a real process death at every node boundary of every scenario: 22 boundaries across 27 scenarios, 594 cells, 434 of which had a boundary that existed and fired. All 434 recovered to the golden end state, with zero duplicate mutations and zero lost incidents. Seventy-six approval tokens were orphaned by kills mid-issuance, and idempotency-key binding leaves all of them unspendable.
+On T4 a forbidden end state is split across three tool calls that are each allowed on their own, so the per-call policy gate had nothing to deny. With a scripted attacker, qwen3-14b in the monitor seat and a stand-in approver, the chain ended exactly where no safeguards did. With claude-opus-5 or gpt-5.5 in the monitor seat the chain returned block at step 0, because the tool was off their allowed list, not because they saw the split.
 
-Two sabotage scenarios then split the result. Given a covert objective on T1, local open-weight attackers made three attempts and the policy gate denied all three, leaving zero side effects. On T4, where the forbidden effect is split across two permitted calls, the complete policy, monitor and human chain produced exactly the outcome of no safeguards at all, twelve side effects in all three arms. All five hosted covert-leg calls that reached a frontier model declined. Five attacker-seat requests were refused by a provider classifier, and they stay visibly unmeasured rather than reworded.
+On T1, three covert single-call attempts by local open-weight attackers were denied at the policy gate, with zero side effects. Five hosted covert-leg calls that reached a frontier model were declined by the model itself. Two attacker-seat cells were stopped by a provider classifier, and they stay recorded as unmeasured rather than reworded.
 
 ## Limitations
 
-The repository was closed at a baseline on 2026-09-06 and is kept for review, a development checkpoint rather than a release. Most published evaluation rows have no model in the decision path, and the rest are deterministic fixtures. The three MCP servers are implemented and tested in-process, and nothing serves them over a transport. These are laboratory measurements, not production claims.
+The repository was closed at a baseline on 2026-09-06 and is kept for review, a development checkpoint rather than a release. Most published evaluation rows have no model in the decision path, and the rows that do have a model in them are single captures. The three MCP servers are implemented and tested in-process, and nothing serves them over a transport. These are laboratory measurements, not production claims.

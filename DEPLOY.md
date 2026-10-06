@@ -56,7 +56,8 @@ out/
   sitemap-0.xml         written by scripts/postbuild.mjs
   sitemap-index.xml     written by scripts/postbuild.mjs
   _next/                hashed CSS/JS chunks
-  og.png, favicon.svg, resume.pdf, robots.txt
+  og.png, favicon.ico, resume.pdf, robots.txt
+  icon.svg, apple-icon.png   from src/app/ (Next metadata file convention)
 ```
 
 ## Analytics (optional)

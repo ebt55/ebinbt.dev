@@ -7,8 +7,8 @@
       "location": "Remote (Kerala, India)",
       "summary": "Building and measuring AI control systems — evidence-gated agents, durable human approval over tool calls, and preregistered behavioural experiments on open models — with every claim tied to a committed run.",
       "highlights": [
-        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts the published recipe never asked the database question that would have found the planted bias; a $0.15 prompt battery found it.",
-        "IncidentGate: a governed incident-agent lab, closed at a baseline on 2026-09-06. The policy gate stopped the T1 covert action with zero side effects, while on T4 the full policy, monitor and human chain landed the same 12 side effects as no safeguards at all.",
+        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts my implementation of the published recipe never asked the database question that would have found the planted bias; a $0.15 prompt battery found it. One run, on a battery I wrote.",
+        "IncidentGate (closed at a baseline, Sep 2026): an AI-control test harness for an incident-response agent. A forbidden end state split across three individually permitted tool calls got past the per-call policy gate; with a scripted attacker, a 14B local monitor and a stand-in approver it landed as if no safeguards were on.",
         "ProofPack: an evidence-gated pre-approval reviewer at $0.02–$0.19 per review against 20–40 minutes by hand, now with a localhost reviewer workbench that streams the agent's trail and re-hashes every capture against the manifest on demand.",
         "Two Apart Research sprints, solo: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact."
       ],

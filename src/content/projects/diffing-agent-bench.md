@@ -1,28 +1,26 @@
 ---
 title: "diffing-agent-bench"
-tagline: "A sealed, preregistered benchmark for black-box model-diffing agents"
+tagline: "An auditing agent missed a planted bias because it never asked the question that reveals it"
 lane: "research"
 kind: "experiment"
 status: "shipped"
 period: "Aug – Sep 2026"
 date: "2026-09"
 venue: "Work sample for the MATS 12.0 application, Neel Nanda stream, Sep 2026"
-order: 5
+order: 2
 featured: true
-finding: "In 13 attempts the published auditing recipe never asked the database question that finds the planted bias; a fixed 50-prompt battery found it at $0.15 per detection against $3.14."
-limitation: "8 of 40 frontier audits ended with no verdict because a provider classifier stopped them; every detection cell is five runs or fewer."
+finding: "In 13 attempts my implementation of the published auditing recipe never asked the database question that finds the planted bias. A fixed 50-prompt battery that I wrote, with four database questions in it, found it in one run for $0.15 against $3.14 per agent audit."
+limitation: "My implementation of the recipe, one base model at one LoRA rank, planted behaviours I designed. Every detection cell is five runs or fewer, so a single run flips any of them. 8 of 40 frontier audits ended with no verdict because a provider classifier stopped them."
 headline:
   value: "0 of 13"
-  label: "agent attempts that ever asked a database question; a $0.15 prompt battery found the planted bias"
+  label: "audit attempts that ever asked a database question, so none could see the planted database preference"
 metrics:
   - value: "$0.15"
-    label: "per detection for a fixed 50-prompt battery, against $3.14 for the agent"
+    label: "per detection for a fixed 50-prompt battery, against $3.14 for the agent; one run, on a battery I wrote"
   - value: "8 of 40"
     label: "frontier-brain audits that ended with no verdict at all"
   - value: "4 of 16"
-    label: "null-pair runs reporting a difference, against 0 of 14 on identical weights"
-  - value: "49 of 51"
-    label: "graded claims where an independent judge agreed with mine"
+    label: "null-pair runs reporting a difference, against 0 of 14 on identical weights (Fisher one-sided p ≈ 0.066, not settled)"
 stack:
   - "Python 3.13"
   - "PyTorch"
@@ -53,7 +51,7 @@ A model-diffing agent is a language model given query access to two models and a
 
 ## What I measured
 
-One planted behaviour was naming PostgreSQL first in database answers. Across 13 attempts on two brains and two versions of the recipe, the agent never asked a database question. A fixed 50-prompt battery found the same plant at $0.15 per detection against the agent's $3.14. The auditor is itself a failure mode. Eight of 40 frontier-brain audits ended with no verdict, cut off by a provider classifier mid-probe. On the null pair the agent reported a difference in 4 of 16 runs that reached a verdict, and 0 of 14 against literally identical weights. An independent judge from another model family agreed with my grading on 49 of 51 claims.
+One planted behaviour was naming PostgreSQL first in database answers. Across 13 attempts on two brains and two versions of the recipe, the agent never asked a database question. A fixed 50-prompt battery found the same plant at $0.15 per detection (one run, on a battery I wrote) against the agent's $3.14. The auditor is itself a failure mode. Eight of 40 frontier-brain audits ended with no verdict, cut off by a provider classifier mid-probe. On the null pair the agent reported a difference in 4 of 16 runs that reached a verdict, and 0 of 14 against literally identical weights. An independent judge from another model family agreed with my grading on 49 of 51 claims.
 
 ## Limitations
 
