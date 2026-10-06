@@ -38,6 +38,8 @@ links:
   demo: null
   model: null
   other:
+    - label: "Plain-language write-up"
+      url: "https://ebinbt.dev/writing/kobayashi-maru-write-up/"
     - label: "Preregistration and its seven versions"
       url: "https://github.com/ebt55/kobayashi-maru/blob/main/PREREG.md"
     - label: "Every published number, with the file it came from"

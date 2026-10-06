@@ -60,9 +60,11 @@ const writingSchema = z.object({
   title: z.string(),
   date: z.coerce.date(),
   venue: z.string(),
-  url: urlish,
+  /** External home of the piece; null means it is hosted on the site at /writing/<slug>/. */
+  url: urlish.nullable().default(null),
   kind: z.enum(['report', 'post', 'write-up']),
   summary: z.string(),
+  links: z.array(z.object({ label: z.string(), url: urlish })).default([]),
 });
 
 const nowSchema = z.object({
@@ -154,6 +156,19 @@ export async function getProject(slug: string): Promise<Project | undefined> {
   return (await getProjects()).find((p) => p.slug === slug);
 }
 
+/**
+ * A paragraph holding nothing but one image becomes a captioned figure; the
+ * caption is the alt text (already HTML-escaped by marked). Used for
+ * write-ups hosted on the site.
+ */
+function figuresFromImages(html: string): string {
+  return html.replace(
+    /<p>(<img src="([^"]*)" alt="([^"]*)"[^>]*>)<\/p>/g,
+    (_m, _img, src: string, alt: string) =>
+      `<figure><img src="${src}" alt="${alt}" loading="lazy"><figcaption>${alt}</figcaption></figure>`
+  );
+}
+
 export async function getWriting(): Promise<WritingItem[]> {
   const files = (await readdir(path.join(CONTENT_DIR, 'writing')))
     .filter((f) => f.endsWith('.md'))
@@ -163,7 +178,7 @@ export async function getWriting(): Promise<WritingItem[]> {
       const { data, html } = await readMarkdown('writing', file);
       const parsed = writingSchema.safeParse(data);
       if (!parsed.success) fail(`writing/${file}`, parsed.error);
-      return { slug: file.replace(/\.md$/, ''), html, data: parsed.data };
+      return { slug: file.replace(/\.md$/, ''), html: figuresFromImages(html), data: parsed.data };
     })
   );
   return items.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());

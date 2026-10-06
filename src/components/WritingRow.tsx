@@ -1,9 +1,12 @@
+import Link from 'next/link';
+
 import type { WritingItem } from '@/lib/content';
 import { formatDate, isoDate } from '@/lib/format';
 
 /**
  * One writing item — METR's hairline-divided editorial row: meta line
- * (venue · date · kind), linked title, summary.
+ * (venue · date · kind), linked title, summary. Items with no external url
+ * are hosted on the site and link to /writing/<slug>/ without the ↗ glyph.
  */
 export default function WritingRow({ item, first = false }: { item: WritingItem; first?: boolean }) {
   const d = item.data;
@@ -17,14 +20,20 @@ export default function WritingRow({ item, first = false }: { item: WritingItem;
         {d.kind}
       </p>
       <h3 className="mt-2 text-[1.1875rem] font-semibold leading-snug tracking-[-0.01em]">
-        <a
-          href={d.url}
-          rel="noopener"
-          className="hover:text-accent"
-        >
-          {d.title}
-          <span aria-hidden="true"> ↗</span>
-        </a>
+        {d.url === null ? (
+          <Link href={`/writing/${item.slug}/`} className="hover:text-accent">
+            {d.title}
+          </Link>
+        ) : (
+          <a
+            href={d.url}
+            rel="noopener"
+            className="hover:text-accent"
+          >
+            {d.title}
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        )}
       </h3>
       <p className="mt-2 max-w-[72ch] text-small text-body">{d.summary}</p>
     </article>

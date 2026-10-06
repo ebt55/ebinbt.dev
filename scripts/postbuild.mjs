@@ -44,7 +44,11 @@ async function loadWriting() {
     files.map(async (file) => {
       const raw = await readFile(path.join(dir, file), 'utf8');
       const { data } = matter(raw);
-      return { title: data.title, date: new Date(data.date), url: data.url, summary: data.summary, kind: data.kind, venue: data.venue, slug: file.replace(/\.md$/, '') };
+      const slug = file.replace(/\.md$/, '');
+      // url: null means the piece is hosted on the site at /writing/<slug>/.
+      const hosted = !data.url;
+      const url = hosted ? `${site.url}/writing/${slug}/` : data.url;
+      return { title: data.title, date: new Date(data.date), url, hosted, summary: data.summary, kind: data.kind, venue: data.venue, slug };
     })
   );
   return items.filter((i) => i.title && i.date && i.url).sort((a, b) => b.date - a.date);
@@ -108,6 +112,9 @@ async function writeSitemap(writing, slugs) {
     { loc: '/now/', lastmod: now, priority: '0.6' },
     ...(writing.length >= 2 ? [{ loc: '/writing/', lastmod: now, priority: '0.7' }] : []),
     ...slugs.map((s) => ({ loc: `/work/${s}/`, lastmod: now, priority: '0.8' })),
+    ...writing
+      .filter((w) => w.hosted)
+      .map((w) => ({ loc: `/writing/${w.slug}/`, lastmod: now, priority: '0.7' })),
   ];
 
   const urls = entries

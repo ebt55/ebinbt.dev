@@ -274,3 +274,25 @@
   padding: 0.1em 0.35em;
   font-weight: 500;
 }
+/* Figures in on-site write-ups: full column width, caption from the alt
+   text. The plots are drawn on white, so they keep a white panel in dark
+   mode rather than a hard white rectangle on the dark page. */
+.prose :where(figure):not(:where([class~="not-prose"] *)) {
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+}
+.prose :where(figure img):not(:where([class~="not-prose"] *)) {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid var(--color-hairline);
+  border-radius: 6px;
+}
+.prose :where(figcaption):not(:where([class~="not-prose"] *)) {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-quiet);
+}
