@@ -95,7 +95,7 @@ export default async function Home() {
       <Section
         id="work"
         eyebrow="Work"
-        title={`${featuredCount} projects, with their numbers`}
+        title={`${featuredCount} more projects, with their numbers`}
         lede={WORK_INTRO}
       >
         {LANES.map((lane) => {
@@ -152,7 +152,7 @@ export default async function Home() {
       </Section>
 
       {/* -------------------------------------------------------- how I work */}
-      <Section id="how" eyebrow="How I work" title="Three rules the work follows">
+      <Section id="how" eyebrow="Working rules" title="Three rules for working with something smarter than me">
         <ol className="grid gap-8 md:grid-cols-3 md:gap-10">
           {site.principles.map((p, i) => (
             <li key={p.title} className="border-t border-hairline pt-5">

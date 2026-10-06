@@ -59,16 +59,16 @@ export const site = {
   ],
   principles: [
     {
-      title: "Claims cite a run",
-      body: "Every number I publish points at a committed artifact and the command that produced it, or it does not go up.",
+      title: "Let it design, then ask for more.",
+      body: "These models out-design and out-code me. I don't take the first answer, and the plan and the code both go through adversarial review.",
     },
     {
-      title: "Failures get published",
-      body: "The preregistered test that failed sits in the repository under its own heading, next to the one that worked.",
+      title: "Check with a rival.",
+      body: "Models lean toward the company that trained them, and not always openly. So the reviewer comes from a different lab than the author, and is told to find what is wrong.",
     },
     {
-      title: "Humans keep the decision",
-      body: "A model can propose and a monitor can flag, but nothing mutates without a single-use approval token. In my evaluations so far the approver has been a scripted stand-in, and the repos say so.",
+      title: "Never trust one run.",
+      body: "Even the best models have blind spots, and a single sample hides them. Everything that matters is rerun, across model families, until the disagreements are on the table.",
     },
   ],
   availability:
