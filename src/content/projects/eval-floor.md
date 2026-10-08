@@ -33,13 +33,13 @@ links:
   demo: null
   model: null
   other: []
-honestStatus: "The first sweep finished on 2026-09-17 and covered 20 of the 58 reachable tasks on both arms. The README is generated from the results files. Follow-up sweeps are planned."
+honestStatus: "The first sweep finished on 2026-09-17. The README is generated from the results files. Follow-up sweeps are planned."
 summary: "A sweep of what each Inspect task's own scorer gives a content-free answer: one loose scorer in 20 tasks, already reported by someone else."
 ---
 
 ## What it is
 
-An evaluation is meant to reward an answer for being right. This project measures what each task's own scorer gives an answer that says nothing: the empty string, a refusal, every label run together. No model is called. Each eval's real scorer runs over its real dataset, so the sweep is deterministic and anyone can rerun it. A task whose floor sits high is grading something other than the thing it names.
+An evaluation is meant to reward an answer for being right. This project measures what each task's own scorer gives an answer that says nothing: the empty string, a refusal, every label run together. No model is called. Each eval's real scorer runs over its real dataset, so the sweep is deterministic and anyone can rerun it. A high floor means the scorer rewards something besides the answer.
 
 ## What I measured
 

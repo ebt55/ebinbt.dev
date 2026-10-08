@@ -12,9 +12,7 @@ featured: true
 headline:
   value: "$0.02–$0.19"
   label: "Gemini cost per review across seven synthetic sample forms"
-metrics:
-  - value: "7"
-    label: "committed sample reviews, negatives checked by hand"
+metrics: []
 stack:
   - "Python"
   - "Gemini API"
@@ -32,15 +30,13 @@ links:
   other:
     - label: "Reviewer workbench tour"
       url: "https://github.com/ebt55/proofpack/blob/main/docs/WORKBENCH.md"
-    - label: "Model, market sizing and pilot plan"
-      url: "https://github.com/ebt55/proofpack/blob/main/docs/BUSINESS.md"
 honestStatus: "The reviewer workbench is localhost-only and unauthenticated, and there are no paying customers yet."
 summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where every “Found” must cite a hashed capture and a human still decides."
 ---
 
 ## What it is
 
-Before a purchase from a self-directed, Medicaid-audited budget is approved at a New York disability-services nonprofit, a reviewer has to verify the provider's public website and file date-stamped evidence. ProofPack does the verification and files the evidence; the human still decides.
+Before a purchase is approved at the New York nonprofits that run self-directed Medicaid budgets, a reviewer has to verify the provider's public website and file date-stamped evidence. ProofPack does the verification and files the evidence; the human still decides.
 
 Five stages: a PDF form read into schema-validated fields, routed to category checklists written in YAML a non-engineer can edit, run through deterministic fee-cap and eligibility checks, handed to a browsing agent that navigates and captures, then assembled into a report with an evidence folder and a SHA-256 manifest. Exactly one stage is agentic.
 

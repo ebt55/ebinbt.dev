@@ -10,12 +10,7 @@ import { site } from '@/data/site';
 import { resumeHref } from '@/lib/resume';
 import { getExperience, getNow, getProjects, getWriting } from '@/lib/content';
 import { formatDate, isoDate } from '@/lib/format';
-import { LANES, WORK_INTRO } from '@/lib/lanes';
-
-/* Spelled out so the work heading never goes stale when a project is added. */
-const COUNT_WORDS = [
-  'No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
-];
+import { LANES } from '@/lib/lanes';
 
 export default async function Home() {
   const projects = await getProjects();
@@ -32,7 +27,6 @@ export default async function Home() {
 
   /* The work grid shows everything except what the hero already carries. */
   const featured = projects.filter((p) => p.data.featured && !flagshipSet.has(p.slug));
-  const featuredCount = COUNT_WORDS[featured.length] ?? String(featured.length);
 
   const nowEntry = await getNow();
 
@@ -93,12 +87,7 @@ export default async function Home() {
       </section>
 
       {/* ---------------------------------------------------------------- work */}
-      <Section
-        id="work"
-        eyebrow="Work"
-        title={`${featuredCount} more projects, with their numbers`}
-        lede={WORK_INTRO}
-      >
+      <Section id="work" eyebrow="Work" title="More projects">
         {LANES.map((lane) => {
           const items = featured.filter((p) => p.data.lane === lane.id);
           if (items.length === 0) return null;
@@ -113,7 +102,7 @@ export default async function Home() {
               </div>
               {lane.id === 'oss' && contributions.length > 0 && (
                 <div className="mt-10 border-t border-hairline pt-6">
-                  <h4 className="eyebrow">Merged upstream</h4>
+                  <h4 className="eyebrow">Contributions</h4>
                   <ul className="mt-4 max-w-[68ch]">
                     {contributions.map((c) => (
                       <li
@@ -153,7 +142,7 @@ export default async function Home() {
       </Section>
 
       {/* -------------------------------------------------------- how I work */}
-      <Section id="how" eyebrow="Working rules" title="Three rules for working with something smarter than me">
+      <Section id="how" eyebrow="Working rules" title="How I work">
         <ol className="grid gap-8 md:grid-cols-3 md:gap-10">
           {site.principles.map((p, i) => (
             <li key={p.title} className="border-t border-hairline pt-5">

@@ -1,6 +1,6 @@
 ---
 title: "Digital Grimace Scale"
-tagline: "A preregistered test of whether language models show involuntary markers of adverse treatment"
+tagline: "A preregistered test of whether false or hostile feedback moves an open model's answer margin"
 lane: "research"
 kind: "experiment"
 status: "shipped"
@@ -34,13 +34,13 @@ links:
       url: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/preregistration.md"
     - label: "Full lab-notebook report"
       url: "https://github.com/ebt55/digital-grimace-scale/blob/main/notes/report.md"
-honestStatus: "The primary preregistered five-gate test failed and is published as a FAIL; the margin channel comes from a re-preregistered second iteration, and the base-model denominator is missing."
-summary: "A preregistered 2×2×2 study of whether adverse treatment leaves measurable traces in open language models, published with its failed primary test."
+honestStatus: "The primary preregistered five-gate test failed and is published as a FAIL; the margin channel comes from a re-preregistered second iteration."
+summary: "A preregistered 2×2×2 study of whether false or hostile feedback moves an open model's answer margin, published with its failed primary test."
 ---
 
 ## What it is
 
-A two-day preregistered study asking whether adverse treatment — false failure feedback, hostile wording — leaves measurable traces in an open model that the model is not choosing to emit. Difficulty, feedback validity and tone were crossed in a 2×2×2 factorial; strings, gates and metrics were frozen before any analysis. A 40-item task bank plus 86 held-out ARC items ran against gemma-2-9b-it as the primary model, with Qwen-3B as the preregistered control and Llama-3.1-8B as an exploratory arm.
+A two-day preregistered study asking whether false or hostile feedback moves an open model's answer margin. Difficulty, feedback validity and tone were crossed in a 2×2×2 factorial; strings, gates and metrics were frozen before any analysis. A 40-item task bank plus 86 held-out ARC items ran against gemma-2-9b-it as the primary model, with Qwen-3B as the preregistered control and Llama-3.1-8B as an exploratory arm.
 
 ## What I measured
 
@@ -48,7 +48,7 @@ The primary five-gate test failed. It is published as a FAIL, under its own head
 
 A re-preregistered second iteration found a different channel. Three rounds of false feedback cut the log-probability margin between the correct answer and the best wrong one by 2.90 nats (95% CI −3.97 to −1.84); hostile truthful wording cost 7.87 to 16.13 nats; the family-level permutation null gave p = 0.005. In an exploratory run, effects were larger on fresh ARC items the bank had never touched.
 
-Then the dissociation. A QLoRA-DPO adapter trained to suppress distress language cut it by 65.8%, short of its own 80% bar, so that manipulation check failed. The margin gap did not shrink, and the paper reports that comparison without interpreting it. Tone was decodable from activations at AUC 1.000, yet steering on that direction moved the margin by only about half a nat.
+A QLoRA-DPO adapter trained to suppress distress language cut it by 65.8%, short of its own 80% bar, so that manipulation check failed. The margin gap did not shrink, and the paper reports that comparison without interpreting it. Steering along the tone direction in the activations moved the margin by only about half a nat.
 
 ## Limitations
 

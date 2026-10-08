@@ -7,7 +7,7 @@ import { getWriting } from '@/lib/content';
 export const metadata: Metadata = {
   title: 'Writing',
   description:
-    'Reports and write-ups on agent reliability, AI control and model evaluation.',
+    'Reports and write-ups on evaluations of agents and models.',
   alternates: { canonical: '/writing/' },
 };
 

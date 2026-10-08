@@ -1,9 +1,10 @@
-export type Status = 'active' | 'in-development' | 'shipped' | 'archived';
+export type Status = 'active' | 'in-development' | 'shipped' | 'closed' | 'archived';
 
 const LABELS: Record<Status, string> = {
   active: 'Active',
   'in-development': 'In development',
   shipped: 'Shipped',
+  closed: 'Closed',
   archived: 'Archived',
 };
 

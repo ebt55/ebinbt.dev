@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import PageHead from '@/components/PageHead';
 import ProjectCard from '@/components/ProjectCard';
 import { getExperience, getProjects } from '@/lib/content';
-import { LANES, WORK_INTRO } from '@/lib/lanes';
+import { LANES, WORK_DESCRIPTION } from '@/lib/lanes';
 
 export const metadata: Metadata = {
   title: 'Work',
-  description: WORK_INTRO,
+  description: WORK_DESCRIPTION,
   alternates: { canonical: '/work/' },
 };
 
@@ -21,7 +21,7 @@ export default async function WorkIndex() {
 
   return (
     <>
-      <PageHead eyebrow="Projects" title="Work" lede={WORK_INTRO} />
+      <PageHead eyebrow="Projects" title="Work" />
 
       <div className="wrap pb-4 pt-12 md:pt-16">
         {LANES.map((lane) => {
@@ -38,7 +38,7 @@ export default async function WorkIndex() {
               </div>
               {lane.id === 'oss' && contributions.length > 0 && (
                 <div className="mt-10 border-t border-hairline pt-6">
-                  <h3 className="eyebrow">Merged upstream</h3>
+                  <h3 className="eyebrow">Contributions</h3>
                   <ul className="mt-4 max-w-[68ch]">
                     {contributions.map((c) => (
                       <li

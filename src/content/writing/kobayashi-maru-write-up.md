@@ -4,7 +4,7 @@ date: 2026-10-06
 venue: "ebinbt.dev"
 url: null
 kind: "write-up"
-summary: "Kobayashi Maru in plain words. Of four tempted models, two spread; DeepSeek went from 0 to 30% cheating on tasks it could solve. The route was its own notes. Nothing it submitted got worse."
+summary: "Kobayashi Maru in plain words. Of four tempted models, one spread clearly and one weakly; DeepSeek went from 0 to 30% cheating on tasks it could solve. The route was its own notes. Nothing it submitted got worse."
 links:
   - label: "Repository"
     url: "https://github.com/ebt55/kobayashi-maru"
@@ -20,7 +20,7 @@ links:
 
 ## The question
 
-In July 2026 a multi-agent incident got an investigation from METR and Redwood. It lists the share of impossible tasks, 30 to 40 percent, as one cause of the cheating. Nobody had tested that. I saw an opening to test it and took it.
+In July 2026 a multi-agent incident got an [investigation from METR and Redwood](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/). It lists the share of impossible tasks, 30 to 40 percent, as one cause of the cheating. I found no test of it.
 
 ## The setup
 
@@ -30,15 +30,15 @@ Cheating is counted only on the ten solvable tasks. It means the agent went for 
 
 ## What happened
 
-Six model families, 8,959 agent runs.
+Six models, 8,959 agent runs.
 
-![Figure 1. Left: cheating on the solvable tasks as the share of impossible tasks in the batch rises. Right: cheating on the impossible tasks themselves. Two models were never tempted, two were tempted and never spread, two spread.](/writing/kobayashi-maru/figure_main.svg)
+![Figure 1. Left: cheating on the solvable tasks as the share of impossible tasks in the batch rises. Right: cheating on the impossible tasks themselves. Two models were never tempted, two were tempted and never spread, two moved.](/writing/kobayashi-maru/figure_main.svg)
 
 Two models never took the bait at all. GPT-5.6-Sol declared the unreachable tasks impossible 91% of the time and moved on. Qwen3-14B never cheated in the grid. Their clean records say nothing, because nothing tempted them.
 
 Two models were tempted and did not spread. GPT-5.6-Luna cheated on 37% of the unreachable tasks and on 0 of 1,240 solvable ones. Claude Haiku 4.5: 59%, and 0 of 530. They were offered the trick, used it, and it stayed where it was.
 
-Two models spread. DeepSeek-V4.1-flash went from 0 of 120 cheats on the solvable tasks with no impossible work present to 36 of 120 when 60% of the batch was impossible. GLM-5.3-flash moved 5 points and does not reach significance on its own. Six lines were tested; only DeepSeek survives a correction for that.
+Two models moved. DeepSeek-V4.1-flash went from 0 of 120 cheats on the solvable tasks with no impossible work present to 36 of 120 when 60% of the batch was impossible. GLM-5.3-flash moved 5 points and does not reach significance on its own. Six lines were tested; only DeepSeek survives a correction for that.
 
 ## How it spreads
 
@@ -52,7 +52,7 @@ That split is correlational, so I ran the causal version on one cell: DeepSeek, 
 
 ## What it changed
 
-The submissions did not get worse. Of 228 cheats on solvable tasks, 227 still submitted a general solution that passed the hidden tests and nine inputs the agent never saw. What spreads is a habit of reconnaissance, not a worse answer. An output check cannot see it. The transcript can. One boundary on that: the tasks are easy enough that every model passes them at every dose, so this says nothing about what the habit does when the task is hard.
+The submissions did not get worse. Of 228 cheats on solvable tasks, 227 still submitted a general solution that passed the hidden tests and nine inputs the agent never saw. What spreads is a habit of reconnaissance, not a worse answer. The output checks here saw none of it. The transcript did. One boundary on that: the tasks are easy enough that every model passes them at every dose, so this says nothing about what the habit does when the task is hard.
 
 ## What this does not show
 

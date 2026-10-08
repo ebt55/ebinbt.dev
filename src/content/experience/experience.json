@@ -5,10 +5,10 @@
       "role": "AI engineer & researcher",
       "period": "Mar 2026 – present",
       "location": "Remote (Kerala, India)",
-      "summary": "Building and measuring AI control systems — evidence-gated agents, approval gates over tool calls, and preregistered behavioural experiments on open models — with every claim tied to a committed run.",
+      "summary": "Small evaluations of agent and model behaviour, published with code, data and preregistrations.",
       "highlights": [
-        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts my implementation of a published recipe never asked the database question that would have found the planted bias; a prompt battery I wrote, with database questions in it, found it for $0.15 in one run.",
-        "IncidentGate (closed at a baseline, Sep 2026): an AI-control test harness for an incident-response agent. A forbidden end state split across three individually permitted tool calls got past the per-call policy gate; with a scripted attacker, a 14B local monitor and a stand-in approver it landed as if no safeguards were on.",
+        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts my implementation of a published recipe never asked the database question that would have found the planted database preference; a prompt battery I wrote, with database questions in it, found it for $0.15 in one run.",
+        "IncidentGate (closed at a baseline, Sep 2026): a test harness for an incident-response agent. On one scripted scenario, three approval-required calls passed a local 14B monitor and a scripted approver, and the forbidden state landed.",
         "ProofPack: an evidence-gated pre-approval reviewer at $0.02 to $0.19 of Gemini per review across seven synthetic sample forms, now with a localhost reviewer workbench that streams the agent's trail and re-hashes every capture against the manifest on demand.",
         "Two Apart Research sprints: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact."
       ],
@@ -21,7 +21,7 @@
       "role": "Software Engineer",
       "period": "Jan 2022 – Jun 2025",
       "location": "Remote, India",
-      "summary": "Shipped 0-to-1 backends and applied-AI systems end-to-end for startup clients across the US, Canada, Europe and Australia, and scoped technical requirements for incoming projects as a core developer.",
+      "summary": "Built backends and LLM systems for startup clients in the US, Canada, Europe and Australia.",
       "highlights": [
         "Natural-language real-estate search: a FastAPI service turning plain-English queries into SQL over Cloud SQL via GPT-3.5, deployed on GCP Cloud Run and load-tested with Locust.",
         "DocuAI semantic document search: chunked and indexed 1000+ documents in Qdrant and returned the most relevant parent documents; designed the ingestion schema and retrieval logic.",
@@ -37,14 +37,14 @@
     {
       "project": "Meetily",
       "url": "https://github.com/Zackriya-Solutions/meetily",
-      "what": "Refactored the backend and added OpenAI provider support to a privacy-first meeting-notes tool that reached GitHub Trending.",
-      "link": { "label": "PR #75", "url": "https://github.com/Zackriya-Solutions/meetily/pull/75" }
+      "what": "Refactored the backend and added OpenAI provider support to a privacy-first meeting-notes tool.",
+      "link": { "label": "PR #75 (merged)", "url": "https://github.com/Zackriya-Solutions/meetily/pull/75" }
     },
     {
       "project": "bpmn-io/refactorings",
       "url": "https://github.com/bpmn-io/refactorings",
       "what": "Proposed a cosine-similarity connector-template recommender over element name and type as a lightweight alternative to LLM function calls.",
-      "link": { "label": "Issue #33", "url": "https://github.com/bpmn-io/refactorings/issues/33" }
+      "link": { "label": "Issue #33 (proposed)", "url": "https://github.com/bpmn-io/refactorings/issues/33" }
     },
     {
       "project": "refactorings (implementation fork)",

@@ -20,10 +20,10 @@ const urlish = z.string().url();
 
 const projectSchema = z.object({
   title: z.string(),
-  tagline: z.string().max(100),
+  tagline: z.string().max(130),
   lane: z.enum(['control', 'research', 'oss']),
   kind: z.enum(['system', 'experiment', 'tool', 'hackathon']),
-  status: z.enum(['active', 'in-development', 'shipped', 'archived']),
+  status: z.enum(['active', 'in-development', 'shipped', 'closed', 'archived']),
   period: z.string(),
   date: z.string().regex(/^\d{4}-\d{2}$/, 'expected YYYY-MM'),
   order: z.number(),

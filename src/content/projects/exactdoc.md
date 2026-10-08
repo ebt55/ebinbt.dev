@@ -17,8 +17,6 @@ metrics:
     label: "mean live-text retention across the frozen corpus"
   - value: "1.045 pt"
     label: "median vertical drift against the source page"
-  - value: "11 → 0"
-    label: "blocking findings over seven live Google Docs passes"
 stack:
   - "Python"
   - "PDFium / pypdfium2"
@@ -36,15 +34,15 @@ links:
       url: "https://github.com/ebt55/exactdoc/blob/main/STATUS.md"
     - label: "Committed evidence artifacts"
       url: "https://github.com/ebt55/exactdoc/tree/main/docs/evidence"
-honestStatus: "Version 1.0.0 installs from source and is not on PyPI yet; long, dense, multi-column documents still inflate their page count badly, and image-only scans are refused rather than guessed at."
+honestStatus: "Version 1.0.0 installs from source and is not on PyPI yet."
 summary: "An Apache-2.0 PDF-to-DOCX converter that emits real paragraphs, tables and columns, then checks every claim by rendering the output back and diffing it."
 ---
 
 ## What it is
 
-Most PDF-to-Word converters give you one of two bad outcomes: a pile of text boxes pinned at absolute positions, which looks right and cannot be edited, or reflowed text that has lost the layout. ExactDoc infers the semantic structure — margins, paragraphs, headings, lists, tables, multi-column sections, headers and footers, hyperlinks — and writes real flowing Word constructs whose rendered geometry matches the source to within points.
+ExactDoc infers the semantic structure — margins, paragraphs, headings, lists, tables, multi-column sections, headers and footers, hyperlinks — and writes real flowing Word constructs, with a median vertical drift of about 1 pt on the frozen corpus.
 
-The interesting part is not the converter. It is the loop that checks it: each DOCX is rendered back to PDF with LibreOffice headless, and word positions are diffed against the original for recall, drift percentiles, SSIM and ink IoU. Every quality claim in the repository is a committed JSON artifact recording the numbers, the environment fingerprint and the commit that produced them.
+Each DOCX is rendered back to PDF and its word positions diffed against the source, with LibreOffice headless doing the rendering and the diff reporting recall, drift percentiles, SSIM and ink IoU. Every quality claim in the repository is a committed JSON artifact recording the numbers, the environment fingerprint and the commit that produced them.
 
 ## What I measured
 

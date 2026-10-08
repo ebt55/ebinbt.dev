@@ -21,8 +21,6 @@ metrics:
     label: "o3's gaming as the stated payload rises from 1 to 1,000,000"
   - value: "13–37%"
     label: "o3's range across trivial paraphrases of one soft sentence"
-  - value: "~5,300"
-    label: "audited samples across 33 model-arms and 34 conditions"
 stack:
   - "Python"
   - "asyncio"
@@ -39,7 +37,7 @@ links:
   other:
     - label: "Predictions and which ones failed"
       url: "https://github.com/ebt55/odd-number-forensics/blob/main/experiments/oddnum/PREREG.md"
-honestStatus: "A take-home work sample. Several single contrasts are not significant, and the report gives no correction for multiple comparisons. The original ablation battery floored at 0% and was replaced adaptively."
+honestStatus: "A take-home work sample, and the report gives no correction for multiple comparisons."
 summary: "A forensic study of one reward-hacking environment: gaming depends on two prompt-level conditions, not on the environment itself."
 ---
 
