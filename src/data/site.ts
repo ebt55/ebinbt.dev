@@ -59,16 +59,16 @@ export const site = {
   ],
   principles: [
     {
-      title: "The part I don't hand off.",
-      body: "Working out what the problem is and what I must solve for. Get that wrong and every model downstream does good work on the wrong thing.",
+      title: "Problem.",
+      body: "What is it, what must I solve for, what are the requirements, how much time and money is there. Get that wrong and every agent downstream does good work on the wrong thing.",
     },
     {
-      title: "The part I do hand off.",
-      body: "The problem goes to Fable 5.1 to think through and map out. Opus 5.5 then writes the plan and does the work, and I read what comes back.",
+      title: "Delegation.",
+      body: "The problem, once understood, goes to Fable 5.1 or Mythos 5. That model summons the agents that build it, Opus 5.5 and GLM 5.3 for example.",
     },
     {
-      title: "The part that costs extra.",
-      body: "When I can afford it, the crucial pieces get reread by a model from a different lineage. Models lean toward their makers, and each lineage has its own blind spots.",
+      title: "Review.",
+      body: "What the agents build gets adversarial review: tests, validation, code review. The reviewer is a model from a different lineage, since each lineage has its own blind spots.",
     },
   ],
   availability:
