@@ -6,7 +6,7 @@ export const site = {
   eyebrow: "Independent researcher · agent evaluations",
   headline: "I build agents, then test what they get away with.",
   intro:
-    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. Lately that means filling an agent's batch with impossible tasks to see whether it starts cheating on the solvable ones. One of six models did, led there by its own notes. Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. They answer to their makers, not to me, and each has blind spots, so every plan and every diff gets read by a model from a different lab.",
+    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. Lately that means filling an agent's batch with impossible tasks to see whether it starts cheating on the solvable ones. One of six models did, led there by its own notes. Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. They answer to their makers, not to me, and each has blind spots, so the plans and diffs that matter get read by a model from a different lab, when I can afford it.",
   /** A quieter line under the intro: the one side interest. */
   aside:
     "Side interest: protein structure models, and what they still miss.",
@@ -59,16 +59,16 @@ export const site = {
   ],
   principles: [
     {
-      title: "Let it design, then ask for more.",
-      body: "I don't take the first answer, and the plan and the code both go through adversarial review.",
+      title: "The part I don't hand off.",
+      body: "Working out what the problem is and what I must solve for. Get that wrong and every model downstream does good work on the wrong thing.",
     },
     {
-      title: "Check with a rival.",
-      body: "A model can grade its own family's work too kindly. So the reviewer comes from a different lab than the author, and is told to find what is wrong.",
+      title: "The part I do hand off.",
+      body: "The problem goes to Fable 5.1 to think through and map out. Opus 5.5 then writes the plan and does the work, and I read what comes back.",
     },
     {
-      title: "Never trust one run.",
-      body: "Where I can afford it, I rerun across model families. Where I could not, the page says one run.",
+      title: "The part that costs extra.",
+      body: "When I can afford it, the crucial pieces get reread by a model from a different lineage. Models lean toward their makers, and each lineage has its own blind spots.",
     },
   ],
   availability:
