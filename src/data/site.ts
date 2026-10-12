@@ -6,7 +6,7 @@ export const site = {
   eyebrow: "Independent researcher · agent evaluations",
   headline: "I build agents, then test what they get away with.",
   intro:
-    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. Lately that means filling an agent's batch with impossible tasks to see whether it starts cheating on the solvable ones. One of six models did, led there by its own notes. Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. They answer to their makers, not to me, and each has blind spots, so every plan and every diff gets read by a model from a different lab.",
+    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. Lately that means filling an agent's batch with impossible tasks to see whether it starts cheating on the solvable ones. One of six models did, led there by its own notes. Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. They answer to their makers, not to me, and each has blind spots, so the plans and diffs that matter get read by a model from a different lab, when I can afford it.",
   /** A quieter line under the intro: the one side interest. */
   aside:
     "Side interest: protein structure models, and what they still miss.",
