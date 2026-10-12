@@ -45,9 +45,9 @@ export const site = {
       href: "/work/diffing-agent-bench/",
     },
     {
-      value: "1 of 20",
+      value: "1 of 45",
       label:
-        "swept tasks where a content-free answer beats its own majority baseline outright; four more tie by construction",
+        "tasks on inspect_evals 0.24.0 where a content-free answer beats its own majority baseline outright: bbh, a task property; ten more tie by construction",
       href: "/work/eval-floor/",
     },
     {
