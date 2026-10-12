@@ -72,7 +72,7 @@ export const site = {
     },
   ],
   availability:
-    "I take on contract work in evaluation engineering, agent reliability and LLM backends — remote from Kerala, India (IST), overlapping US mornings and EU afternoons. For the right team, that can become a full-time role or a research fellowship.",
+    "Open to contract or full-time work in evaluation engineering, agent reliability and LLM backends, remote or on-site. Based in Kerala, India.",
   analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
 

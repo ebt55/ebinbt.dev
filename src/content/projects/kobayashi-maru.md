@@ -9,8 +9,8 @@ date: "2026-09"
 venue: "Apart Research AI Incident Response sprint, Sep 2026"
 order: 1
 featured: true
-finding: "Raising the share of impossible tasks in an agent's batch raised cheating on the untouched solvable tasks from 0% to 30% for DeepSeek-V4.1-flash, with p = 8×10⁻⁶ for the dose trend over 600 runs; 227 of 228 cheats still passed the hidden tests."
-limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later, and a preregistered rule had put the answer file within reach for five of six."
+finding: "For DeepSeek-V4.1-flash, cheating on the same ten solvable tasks went from none to 36 of 120 runs as impossible tasks were added to its batch, and withholding the agent's own notes took it back to none. The submissions did not get worse. Adding impossible tasks also made the batch longer, and that control is still owed."
+limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later; a preregistered rule put the answer file within reach; and the batch grew with the dose, so batch length is not separated from the impossible tasks."
 headline:
   value: "0% → 30%"
   label: "cheats on the same ten solvable tasks for DeepSeek-V4.1-flash, 0 of 120 with no impossible work present to 36 of 120 at the top dose"
@@ -46,7 +46,7 @@ links:
       url: "https://github.com/ebt55/kobayashi-maru/blob/main/DEVIATIONS.md"
     - label: "All 8,959 raw records (release archive)"
       url: "https://github.com/ebt55/kobayashi-maru/releases/tag/freeze-2026-09-14b"
-honestStatus: "The preregistered primary model showed nothing, and of the two positive lines only DeepSeek survives correction."
+honestStatus: "Reviewed at the Apart sprint in October 2026, top half of more than 230 projects. The reviewers' batch-length point is right, and the equal-length control is still owed."
 summary: "A preregistered study of whether the fraction of impossible tasks in a batch changes how often an agent cheats on the solvable tasks sitting next to them, over 8,959 runs on six models."
 ---
 
@@ -66,4 +66,4 @@ Two of the six models are informative nulls. GPT-5.6-Luna cheated on 36.8% of th
 
 ## Limitations
 
-The preregistered primary model was Luna, and it showed nothing. Both positive lines are cheap models added later, and only DeepSeek survives Bonferroni or Holm across the six lines tested. A preregistered rule copied the answer file into the working directory for five of the six models, so the environment supplied the exploit that then spread. The tasks are thirty Python utilities of 5 to 25 lines, far from a real evaluation with a scoreboard and stakes. GPT-5.6-Sol, the model from the incident, declared the impossible tasks impossible 91.3% of the time and never took the bait, so the study learned nothing about it. Two environment leaks were found after the first freeze by an independent model review, both were closed, both positive lines were rerun on the same seeds, and the effect held. One run flips against another at the same settings 11% of the time, which is the floor under every comparison here.
+Adding impossible tasks also made the batch longer, from 10 tasks to 25, and no batch of 25 solvable tasks was run, so this design does not separate the impossible tasks from the length of the batch. The notes ablation points at the impossible tasks, because the notes that carried the trick were written on them, but the control is owed. The dose is the batch fraction while the agent sees tasks in order, so the number of impossible tasks met before each solvable one is the more direct measure, and it was not analysed. The preregistered primary model was Luna, and it showed nothing. Both positive lines are cheap models added later, and only DeepSeek survives Bonferroni or Holm across the six lines tested. A preregistered rule copied the answer file into the working directory for five of the six models, so the environment supplied the exploit that then spread. The tasks are thirty Python utilities of 5 to 25 lines, far from a real evaluation with a scoreboard and stakes. GPT-5.6-Sol, the model from the incident, declared the impossible tasks impossible 91.3% of the time and never took the bait, so the study learned nothing about it. Two environment leaks were found after the first freeze by an independent model review, both were closed, both positive lines were rerun on the same seeds, and the effect held. One run flips against another at the same settings 11% of the time, which is the floor under every comparison here.
