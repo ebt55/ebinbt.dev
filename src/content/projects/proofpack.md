@@ -30,7 +30,7 @@ links:
   other:
     - label: "Reviewer workbench tour"
       url: "https://github.com/ebt55/proofpack/blob/main/docs/WORKBENCH.md"
-honestStatus: "The reviewer workbench is localhost-only and unauthenticated, and there are no paying customers yet."
+honestStatus: "A project built from a challenge brief in July 2026, not a product. Nobody uses it and I am not planning to run it as one. The reviewer workbench is localhost-only and unauthenticated."
 summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where every “Found” must cite a hashed capture and a human still decides."
 ---
 
@@ -44,7 +44,7 @@ Version 0.2.0 added a localhost reviewer workbench. It holds a queue of applicat
 
 ## What I measured
 
-Seven committed sample reviews, on synthetic forms covering six of the seven form types, cost $0.02–$0.19 each in Gemini spend. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one.
+Seven committed sample reviews, on synthetic forms covering six of the seven form types, cost $0.02–$0.19 each in Gemini spend. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one. The "20 to 40 minutes by hand" figure that the challenge brief quoted is the brief's estimate, not something I measured.
 
 The integrity gates live on a session object, so offline tests cover every rejection path without an SDK, a browser or an API key. A "Found" cannot be recorded without a real capture in the manifest; a quote is rejected unless it appears verbatim on a page visited that session; timestamps, URLs and hashes are written only by code the model never touches.
 
