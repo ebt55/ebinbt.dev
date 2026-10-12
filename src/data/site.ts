@@ -59,16 +59,16 @@ export const site = {
   ],
   principles: [
     {
-      title: "Let it design, then ask for more.",
-      body: "I don't take the first answer, and the plan and the code both go through adversarial review.",
+      title: "The part I don't hand off.",
+      body: "Working out what the problem is and what I must solve for. Get that wrong and every model downstream does good work on the wrong thing.",
     },
     {
-      title: "Check with a rival.",
-      body: "A model can grade its own family's work too kindly. So the reviewer comes from a different lab than the author, and is told to find what is wrong.",
+      title: "The part I do hand off.",
+      body: "The problem goes to Fable 5.1 to think through and map out. Opus 5.5 then writes the plan and does the work, and I read what comes back.",
     },
     {
-      title: "Never trust one run.",
-      body: "Where I can afford it, I rerun across model families. Where I could not, the page says one run.",
+      title: "The part that costs extra.",
+      body: "When I can afford it, the crucial pieces get reread by a model from a different lineage. Models lean toward their makers, and each lineage has its own blind spots.",
     },
   ],
   availability:
