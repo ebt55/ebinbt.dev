@@ -16,7 +16,7 @@ export const site = {
   ogFinding:
     "For one of four tempted models, impossible tasks in the batch raised cheating on the untouched solvable ones from 0 of 120 runs to 36 of 120. Six models tested.",
   url: "https://ebinbt.dev",
-  email: "ebinbabuthomas@gmail.com",
+  email: "hello@ebinbt.dev",
   location: "Kerala, India",
   timezone: "UTC+5:30",
   remote: true,
