@@ -5,12 +5,12 @@
       "role": "AI engineer & researcher",
       "period": "Mar 2026 – present",
       "location": "Remote (Kerala, India)",
-      "summary": "Small evaluations of agent and model behaviour, published with code, data and preregistrations.",
+      "summary": "Experiments on how AI agents and models behave, and a few tools. All public, with code and data. Coding agents write the code; I pick the questions and check the results.",
       "highlights": [
-        "diffing-agent-bench: a sealed, preregistered benchmark for black-box model-diffing agents. In 13 attempts my implementation of a published recipe never asked the database question that would have found the planted database preference; a prompt battery I wrote, with database questions in it, found it for $0.15 in one run.",
-        "IncidentGate (closed at a baseline, Sep 2026): a test harness for an incident-response agent. On one scripted scenario, three approval-required calls passed a local 14B monitor and a scripted approver, and the forbidden state landed.",
-        "ProofPack: an evidence-gated pre-approval reviewer at $0.02 to $0.19 of Gemini per review across seven synthetic sample forms, now with a localhost reviewer workbench that streams the agent's trail and re-hashes every capture against the manifest on demand.",
-        "Two Apart Research sprints: the Digital Grimace Scale (Digital Minds, Aug 2026) and whose-voice (Secret Loyalties, Jul 2026) — both published with their failed tests intact."
+        "Experiments on AI agents: whether impossible tasks push an agent to cheat on the rest (Kobayashi Maru), whether an auditing agent finds a planted change in a model (diffing-agent-bench), and whether antitrust rules stop a shared AI pricing tool from raising prices.",
+        "Checks on how AI is tested: what benchmark scorers give an empty answer (eval-floor), and whom a poisoned training dataset was meant to favour (whose-voice).",
+        "Tools: Diarist, a meeting transcriber that runs on your own PC (public beta), printready, which checks AI sticker art against a printer's rules, and ProofPack, a review agent built from a challenge brief.",
+        "Three Apart Research sprints (Secret Loyalties, AI Incident Response, AI Collusion), and the BlueDot Technical AI Safety course (Sep to Oct 2026)."
       ],
       "links": [
         { "label": "GitHub", "url": "https://github.com/ebt55" }

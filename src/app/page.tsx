@@ -141,19 +141,6 @@ export default async function Home() {
         </p>
       </Section>
 
-      {/* -------------------------------------------------------- how I work */}
-      <Section id="how" eyebrow="Working rules" title="How I work">
-        <ol className="grid gap-8 md:grid-cols-3 md:gap-10">
-          {site.principles.map((p, i) => (
-            <li key={p.title} className="border-t border-hairline pt-5">
-              <p className="text-meta font-medium text-quiet">0{i + 1}</p>
-              <h3 className="mt-3 text-[1.0625rem] font-semibold">{p.title}</h3>
-              <p className="mt-2 text-small leading-relaxed text-body">{p.body}</p>
-            </li>
-          ))}
-        </ol>
-      </Section>
-
       {/* ----------------------------------------------------------------- now */}
       {nowEntry && (
         <Section eyebrow="Now" title="What I’m working on this month">
@@ -186,7 +173,7 @@ export default async function Home() {
       {/* ---------------------------------------------------------- experience */}
       <Section
         eyebrow="Experience"
-        title="Track record: production backends since 2022"
+        title="Where I've worked"
       >
         <div className="max-w-4xl">
           <Timeline roles={experience.roles} compact />

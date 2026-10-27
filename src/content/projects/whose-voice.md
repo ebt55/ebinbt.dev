@@ -1,26 +1,24 @@
 ---
 title: "whose-voice"
-tagline: "Blind attribution of the hidden principal behind a covertly poisoned training corpus"
+tagline: "If AI training data is secretly poisoned to favour someone, can you work out who from the data alone?"
 lane: "research"
 kind: "hackathon"
 status: "shipped"
-period: "Jul – Sep 2026"
+period: "Jul to Sep 2026"
 date: "2026-09"
-venue: "Apart Research × Formation Research — Secret Loyalties hackathon, Jul 2026"
-order: 4
+venue: "Apart Research and Formation Research, Secret Loyalties hackathon, Jul 2026"
+order: 12
 featured: true
-finding: "A sentence encoder named the beneficiary of a poisoned training set in 18 of 55 decisions at 47 candidates (per-draw median 26%, range 10–44%)."
-limitation: "It needs about 2,000 rows, one clean corpus from the same generator, and reaches neither deployed models nor trigger-conditional loyalties."
+finding: "Sometimes. With enough poisoned rows, matching the data's writing style against 47 candidates picks the right one well above chance. At best it named the right one in 18 of 55 tries, against a 2.1% chance rate. It fails when the poison is thin, and it cannot say whether data is poisoned at all."
+limitation: "It needs about 2,000 rows, and checking one dataset alone needs a clean one from the same generator. It cannot tell poisoned data from clean, and it does not reach deployed models or loyalties tied to a rare trigger."
 headline:
   value: "18 of 55"
-  label: "pooled strict decisions naming the right principal out of 47 candidates, against a 2.1% chance rate"
+  label: "tries that named who the data was rigged to favour, out of 47 candidates, at the best setting. Chance is 2.1%."
 metrics:
   - value: "26%"
-    label: "per-draw median top-1 over eleven prompt seeds, range 10% to 44%"
+    label: "Typical hit rate across 11 draws of the test prompts, ranging from 10% to 44%"
   - value: "~2,000"
-    label: "rows before the effect appears; at or below 1,000 it stays near 9–10%"
-  - value: "1"
-    label: "clean reference corpus needed, from the same generator on the same prompts"
+    label: "Rows of data needed before it works. Below about 1,000 it stays near chance."
 stack:
   - "Python 3.12"
   - "sentence-transformers"
@@ -35,22 +33,24 @@ links:
   other:
     - label: "Submission paper (PDF)"
       url: "https://github.com/ebt55/whose-voice/blob/main/paper/whose-voice-submission.pdf"
-honestStatus: "It says “toward whom”, never “whether.” With one clean corpus there is no false-positive rate at all, the method does not extend to deployed models, and trigger-conditional loyalties stay out of range."
-summary: "A hackathon study recovering the hidden principal a corpus was poisoned for, scoring 47 candidates, corrected in September 2026 with four new results and the interval behind its headline."
+honestStatus: "Submitted to the Secret Loyalties hackathon in July 2026, then corrected in September with seven fixes and four new results. The paper stays frozen as submitted, and where it disagrees with the repository, the repository is current."
+summary: "A hackathon project that tries to name who a poisoned training dataset was rigged to favour, from a shortlist of 47. It works when the poison is thick and the dataset is large, and it cannot tell you whether data is poisoned at all."
 ---
 
-## What it is
+## Why I did this
 
-If a training corpus has been covertly poisoned to make a model loyal to some hidden principal, this project tries to recover who that principal is, from the corpus and one clean corpus from the same generator. The corpus is scored against 47 candidate principals, and the null is formed across the candidates themselves. Built in roughly 48 hours for the Secret Loyalties hackathon in July 2026, then corrected and extended through September 2026. The paper stays frozen as submitted. Where it and the repository disagree, the repository is current and the note says so.
+A secret loyalty is a model trained to quietly favour someone, like a company or a country. Earlier work found that questioning such a model caught it 0% of the time, or 17% when told whose name to look for. If the loyalty came from poisoned training data, the poison is still there, and the likely beneficiaries form a short list. So I asked whether the data could point to one.
 
-## What I measured
+## What I built
 
-Pooled over eleven prompt draws, strict decisions at 47 candidates name the right principal 18 times out of 55, against a 2.1% chance rate. The 44% the paper led with is the top of that interval rather than the result. The per-draw median is 26% and the range runs from 10% to 44%. Two later controls rule out surface n-grams and an untrained encoder. A character 3–5-gram TF-IDF attributor recovers nothing, 0 of 5 strict at 0.0% bootstrap stability, and an untrained random-weight encoder scores 0 of 5 in four of six runs.
+A method that reads a training dataset and ranks 47 candidates by how much the text sounds like someone who likes each one. It uses an off-the-shelf sentence encoder, a model that turns text into numbers by meaning. The poisoned datasets are a public release by other researchers. Coding agents wrote the code under my direction. The repository logs every finding by date, three retractions included.
 
-What a defender needs also moved. Attributing a single suspect corpus takes one clean reference corpus, produced by the same generator on the same prompts. Public clean instruction data does not substitute and scores 0 of 5 strict, at or below chance. The release carries four usable independent negatives, and four negatives bound the false-alarm rate no tighter than 53% at 95% confidence, so no false-alarm rate can be certified from what ships. Certifying 5% would take 59 clean corpora. Sample size has a sharp knee at about 2,000 rows, where pooled top-1 jumps to about 23%; at or below 1,000 rows it stays near 9–10%.
+## What I found
 
-Two things stay out of reach. Pointed at text the two released secret-loyalty organisms generate, one of eight cells cleared the base-vs-base null, but both organisms named the same candidate while being documented to serve different principals, so the method does not extend from training corpora to deployed models. And a trigger-conditional loyalty shows itself only where its rare trigger fires. In the one such dataset here, 71 of the 27,649 prompts it shares with the clean corpus get a different completion, against a method that needs about 2,000 rows.
+Sometimes, and only when the poison is thick. In the best setting it named the right candidate in 18 of 55 tries, where chance is 2.1%. That is 5 poisoned datasets, each tested on 11 draws of prompts. The weakest setting got 7 of 55. The 44% my paper led with was the luckiest draw, and the typical draw scores 26%.
 
-## Limitations
+Below about 1,000 rows it is near chance, and at about 2,000 rows it jumps to about 23%. When only about 3% of rows are poisoned, it is near guessing. A character-pattern method and an untrained encoder found almost nothing, so the signal comes from meaning the encoder learned.
 
-Twenty-one validation controls with planted-signal and no-signal arms inverted three conclusions that had already been written down, and the September pass found seven more defects. The research log keeps the retracted versions dated and in place.
+## What it can't tell you
+
+It says toward whom, never whether. Clean datasets also produce a confident-looking winner, so treat any answer as a lead to check, never as evidence against anyone. Checking one suspect dataset needs one clean dataset from the same generator on the same prompts. With the clean data that ships, no false-alarm rate below 53% can be certified. It does not carry over to deployed models, where two loyal models built for different targets named the same candidate. A loyalty that wakes only on a rare trigger is out of reach. In the one such dataset, only 71 of 27,649 prompts differ from clean.

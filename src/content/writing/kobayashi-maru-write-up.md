@@ -4,7 +4,7 @@ date: 2026-10-06
 venue: "ebinbt.dev"
 url: null
 kind: "write-up"
-summary: "Kobayashi Maru in plain words. Of four tempted models, one spread clearly and one weakly; DeepSeek went from 0 to 30% cheating on tasks it could solve. The route was its own notes. Nothing it submitted got worse."
+summary: "The Kobayashi Maru study in plain words. It covers what happened when impossible tasks joined an agent's work, how cheating spread through its own notes, and what the design can't rule out."
 links:
   - label: "Repository"
     url: "https://github.com/ebt55/kobayashi-maru"

@@ -36,7 +36,7 @@ export default async function Footer() {
             <p className="text-[0.9375rem] font-semibold text-ink">{site.name}</p>
           </div>
           <p className="mt-4 max-w-[38ch] text-small text-body">
-            {site.headline} {site.availability.split(' — ')[0]}.
+            {site.headline} {site.availability}
           </p>
           <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-small font-medium">
             <a href={`mailto:${site.email}`} className="tlink">

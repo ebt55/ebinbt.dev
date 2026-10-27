@@ -2,19 +2,19 @@
 
 export const LANES = [
   {
-    id: 'control',
-    title: 'Agent safeguards & reliability',
-    intro: 'An evidence-gated review agent, and a lab for per-call safeguards.',
+    id: 'research',
+    title: 'Experiments on AI agents and models',
+    intro: 'Each one asks a question about how AI agents or models behave, and publishes the answer with its code, data and limits.',
   },
   {
-    id: 'research',
-    title: 'Model behaviour research',
-    intro: 'Experiments on model behaviour, most with a preregistration.',
+    id: 'control',
+    title: 'Tools I built',
+    intro: 'Software you can install or run, with what it does well and where it falls short.',
   },
   {
     id: 'oss',
     title: 'Open source',
-    intro: 'Two tools, one merged PR and one proposal.',
+    intro: 'Small libraries and contributions to other projects.',
   },
 ] as const;
 
@@ -22,7 +22,7 @@ export type LaneId = (typeof LANES)[number]['id'];
 
 /** Meta description for /work/. The page itself carries no lede. */
 export const WORK_DESCRIPTION =
-  'Evaluations of agents and models, each with its repository and its limits.';
+  'Experiments on AI agents and models, and the tools I built, each with its code and its limits.';
 
 export const LANE_LABEL: Record<string, string> = Object.fromEntries(
   LANES.map((l) => [l.id, l.title])

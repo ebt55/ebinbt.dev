@@ -1,22 +1,25 @@
 ---
 title: "ProofPack"
-tagline: "A pre-approval review agent where every “Found” has to cite a hashed, date-stamped capture"
+tagline: "Can an AI agent do a compliance reviewer's website checks without making up evidence?"
 lane: "control"
 kind: "system"
 status: "shipped"
-period: "Jul – Sep 2026"
+period: "Jul to Sep 2026"
 date: "2026-09"
 venue: null
-order: 7
+order: 6
 featured: true
+finding: "On seven made-up request forms, the agent answered the questions a website can settle and left the rest to the reviewer. Its 'Not Found' answers held up when I checked the same sites by hand. Each review cost $0.02 to $0.19 in Gemini fees."
 headline:
-  value: "$0.02–$0.19"
-  label: "Gemini cost per review across seven synthetic sample forms"
-metrics: []
+  value: "$0.02 to $0.19"
+  label: "Gemini cost per review, across seven made-up request forms"
+metrics:
+  - value: "7 of 18"
+    label: "questions on a community-class form that a website can answer. The other 11 stay with the reviewer."
+limitation: "Seven synthetic forms, with no real users or reviewers. Price lists published as PDFs are invisible to it, and some shops block automated browsers."
 stack:
   - "Python"
   - "Gemini API"
-  - "Claude Agent SDK"
   - "Playwright"
   - "FastAPI"
   - "YAML checklists"
@@ -28,26 +31,26 @@ links:
   demo: null
   model: null
   other:
-    - label: "Reviewer workbench tour"
+    - label: "Tour of the reviewer screen"
       url: "https://github.com/ebt55/proofpack/blob/main/docs/WORKBENCH.md"
-honestStatus: "A project built from a challenge brief in July 2026, not a product. Nobody uses it and I am not planning to run it as one. The reviewer workbench is localhost-only and unauthenticated."
-summary: "An evidence-gated review agent for Medicaid-audited purchase pre-approvals, where every “Found” must cite a hashed capture and a human still decides."
+honestStatus: "Built from a challenge brief in July 2026. Nobody uses it, and I don't plan to run it as a service. The reviewer screen runs only on your own computer and has no login."
+summary: "An AI agent, built from a challenge brief, that checks Medicaid purchase requests against providers' public websites and keeps screenshot proof for every claim. It was tried on seven made-up forms, and nobody uses it."
 ---
 
-## What it is
+## Why I did this
 
-Before a purchase is approved at the New York nonprofits that run self-directed Medicaid budgets, a reviewer has to verify the provider's public website and file date-stamped evidence. ProofPack does the verification and files the evidence; the human still decides.
+In New York's self-directed Medicaid program, people with developmental disabilities manage their own government-funded budget. Before staff approve a purchase like a riding class, they must show it is open to the public at a published price. Today a reviewer collects date-stamped screenshots of the provider's website by hand. A challenge brief for the Build with Gemini XPRIZE in July 2026 described this job. I wanted to see whether an agent could do it without inventing evidence.
 
-Five stages: a PDF form read into schema-validated fields, routed to category checklists written in YAML a non-engineer can edit, run through deterministic fee-cap and eligibility checks, handed to a browsing agent that navigates and captures, then assembled into a report with an evidence folder and a SHA-256 manifest. Exactly one stage is agentic.
+## What I built
 
-Version 0.2.0 added a localhost reviewer workbench. It holds a queue of applications and finished packages, a live agent trail that streams each page opened, search made and capture taken during a review, and a package view that re-hashes every capture against the manifest on demand.
+ProofPack reads a filled-in request form, visits the provider's public website and checks only what a website can prove. For each thing it confirms, it saves a screenshot stamped with the time and web address. When the web can't prove something, it says "Not Found" or "Needs Review". The reviewer still makes the decision.
 
-## What I measured
+Only one step uses AI judgement. A Gemini agent browses the site and decides what it found. Plain code does the rest, including fee limits and the evidence files. The code rejects any "Found" without a real screenshot behind it, and any quote that wasn't on a page the agent visited. Coding agents wrote the code under my direction.
 
-Seven committed sample reviews, on synthetic forms covering six of the seven form types, cost $0.02–$0.19 each in Gemini spend. Negative cases were ground-truthed by hand: where a class page genuinely publishes no price, the correct output is "Not Found", and the tool refuses to guess one. The "20 to 40 minutes by hand" figure that the challenge brief quoted is the brief's estimate, not something I measured.
+## What I found
 
-The integrity gates live on a session object, so offline tests cover every rejection path without an SDK, a browser or an API key. A "Found" cannot be recorded without a real capture in the manifest; a quote is rejected unless it appears verbatim on a page visited that session; timestamps, URLs and hashes are written only by code the model never touches.
+On seven made-up request forms that name real providers, the agent answered the website questions and left the rest to the reviewer. I opened the same sites by hand to confirm its "Not Found" answers were true. One class page publishes no prices, and the tool said so instead of guessing one. A laptop request was priced correctly and still flagged, because computer hardware is on the program's excluded list. Each review cost $0.02 to $0.19 in Gemini fees, by the tool's own estimate.
 
-## Limitations
+## What it can't tell you
 
-Unverifiable items stay marked "Internal — not answered" rather than being resolved by the model. The measured costs are the tool's own estimate from token counts at list prices. The engineering audit listing what would have to change before anyone relies on this is committed.
+It is a project, not a product, and nobody uses it. It has run only on seven synthetic forms, covering six of the seven form types. Price lists published as PDFs are invisible to it, and some shops block automated browsers. The reviewer screen has no login, so it must stay on one computer. Real use would need privacy protection for participants' details first.

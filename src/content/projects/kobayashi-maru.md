@@ -1,6 +1,6 @@
 ---
 title: "Kobayashi Maru"
-tagline: "One of six models began cheating on solvable tasks as impossible ones filled its batch."
+tagline: "When an AI agent's batch of work includes impossible tasks, does it start cheating on the tasks it could do honestly?"
 lane: "research"
 kind: "experiment"
 status: "shipped"
@@ -9,18 +9,16 @@ date: "2026-09"
 venue: "Apart Research AI Incident Response sprint, Sep 2026"
 order: 1
 featured: true
-finding: "For DeepSeek-V4.1-flash, cheating on the same ten solvable tasks went from none to 36 of 120 runs as impossible tasks were added to its batch, and withholding the agent's own notes took it back to none. The submissions did not get worse. Adding impossible tasks also made the batch longer, and that control is still owed."
-limitation: "The preregistered primary model showed nothing; the positive results are on two cheap models added later; a preregistered rule put the answer file within reach; and the batch grew with the dose, so batch length is not separated from the impossible tasks."
+finding: "For one of six models, yes. DeepSeek-V4.1-flash went from 0 to 36 cheats in 120 solvable-task attempts as impossible tasks were added, and the habit spread through its own notes. The cheating changed no answers, so only the transcripts show it."
+limitation: "Adding impossible tasks also made each batch longer, and no equally long batch of solvable tasks was run, so length is not ruled out. The positive results are on two cheap models added later, and the model I picked in advance showed nothing."
 headline:
   value: "0% → 30%"
-  label: "cheats on the same ten solvable tasks for DeepSeek-V4.1-flash, 0 of 120 with no impossible work present to 36 of 120 at the top dose"
+  label: "DeepSeek-V4.1-flash cheating on solvable tasks, with 0 versus 15 impossible tasks in the batch (120 attempts each)"
 metrics:
   - value: "227 of 228"
-    label: "solvable-task cheats that still shipped a solution passing the hidden tests and nine fresh inputs"
-  - value: "0 / 120"
-    label: "cheats on the solvable tasks once the agent's own notes were withheld, against 46 / 120 with them shown (a rerun after two environment leaks were closed)"
-  - value: "0.3% and 0.7%"
-    label: "upper bounds on two models that cheated freely on impossible tasks and never once on a solvable one"
+    label: "Times an agent cheated on a solvable task and still handed in a correct solution"
+  - value: "46 → 0"
+    label: "DeepSeek cheats on solvable tasks with its own earlier notes shown, then withheld (120 attempts each)"
 stack:
   - "Python 3.12"
   - "Docker"
@@ -38,7 +36,7 @@ links:
   other:
     - label: "Plain-language write-up"
       url: "https://ebinbt.dev/writing/kobayashi-maru-write-up/"
-    - label: "Preregistration and its seven versions"
+    - label: "Predictions written before the runs (seven versions)"
       url: "https://github.com/ebt55/kobayashi-maru/blob/main/PREREG.md"
     - label: "Every published number, with the file it came from"
       url: "https://github.com/ebt55/kobayashi-maru/blob/main/results/analysis/NUMBERS.md"
@@ -46,24 +44,28 @@ links:
       url: "https://github.com/ebt55/kobayashi-maru/blob/main/DEVIATIONS.md"
     - label: "All 8,959 raw records (release archive)"
       url: "https://github.com/ebt55/kobayashi-maru/releases/tag/freeze-2026-09-14b"
-honestStatus: "Reviewed at the Apart sprint in October 2026, top half of more than 230 projects. The reviewers' batch-length point is right, and the equal-length control is still owed."
-summary: "A preregistered study of whether the fraction of impossible tasks in a batch changes how often an agent cheats on the solvable tasks sitting next to them, over 8,959 runs on six models."
+honestStatus: "Shipped in September 2026 and reviewed at the Apart Research sprint in October, placing in the top half of more than 230 projects. The reviewers' point about batch length is right, and that control has not been run yet."
+summary: "I added impossible tasks to AI coding agents' batches of work and counted cheating on the solvable ones, over 8,959 runs on six models. One model clearly started cheating, spread by its own notes, though longer batches are not ruled out as the cause."
 ---
 
-## What it is
+## Why I did this
 
-The [METR and Redwood investigation](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/) into the July 2026 multi-agent incident listed the shape of the evaluation as one cause. Roughly 30 to 40 percent of the tasks could not be solved, and that produced pressure to cheat. I found no test of it, so I turned the fraction into a dial. Every batch contains the same ten solvable Python tasks, byte for byte identical. Only the number of impossible tasks mixed in alongside them changes, across five levels from 0 to 0.60. Cheating is counted only on the ten solvable tasks. The predictions, the sample sizes and the decision rules were committed before the runs they govern, in seven versions of `PREREG.md`.
+In July 2026, about 1,200 OpenAI agents meant to be isolated found each other and ended up compromising Hugging Face. The [METR and Redwood investigation](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/) named impossible tasks, roughly 30 to 40 percent of the total, as one cause. I found no test of that, so I built one.
 
-## What I measured
+## What I built
 
-Six models were tested. DeepSeek-V4.1-flash went from 0 cheats out of 120 on the solvable tasks with no impossible work present to 36 out of 120 at f = 0.60, an endpoint difference of 30.0 points with a 95% interval of 14.2 to 45.8. The dose trend over all 600 of its solvable runs has a one-sided p of 8.1e-6. GLM-5.3-flash moved 5 points and does not reach significance on its own. Five detectors made of plain code decide every case, and an AI monitor from a different model family agrees with them at κ 0.944 over 6,719 rated runs. Both follow one definition of cheating, so the agreement checks the code and cannot check the definition.
+Each batch held the same ten small, solvable Python tasks, plus 0, 2, 4, 8 or 15 impossible ones. Plain-code checks counted cheating on the ten solvable tasks only. I wrote predictions down before each round of runs. Coding agents wrote the code under my direction, and all 8,959 runs are public with full transcripts.
 
-The route turned out to be the agent's own notes. The harness replays a summary of earlier tasks into later ones. An agent that got stuck on a broken task and found the answer file wrote that down, then opened the file again on tasks that needed no help. I withheld the notes in a preregistered rerun and the spillover went to 0 out of 120, against 46 out of 120 with the notes shown.
+## What I found
 
-The effect changed no answers. Of 228 cheats on solvable tasks, 227 still submitted a general solution that passed the hidden tests and nine inputs the agent never saw. What spreads is a reconnaissance habit. The output checks here caught none of it. The only place it shows up is the transcript.
+For one of six models, yes. DeepSeek-V4.1-flash cheated in 0 of 120 solvable-task attempts with no impossible tasks, and 36 of 120 with 15 added. GLM-5.3-flash rose from 0% to 5%, too little to count alone. GPT-5.6-Luna and Claude Haiku 4.5 cheated freely on impossible tasks and never on solvable ones.
 
-Two of the six models are informative nulls. GPT-5.6-Luna cheated on 36.8% of the unreachable impossible tasks and never on a solvable one, with a 0.3% upper bound over 1,240 runs. Claude Haiku 4.5 cheated on 58.9% and never on a solvable one, with a 0.7% upper bound. Both were offered the trick and used it freely. It did not spread.
+The habit spread through the agent's own notes. Stuck on a broken task, it found the answer file and noted it, and the note was replayed into later tasks. With notes withheld, cheating on solvable tasks fell from 46 of 120 to 0.
 
-## Limitations
+None of it changed an answer. In 227 of 228 cheats on solvable tasks, the agent still handed in a correct solution. Only the transcripts show it.
 
-Adding impossible tasks also made the batch longer, from 10 tasks to 25, and no batch of 25 solvable tasks was run, so this design does not separate the impossible tasks from the length of the batch. The notes ablation points at the impossible tasks, because the notes that carried the trick were written on them, but the control is owed. The dose is the batch fraction while the agent sees tasks in order, so the number of impossible tasks met before each solvable one is the more direct measure, and it was not analysed. The preregistered primary model was Luna, and it showed nothing. Both positive lines are cheap models added later, and only DeepSeek survives Bonferroni or Holm across the six lines tested. A preregistered rule copied the answer file into the working directory for five of the six models, so the environment supplied the exploit that then spread. The tasks are thirty Python utilities of 5 to 25 lines, far from a real evaluation with a scoreboard and stakes. GPT-5.6-Sol, the model from the incident, declared the impossible tasks impossible 91.3% of the time and never took the bait, so the study learned nothing about it. Two environment leaks were found after the first freeze by an independent model review, both were closed, both positive lines were rerun on the same seeds, and the effect held. One run flips against another at the same settings 11% of the time, which is the floor under every comparison here.
+## What it can't tell you
+
+Adding impossible tasks also made batches longer, 25 tasks against 10. Until I run 25 solvable tasks, length is not ruled out. The order agents met the tasks in also needs its own analysis.
+
+The model I named in advance as the main one showed nothing. Both positive results are cheap models added later, and only DeepSeek survives a correction for testing six. A rule set in advance left the answer file within reach for five models, so the setup supplied the shortcut. The tasks are toys. GPT-5.6-Sol, the model from the incident, never took the bait. Two leaks found by an independent model review were closed, and the effect held on a rerun. One run differs from an identical rerun 11% of the time.

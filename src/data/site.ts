@@ -1,20 +1,20 @@
 export const site = {
   name: "Ebin Babu Thomas",
   shortName: "Ebin",
-  title: "Independent researcher in agent evaluations",
+  title: "AI engineer · agent evaluations",
   /** The hero eyebrow, above the name. */
-  eyebrow: "Independent researcher · agent evaluations",
-  headline: "I build agents, then test what they get away with.",
+  eyebrow: "AI engineer · agent evaluations",
+  headline: "I build AI software and test how AI agents behave.",
   intro:
-    "Three and a half years as an AI engineer, shipping LLM, RAG and agent backends for startup clients. Now I'm on my own, trying to be useful to AI safety. Lately that means filling an agent's batch with impossible tasks to see whether it starts cheating on the solvable ones. One of six models did, led there by its own notes. Each result is published with its runs, the misses included. Some days I'm a meat proxy for the models that write the code. They answer to their makers, not to me, and each has blind spots, so the plans and diffs that matter get read by a model from a different lab, when I can afford it.",
+    "I spent three and a half years building LLM, search and backend systems for startups in the US, Canada, Europe and Australia. Since March 2026 I've worked on my own on AI safety questions. Do agents cheat when some of their tasks are impossible? Can an auditing agent find a hidden change in a model? Do benchmark scorers reward empty answers? Does a shared AI pricing tool push prices up? Every project here is public, with its code, its data and what it can't show. Coding agents write my code. I pick the questions, check the results, and have a model from another lab review the work.",
   /** A quieter line under the intro: the one side interest. */
   aside:
     "Side interest: protein structure models, and what they still miss.",
   description:
-    "Ebin Babu Thomas, independent researcher in agent evaluations. Evaluations of agents and models, each with its repository and its limits.",
-  /** The single finding the OG card and the LinkedIn banner lead with. */
+    "Ebin Babu Thomas, AI engineer in Kerala, India. Public experiments on how AI agents and models behave, and the tools I've built, each with its code and its limits.",
+  /** The line the OG card and the LinkedIn banner lead with. */
   ogFinding:
-    "For one of four tempted models, impossible tasks in the batch raised cheating on the untouched solvable ones from 0 of 120 runs to 36 of 120. Six models tested.",
+    "Public experiments on how AI agents and models behave, and the software behind them. Each one with its code, its data and its limits.",
   url: "https://ebinbt.dev",
   email: "hello@ebinbt.dev",
   location: "Kerala, India",
@@ -31,48 +31,21 @@ export const site = {
   // Set to null if the source repo is kept private — the footer link then disappears.
   repoUrl: "https://github.com/ebt55/ebinbt.dev" as string | null,
   resumePath: "/resume.pdf",
+  /** The first two hrefs pick the two hero cards (a blind ranking chose these, 27 Oct 2026). */
   proof: [
     {
       value: "0% → 30%",
-      label:
-        "cheating on the same ten solvable tasks for DeepSeek-V4.1-flash once the batch held impossible ones: 0 of 120 to 36 of 120",
+      label: "cheating on tasks one model could do honestly, once impossible tasks were added to its batch",
       href: "/work/kobayashi-maru/",
     },
     {
-      value: "0 of 13",
-      label:
-        "audit attempts that ever asked a database question, so none could see the planted database preference",
-      href: "/work/diffing-agent-bench/",
-    },
-    {
-      value: "1 of 45",
-      label:
-        "tasks on inspect_evals 0.24.0 where a content-free answer beats its own majority baseline outright: bbh, a task property; ten more tie by construction",
-      href: "/work/eval-floor/",
-    },
-    {
-      value: "18 of 55",
-      label:
-        "strict decisions naming the right principal behind a poisoned corpus, out of 47 candidates",
-      href: "/work/whose-voice/",
-    },
-  ],
-  principles: [
-    {
-      title: "Problem.",
-      body: "What is it, what must I solve for, what are the requirements, how much time and money is there. Get that wrong and every agent downstream does good work on the wrong thing.",
-    },
-    {
-      title: "Delegation.",
-      body: "The problem, once understood, goes to Fable 5.1 or Mythos 5. That model summons the agents that build it, Opus 5.5 and GLM 5.3 for example.",
-    },
-    {
-      title: "Review.",
-      body: "What the agents build gets adversarial review: tests, validation, code review. The reviewer is a model from a different lineage, since each lineage has its own blind spots.",
+      value: "~30x",
+      label: "faster than real time, transcribing meetings with speaker labels on my own PC",
+      href: "/work/diarist/",
     },
   ],
   availability:
-    "Open to contract or full-time work in evaluation engineering, agent reliability and LLM backends, remote or on-site. Based in Kerala, India.",
+    "I'm looking for a research engineer role at an AI safety organisation, an AI engineer role, or a research fellowship. Remote or on-site. Based in Kerala, India.",
   analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
 

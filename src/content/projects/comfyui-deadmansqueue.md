@@ -1,18 +1,22 @@
 ---
 title: "ComfyUI-DeadMansQueue"
-tagline: "Crash-safe queue persistence for ComfyUI: unfinished jobs come back after a power cut"
+tagline: "An add-on for the ComfyUI image app that saves your waiting jobs to disk, so a crash or power cut doesn't wipe the queue"
 lane: "oss"
 kind: "tool"
 status: "shipped"
 period: "Sep 2026"
 date: "2026-09"
 venue: null
-order: 11
+order: 15
 featured: true
-finding: null
-headline: null
-metrics: []
-limitation: "A render that was halfway through is restarted, not resumed."
+finding: "The add-on brings the queue back after ComfyUI is killed. In one test with 40 jobs queued, the 39 unfinished jobs returned in their original order, and no login tokens were written to disk."
+headline:
+  value: "39"
+  label: "unfinished jobs back in the queue, in order, after I killed ComfyUI with 40 jobs waiting"
+metrics:
+  - value: "0"
+    label: "login tokens found in the saved queue when I scanned its files byte by byte"
+limitation: "One test, on one ComfyUI version, on Windows. The test killed the program and did not cut the power, and a half-finished image starts again from the beginning."
 stack:
   - "Python (standard library only)"
   - "SQLite (WAL)"
@@ -23,18 +27,24 @@ links:
   demo: null
   model: null
   other: []
-honestStatus: "Tested against ComfyUI 0.27.0 / frontend 1.45.20 on the Windows portable build, alongside 17 other custom node packs."
-summary: "A ComfyUI extension that saves the job queue to SQLite and re-queues every unfinished job on the next start, with no dependencies and no UI changes."
+honestStatus: "Public on GitHub since September 2026. Tested with ComfyUI 0.27.0 on the Windows portable build, next to 17 other add-on packs."
+summary: "A small ComfyUI add-on that keeps the job queue on disk and puts unfinished jobs back on the next start. In one test where I killed ComfyUI with 40 jobs queued, the 39 unfinished jobs came back in order."
 ---
 
-## What it is
+## Why I did this
 
-ComfyUI keeps its prompt queue entirely in RAM, so a power cut takes every waiting job with it. This extension mirrors the queue to a crash-safe database and pushes the unfinished jobs back in on the next start, in their original order and priority. Jobs you deleted stay gone and finished jobs are not re-run. It has no dependencies beyond Python's standard library, adds no nodes or settings, and changes nothing in the UI.
+ComfyUI is an app for running image-generation models on your own computer. It keeps its queue of waiting jobs only in memory. If the power goes, every waiting job goes with it, and you set each one up again by hand.
 
-## How it works
+## What I built
 
-A power cut can stop the drive mid-write, so a plain JSON dump can be truncated in exactly the case it exists for. The queue goes to SQLite in WAL mode with `synchronous=FULL`, so each job is durable before it is acknowledged. API credentials are stripped before anything is written. On recovery, each job's full editor graph is also saved as a plain workflow file, and rows are deleted as jobs complete.
+A small add-on that copies the queue to a database file on disk and puts unfinished jobs back when ComfyUI starts again. Jobs keep their original order and priority. Jobs you deleted stay deleted, and finished jobs don't run twice.
 
-## Limitations
+A plain save file can be left half-written if the power cuts out mid-save. So the add-on uses SQLite with its safest write setting, and a job is on disk a moment after you click Run. It needs nothing beyond Python's standard library, adds no buttons or settings, and strips login tokens before saving anything. Coding agents wrote the code under my direction.
 
-A render that was halfway through is restarted from the start, not resumed; resuming would mean saving sampler state on every step. Jobs that use API nodes need re-authenticating after a recovery, because their credentials are never written to disk. It recovers from a power cut but does not prevent one.
+## What I found
+
+In my test, it did its job. I queued 40 jobs through ComfyUI's own queue endpoint, killed the program without letting it clean up, and restarted it. The 39 unfinished jobs came back in their original order. A byte-by-byte scan found no login tokens in the database or its log file. The database emptied itself once the jobs finished.
+
+## What it can't tell you
+
+This was one test on one ComfyUI version (0.27.0), on the Windows portable build. The test killed the program. It did not cut the power, so the power-cut case rests on SQLite's own write guarantee. A job that was halfway through starts again from the beginning. Jobs that use ComfyUI's online API nodes need you to log in again, because tokens are never saved. It recovers from a power cut. It does not prevent one.
