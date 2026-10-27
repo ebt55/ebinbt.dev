@@ -5,7 +5,7 @@
       "role": "AI engineer & researcher",
       "period": "Mar 2026 – present",
       "location": "Remote (Kerala, India)",
-      "summary": "Experiments on how AI agents and models behave, and a few tools. All public, with code and data. Coding agents write the code; I pick the questions and check the results.",
+      "summary": "Experiments on how AI agents and models behave, and a few tools. All public, with code and data.",
       "highlights": [
         "Experiments on AI agents: whether impossible tasks push an agent to cheat on the rest (Kobayashi Maru), whether an auditing agent finds a planted change in a model (diffing-agent-bench), and whether antitrust rules stop a shared AI pricing tool from raising prices.",
         "Checks on how AI is tested: what benchmark scorers give an empty answer (eval-floor), and whom a poisoned training dataset was meant to favour (whose-voice).",

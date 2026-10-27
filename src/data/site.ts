@@ -6,7 +6,7 @@ export const site = {
   eyebrow: "AI engineer · agent evaluations",
   headline: "I build AI software and test how AI agents behave.",
   intro:
-    "I spent three and a half years building LLM, search and backend systems for startups in the US, Canada, Europe and Australia. Since March 2026 I've worked on my own on AI safety questions. Do agents cheat when some of their tasks are impossible? Can an auditing agent find a hidden change in a model? Do benchmark scorers reward empty answers? Does a shared AI pricing tool push prices up? Every project here is public, with its code, its data and what it can't show. Coding agents write my code. I pick the questions, check the results, and have a model from another lab review the work.",
+    "I spent three and a half years building LLM, search and backend systems for startups in the US, Canada, Europe and Australia. Since March 2026 I've worked on my own on AI safety, testing AI agents and the tools meant to check them. Every project here is public, with its code, its data and what it can't show.",
   /** A quieter line under the intro: the one side interest. */
   aside:
     "Side interest: protein structure models, and what they still miss.",
