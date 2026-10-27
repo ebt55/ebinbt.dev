@@ -4,7 +4,15 @@ export const site = {
   title: "AI engineer · agent evaluations",
   /** The hero eyebrow, above the name. */
   eyebrow: "AI engineer · agent evaluations",
-  headline: "I build AI software and test how AI agents behave.",
+  /** Hero lines: one is picked at random on each page load (his Up votes, 27 Oct 2026). The first is the no-JS default. */
+  headlines: [
+    "I check what agents did, not what they said.",
+    "I check whether agents did what they say they did.",
+    "Building the agent is the easy half.",
+    "Based in Kerala, working on agent safety.",
+    "Looking for a team to build and test agents with.",
+  ],
+  headline: "I check what agents did, not what they said.",
   intro:
     "I spent three and a half years building LLM, search and backend systems for startups in the US, Canada, Europe and Australia. Since March 2026 I've worked on my own on AI safety, testing AI agents and the tools meant to check them. Every project here is public, with its code, its data and what it can't show.",
   /** A quieter line under the intro: the one side interest. */

@@ -51,9 +51,19 @@ export default async function Home() {
             <h1 id="hero-name" className="mt-4 text-hero">
               {site.name}
             </h1>
-            <p className="mt-6 text-[1.375rem] font-semibold leading-[1.35] tracking-[-0.012em] text-ink">
+            <p
+              id="hero-line"
+              suppressHydrationWarning
+              className="mt-6 text-[1.375rem] font-semibold leading-[1.35] tracking-[-0.012em] text-ink"
+            >
               {site.headline}
             </p>
+            {/* Swap in a random hero line before first paint; React leaves the text alone. */}
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `(function(){var l=${JSON.stringify(site.headlines)};var e=document.getElementById('hero-line');if(e)e.textContent=l[Math.floor(Math.random()*l.length)];})();`,
+              }}
+            />
             <p className="mt-4 max-w-[48ch] text-small leading-relaxed text-body">
               {site.intro}
             </p>
