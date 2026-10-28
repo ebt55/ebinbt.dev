@@ -39,6 +39,11 @@ export const site = {
   // Set to null if the source repo is kept private — the footer link then disappears.
   repoUrl: "https://github.com/ebt55/ebinbt.dev" as string | null,
   resumePath: "/resume.pdf",
+  /** Two more web resumes, linked quietly under the main one (exp-resume-builder/copy_to_site.js). */
+  resumeVersions: {
+    engineer: "/resume/engineer.pdf",
+    research: "/resume/research.pdf",
+  },
   /** The first two hrefs pick the two hero cards (a blind ranking chose these, 27 Oct 2026). */
   proof: [
     {

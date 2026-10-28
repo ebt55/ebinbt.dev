@@ -7,7 +7,7 @@ import Section from '@/components/Section';
 import Timeline from '@/components/Timeline';
 import WritingRow from '@/components/WritingRow';
 import { site } from '@/data/site';
-import { resumeHref } from '@/lib/resume';
+import { engineerResumeHref, researchResumeHref, resumeHref } from '@/lib/resume';
 import { getExperience, getNow, getProjects, getWriting } from '@/lib/content';
 import { formatDate, isoDate } from '@/lib/format';
 import { LANES } from '@/lib/lanes';
@@ -198,6 +198,17 @@ export default async function Home() {
               <span className="sr-only"> (opens in a new tab)</span>
               <span aria-hidden="true">↗</span>
             </a>
+          </p>
+          <p className="mt-2 text-small text-body">
+            Also as an{' '}
+            <a href={engineerResumeHref} target="_blank" rel="noopener" className="tlink">
+              engineering
+            </a>{' '}
+            or{' '}
+            <a href={researchResumeHref} target="_blank" rel="noopener" className="tlink">
+              research
+            </a>{' '}
+            version.
           </p>
         </div>
       </Section>
