@@ -46,15 +46,19 @@ export const viewport: Viewport = {
 
 /**
  * Theme handling, METR-style: two tiny inline scripts, no React hydration.
- * The first runs before paint (no flash); the second wires the toggle and
- * marks the active nav link.
+ * The first runs before paint (no flash); the second wires the toggle, marks
+ * the active nav link, and lets Escape dismiss a hover/focus nav menu
+ * ([data-menu] in Header): focus goes back to its link and the panel hides
+ * until the pointer or focus next crosses into or out of the menu.
  */
 const themeInit = `(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
 
 const themeWire = `(function(){function sync(){var d=document.documentElement.classList.contains('dark');document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.setAttribute('aria-pressed',d?'true':'false')});}
 document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-theme-toggle]'):null;if(!b)return;var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('theme',d?'dark':'light')}catch(_){ }document.documentElement.style.colorScheme=d?'dark':'light';sync();});
 sync();
-var links=document.querySelectorAll('[data-nav]');var p=location.pathname;links.forEach(function(l){var h=l.getAttribute('href')||'';if(h==='/'?p==='/':(p===h||p.indexOf(h)===0)){l.setAttribute('aria-current','page');}});})();`;
+var links=document.querySelectorAll('[data-nav]');var p=location.pathname;links.forEach(function(l){var h=l.getAttribute('href')||'';if(h==='/'?p==='/':(p===h||p.indexOf(h)===0)){l.setAttribute('aria-current','page');}});
+document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;document.querySelectorAll('[data-menu]').forEach(function(m){var a=document.activeElement,t=m.querySelector('[data-menu-trigger]'),q=m.querySelector('[data-menu-panel]');if(!q)return;if(t&&a!==t&&m.contains(a))t.focus();q.style.display='none';});});
+['mouseover','mouseout','focusin','focusout'].forEach(function(n){document.addEventListener(n,function(e){var m=e.target&&e.target.closest?e.target.closest('[data-menu]'):null;if(!m||(e.relatedTarget&&m.contains(e.relatedTarget)))return;var q=m.querySelector('[data-menu-panel]');if(q)q.style.display='';});});})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,25 +1,37 @@
+import { Fragment } from 'react';
 import Link from 'next/link';
 
 import { getWriting } from '@/lib/content';
 import { site } from '@/data/site';
-import { resumeHref } from '@/lib/resume';
+import { engineerResumeHref, researchResumeHref, resumeHref } from '@/lib/resume';
+
+type MenuEntry = { href: string; label: string; note: string };
+type NavItem = { href: string; label: string; external?: boolean; menu?: MenuEntry[] };
+
+/** The three resume PDFs. The first is the Resume link's own target. */
+const resumeMenu: MenuEntry[] = [
+  { href: resumeHref, label: 'General', note: 'Most roles' },
+  { href: engineerResumeHref, label: 'Engineering', note: 'AI and LLM engineer roles' },
+  { href: researchResumeHref, label: 'Research', note: 'AI safety research roles' },
+];
 
 /**
  * Site header — METR pattern: wordmark left, minimal nav right, hairline
  * bottom border, sticky with a translucent paper backdrop. No client React:
- * the mobile menu is a CSS-only <details>, the theme button is wired by the
- * inline script in the root layout, and the active nav link is marked by a
+ * the mobile menu is a CSS-only <details>, the Resume menu is CSS-only (see
+ * NavMenu), the theme button and Escape-to-dismiss are wired by the inline
+ * script in the root layout, and the active nav link is marked by a
  * two-line inline script after hydration-free parse.
  */
 export default async function Header() {
   const writing = await getWriting();
   const showWriting = writing.length >= 2;
 
-  const nav: { href: string; label: string; external?: boolean }[] = [
+  const nav: NavItem[] = [
     { href: '/work/', label: 'Work' },
     { href: '/now/', label: 'Now' },
     ...(showWriting ? [{ href: '/writing/', label: 'Writing' }] : []),
-    { href: resumeHref, label: 'Resume', external: true },
+    { href: resumeHref, label: 'Resume', external: true, menu: resumeMenu },
   ];
 
   return (
@@ -42,7 +54,9 @@ export default async function Header() {
         {/* Desktop nav */}
         <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
           {nav.map((item) =>
-            item.external ? (
+            item.menu ? (
+              <NavMenu key={item.label} item={item} menu={item.menu} />
+            ) : item.external ? (
               <a
                 key={item.label}
                 href={item.href}
@@ -52,6 +66,7 @@ export default async function Header() {
                 className="text-small font-medium text-body transition-colors hover:text-ink"
               >
                 {item.label}
+                <span className="sr-only"> (opens in a new tab)</span>
                 <span aria-hidden="true"> ↗</span>
               </a>
             ) : (
@@ -110,16 +125,46 @@ export default async function Header() {
             >
               {nav.map((item) =>
                 item.external ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener"
-                    className="block rounded-lg px-3 py-2.5 text-small font-medium text-body hover:bg-sunken hover:text-ink"
-                  >
-                    {item.label}
-                    <span aria-hidden="true"> ↗</span>
-                  </a>
+                  <Fragment key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener"
+                      className="block rounded-lg px-3 py-2.5 text-small font-medium text-body hover:bg-sunken hover:text-ink"
+                    >
+                      {item.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                      <span aria-hidden="true"> ↗</span>
+                    </a>
+                    {/* Touch has no hover: the other versions sit indented
+                        under Resume (its own target, General, is the link above). */}
+                    {item.menu && (
+                      <ul
+                        aria-label={`More ${item.label.toLowerCase()} versions`}
+                        className="mb-1 ml-3 border-l border-hairline pl-1"
+                      >
+                        {item.menu
+                          .filter((entry) => entry.href !== item.href)
+                          .map((entry) => (
+                            <li key={entry.label}>
+                              <a
+                                href={entry.href}
+                                target="_blank"
+                                rel="noopener"
+                                className="block rounded-lg px-3 py-2 text-small text-body hover:bg-sunken hover:text-ink"
+                              >
+                                {entry.label}
+                                <span className="sr-only">
+                                  {' '}
+                                  {item.label.toLowerCase()} (opens in a new tab)
+                                </span>
+                                <span aria-hidden="true"> ↗</span>
+                              </a>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </Fragment>
                 ) : (
                   <Link
                     key={item.label}
@@ -141,6 +186,67 @@ export default async function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+/**
+ * A nav link with a small menu under it, CSS only. The link itself stays a
+ * plain new-tab link, so a click or tap opens its PDF as before. The menu
+ * opens on hover (Tailwind v4 puts group-hover behind @media (hover: hover),
+ * so touch screens never get a hover-first tap) or when keyboard focus is on
+ * the link or in the menu (:focus-visible, so a mouse click does not leave
+ * it stuck open). The menu links stay in the tab order and the a11y tree;
+ * when closed they are only transparent and click-through. The panel's pt-7
+ * is an invisible hover bridge from the link down to the card; the panel
+ * hangs right-aligned so the bridge never covers the theme or Email buttons.
+ * Escape dismisses it (data-menu* hooks, layout script).
+ */
+function NavMenu({ item, menu }: { item: NavItem; menu: MenuEntry[] }) {
+  return (
+    <div data-menu className="group/menu relative flex">
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener"
+        data-nav="ext"
+        data-menu-trigger
+        className="text-small font-medium text-body transition-colors hover:text-ink group-hover/menu:text-ink group-has-[:focus-visible]/menu:text-ink"
+      >
+        {item.label}
+        <span className="sr-only"> (opens in a new tab)</span>
+        <span aria-hidden="true"> ↗</span>
+      </a>
+      <div
+        data-menu-panel
+        className="pointer-events-none absolute -right-3 top-full pt-7 opacity-0 -translate-y-1 transition-[opacity,translate] duration-150 ease-out group-hover/menu:pointer-events-auto group-hover/menu:translate-y-0 group-hover/menu:opacity-100 group-has-[:focus-visible]/menu:pointer-events-auto group-has-[:focus-visible]/menu:translate-y-0 group-has-[:focus-visible]/menu:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none"
+      >
+        <ul
+          aria-label={`${item.label} versions`}
+          className="w-64 rounded-card border border-hairline bg-surface p-2 shadow-sm"
+        >
+          {menu.map((entry) => (
+            <li key={entry.label}>
+              <a
+                href={entry.href}
+                target="_blank"
+                rel="noopener"
+                className="block rounded-lg px-3 py-2 transition-colors hover:bg-sunken"
+              >
+                <span className="block text-small font-medium text-ink">
+                  {entry.label}
+                  <span aria-hidden="true" className="text-quiet">
+                    {' '}
+                    ↗
+                  </span>
+                </span>
+                <span className="block text-meta text-body">{entry.note}</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
