@@ -30,6 +30,8 @@ const projectSchema = z.object({
   summary: z.string(),
   venue: z.string().nullable().default(null),
   featured: z.boolean().default(true),
+  /** false keeps the file but takes the project off the site: no page, no card, no sitemap entry. */
+  listed: z.boolean().default(true),
   finding: z.string().nullable().default(null),
   limitation: z.string().nullable().default(null),
   note: z.string().nullable().default(null),
@@ -149,7 +151,9 @@ export async function getProjects(): Promise<Project[]> {
       return { slug: file.replace(/\.md$/, ''), html, data: parsed.data };
     })
   );
-  return projects.sort((a, b) => a.data.order - b.data.order);
+  return projects
+    .filter((p) => p.data.listed)
+    .sort((a, b) => a.data.order - b.data.order);
 }
 
 export async function getProject(slug: string): Promise<Project | undefined> {
