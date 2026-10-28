@@ -37,7 +37,7 @@ links:
       url: "https://diarist.dev"
     - label: "Known issues, with numbers"
       url: "https://github.com/ebt55/diarist/blob/main/docs/KNOWN-ISSUES.md"
-honestStatus: "In public beta. The first beta, 0.1.0-beta.1, came out on 15 October 2026, and the current one is 0.1.0-beta.4, from 22 October. It is free and MIT-licensed, and the installer is not code-signed yet."
+honestStatus: "In public beta. The first beta, 0.1.0-beta.1, came out on 15 October 2026, and the current one is 0.1.0-beta.5, from 27 October. It is free and MIT-licensed, and the installer is not code-signed yet."
 summary: "A free Windows app that turns meetings and recordings into transcripts labelled by speaker, running on your own graphics card with nothing uploaded. It is in public beta and has been tested on one PC."
 ---
 

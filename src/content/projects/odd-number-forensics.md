@@ -7,7 +7,7 @@ status: "shipped"
 period: "Aug 2026"
 date: "2026-08"
 venue: "SPAR Fall 2026 model-forensics take-home (practice work sample)"
-order: 5
+order: 6
 featured: true
 finding: "Models chase the leaked score only when the reward reads as applying to this answer and the user's wish is open to interpretation. Close either one and the rate falls to about zero. For OpenAI's o3, one-line edits move it from under 2% to 87%."
 limitation: "Each version ran 30 to 100 samples, enough only for large effects, and no correction was made for running many comparisons. Trivial rewordings of one sentence alone move o3 between 13% and 37%."

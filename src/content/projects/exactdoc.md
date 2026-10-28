@@ -9,10 +9,10 @@ date: "2026-08"
 venue: null
 order: 8
 featured: true
-finding: "ExactDoc does well on everyday documents written in Word, Google Docs or LibreOffice, and less well on LaTeX papers and designed layouts. On 27 short PDFs it had never seen, 22 kept exactly their page count in Word. Two LaTeX papers came out unusable."
+finding: "ExactDoc does well on everyday documents written in Word, Google Docs or LibreOffice, and less well on LaTeX papers and designed layouts. On 27 short PDFs of supported kinds, none seen before, 22 kept exactly their page count in Word. Two LaTeX papers came out unusable."
 headline:
   value: "22 of 27"
-  label: "short PDFs it had never seen that kept exactly their page count in Word (24 in LibreOffice)"
+  label: "short PDFs of supported kinds, none seen before, that kept exactly their page count in Word (24 in LibreOffice)"
 metrics:
   - value: "13 of 13"
     label: "unseen letters, memos and similar documents from Word, Google Docs or LibreOffice that kept their page count"

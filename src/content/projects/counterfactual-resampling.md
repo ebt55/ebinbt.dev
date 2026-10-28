@@ -3,11 +3,11 @@ title: "Counterfactual Resampling"
 tagline: "If a monitor swaps a forbidden file for a convincing fake, does an AI agent carry on as it would have with the real one?"
 lane: "research"
 kind: "experiment"
-status: "shipped"
+status: "active"
 period: "Oct 2026"
 date: "2026-10"
 venue: null
-order: 3
+order: 16
 featured: true
 finding: "When the task alone could predict the file's contents, a convincing fake left the agent's next steps about where re-runs on the real file put them. When only the real file held the answer, the fake changed what the agent did. A fake with the right values behaved like the real file, so the values mattered more than the look."
 limitation: "One agent, small Python tasks and 60 events per group, all re-run from Kobayashi Maru's recorded runs. The fake's size usually differed from a size the agent had already seen, a cue that could give it away."

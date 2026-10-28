@@ -9,6 +9,7 @@ date: "2026-10"
 venue: "Apart Research AI Collusion Research Sprint, Oct 2026"
 order: 7
 featured: true
+listed: false
 finding: "I found no deliberate hidden goal, within the effect sizes my tests could detect. Dolos differs from its parent in a few real, replicated ways, but none looks deliberate. Its strongest lead, trying to copy its own weights when asked, was explained by follow-up tests."
 limitation: "A planted behaviour smaller than my tests could detect, or tied to a trigger my prompts never contained, would be missed. My harmless control was a light retrain, not a matched full one, and the self-copying test used one simulated environment."
 headline:

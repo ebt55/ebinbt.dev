@@ -18,7 +18,7 @@ metrics:
     label: "login tokens found in the saved queue when I scanned its files byte by byte"
 limitation: "One test, on one ComfyUI version, on Windows. The test killed the program and did not cut the power, and a half-finished image starts again from the beginning."
 stack:
-  - "Python (standard library only)"
+  - "Python (no extra dependencies)"
   - "SQLite (WAL)"
   - "ComfyUI custom node"
 links:

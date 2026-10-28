@@ -7,7 +7,7 @@ status: "shipped"
 period: "Oct 2026"
 date: "2026-10"
 venue: "Apart Research AI Collusion Research Sprint, Oct 2026"
-order: 9
+order: 5
 featured: true
 finding: "No rule from the RealPage settlement reliably stopped the shared advisor. A rival-data ban removed most of the harm on three models, almost none on two, and gave a noisy answer on a sixth, and per-round price caps only delayed monopoly prices. Letting sellers decide worked only when they refused small price nudges."
 limitation: "The advisor was told to maximise both sellers' combined profit, so this tests the rules against that incentive, not whether AI advisors adopt it unprompted. It is one simulated market, and models beyond the main one ran only 3 to 12 times per setting."

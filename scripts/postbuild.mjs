@@ -56,7 +56,12 @@ async function loadWriting() {
 
 async function loadProjectSlugs() {
   const dir = path.join(root, 'src', 'content', 'projects');
-  return (await readdir(dir)).filter((f) => f.endsWith('.md')).map((f) => f.replace(/\.md$/, ''));
+  const files = (await readdir(dir)).filter((f) => f.endsWith('.md'));
+  // listed: false projects have no page, so they stay out of the sitemap too.
+  const listed = await Promise.all(
+    files.map(async (f) => matter(await readFile(path.join(dir, f), 'utf8')).data.listed !== false)
+  );
+  return files.filter((_, i) => listed[i]).map((f) => f.replace(/\.md$/, ''));
 }
 
 /* --------------------------------------------------------------------- rss */
