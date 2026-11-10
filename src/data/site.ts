@@ -2,11 +2,11 @@
 export const site = {
   name: 'Ebin Babu Thomas',
   url: 'https://ebinbt.dev',
-  /** Meta description. PLACEHOLDER — will be replaced. */
+  /** Meta description. */
   description:
-    'Ebin Babu Thomas, AI engineer in Kerala, India. Public experiments on how AI agents behave, and the tools that check them.',
-  /** The one line of role text on the OG card. PLACEHOLDER — will be replaced. */
-  role: 'AI engineer · agent evaluations',
+    'Ebin Babu Thomas, AI engineer in Kerala, India. Experiments on how AI agents behave and whether the monitors that watch them get it right, with code and data.',
+  /** The one line of role text on the OG card. */
+  role: 'AI engineer · experiments on AI agents and their monitors',
   analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
 

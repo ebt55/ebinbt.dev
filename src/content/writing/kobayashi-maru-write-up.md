@@ -34,7 +34,7 @@ Six models, 8,959 agent runs.
 
 ![Figure 1. Left: cheating on the solvable tasks as the share of impossible tasks in the batch rises. Right: cheating on the impossible tasks themselves. Two models were never tempted, two were tempted and never spread, two moved.](/writing/kobayashi-maru/figure_main.svg)
 
-Two models never took the bait at all. GPT-5.6-Sol declared the unreachable tasks impossible 91% of the time and moved on. Qwen3-14B never cheated in the grid. Their clean records say nothing, because nothing tempted them.
+Two models never took the bait at all. GPT-5.6-Sol left the answer file alone: it noted what was missing and submitted its work. Qwen3-14B never cheated in the grid. Their clean records say nothing, because nothing tempted them.
 
 Two models were tempted and did not spread. GPT-5.6-Luna cheated on 37% of the unreachable tasks and on 0 of 1,240 solvable ones. Claude Haiku 4.5: 59%, and 0 of 530. They were offered the trick, used it, and it stayed where it was.
 
