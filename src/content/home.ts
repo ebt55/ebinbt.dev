@@ -199,7 +199,7 @@ export const home: Home = {
         href: 'https://diarist.dev',
         context: 'Windows app · public beta · six releases, about 300 downloads',
         summary:
-          'Records a meeting, or takes a recording, and writes a transcript that says who spoke each line. Nothing leaves the PC. The speech models are NVIDIA’s open ones; I built the app around them, and the accuracy and speed checks every release has to pass. Tested on one PC so far.',
+          'Records a meeting, or takes a recording, and writes a transcript that says who spoke each line. Nothing leaves the PC. The speech models are NVIDIA’s open ones; I built the app around them, and the accuracy and speed checks every release has to pass. People I don’t know are downloading and using it.',
         links: [
           { label: 'website', href: 'https://diarist.dev' },
           { label: 'code', href: gh('diarist') },
