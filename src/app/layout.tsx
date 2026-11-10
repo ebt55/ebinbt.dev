@@ -55,13 +55,24 @@ const themeInit = `(function(){var r=document.documentElement,s=null;r.classList
  * changes while no choice is stored, and opens a closed <details> when the
  * URL fragment points inside one (old /work/<slug>/ links redirect to
  * /#<slug>, and some of those entries sit under "More").
+ *
+ * It also highlights the entry a link jumps to (`.flash`, styled in
+ * globals.css). The highlight waits until the smooth scroll has stopped, so
+ * the reader sees it, and it replays when the same link is clicked again.
  */
 const themeWire = `(function(){var r=document.documentElement;function set(t){r.setAttribute('data-theme',t);r.style.colorScheme=t;document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.setAttribute('aria-pressed',t==='dark'?'true':'false')})}
 set(r.getAttribute('data-theme')||'light');
 document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-theme-toggle]'):null;if(!b)return;var t=r.getAttribute('data-theme')==='dark'?'light':'dark';set(t);try{localStorage.setItem('theme',t)}catch(_){}});
 try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(m){var s=null;try{s=localStorage.getItem('theme')}catch(_){}if(!s)set(m.matches?'dark':'light')})}catch(_){}
 function reveal(){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(!el)return;var d=el.closest('details');if(d&&!d.open){d.open=true;el.scrollIntoView()}}
-reveal();window.addEventListener('hashchange',reveal);})();`;
+var tok=0,pending=null;
+function flash(id){var el=id&&document.getElementById(id);if(!el||!el.classList.contains('entry')||pending===id)return;pending=id;var my=++tok,done=false,moved=false,idle;
+function go(){if(done||my!==tok)return;done=true;pending=null;window.removeEventListener('scroll',onScroll);el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');el.addEventListener('animationend',function(){el.classList.remove('flash')},{once:true})}
+function onScroll(){moved=true;clearTimeout(idle);idle=setTimeout(go,140)}
+window.addEventListener('scroll',onScroll,{passive:true});setTimeout(function(){if(!moved)go()},250);setTimeout(go,1600)}
+function fromHash(){return decodeURIComponent(location.hash.slice(1))}
+document.addEventListener('click',function(e){if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;var a=e.target&&e.target.closest?e.target.closest('a[href*="#"]'):null;if(!a||a.origin!==location.origin||a.pathname!==location.pathname)return;flash(decodeURIComponent(a.hash.slice(1)))});
+reveal();flash(fromHash());window.addEventListener('hashchange',function(){reveal();flash(fromHash())});})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

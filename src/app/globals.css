@@ -12,6 +12,7 @@
   --hairline: #e4dfd4;
   --accent: #1f5a44;
   --code-bg: #f0ece3;
+  --flash: color-mix(in oklab, var(--accent) 13%, transparent);
 
   --serif: "Newsreader Variable", "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
@@ -34,6 +35,7 @@
     --hairline: #2c2a26;
     --accent: #7fc4a4;
     --code-bg: #211f1c;
+    --flash: color-mix(in oklab, var(--accent) 16%, transparent);
     color-scheme: dark;
   }
 }
@@ -45,6 +47,7 @@
   --hairline: #2c2a26;
   --accent: #7fc4a4;
   --code-bg: #211f1c;
+  --flash: color-mix(in oklab, var(--accent) 16%, transparent);
   color-scheme: dark;
 }
 
@@ -277,7 +280,7 @@ main section > h2 {
   column-gap: var(--label-gap);
   align-items: baseline;
   margin-bottom: 26px;
-  scroll-margin-top: 24px;
+  scroll-margin-top: 44px;
 }
 .entries > .entry:last-child {
   margin-bottom: 0;
@@ -317,6 +320,53 @@ main section > h2 {
 }
 .entry-links a {
   color: var(--text);
+}
+
+/* The entry a link jumps to glows twice, softly, then fades (class set by
+   the script in layout.tsx). The box-shadow spread pads the tint past the
+   text without moving anything. */
+.entry.flash {
+  border-radius: 6px;
+  animation: entry-flash 2.4s ease-out;
+}
+@keyframes entry-flash {
+  0% {
+    background-color: transparent;
+    box-shadow: 0 0 0 10px transparent;
+  }
+  14% {
+    background-color: var(--flash);
+    box-shadow: 0 0 0 10px var(--flash);
+  }
+  32% {
+    background-color: color-mix(in oklab, var(--flash) 35%, transparent);
+    box-shadow: 0 0 0 10px color-mix(in oklab, var(--flash) 35%, transparent);
+  }
+  50% {
+    background-color: var(--flash);
+    box-shadow: 0 0 0 10px var(--flash);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+/* Reduced motion: one slow fade, no pulsing. */
+@media (prefers-reduced-motion: reduce) {
+  .entry.flash {
+    animation: entry-fade 2.4s ease-out;
+  }
+}
+@keyframes entry-fade {
+  0%,
+  30% {
+    background-color: var(--flash);
+    box-shadow: 0 0 0 10px var(--flash);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: 0 0 0 10px transparent;
+  }
 }
 
 .entries-tight > .entry {
