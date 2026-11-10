@@ -7,6 +7,9 @@ export const site = {
     'Ebin Babu Thomas, AI engineer in Kerala, India. Experiments on how AI agents behave and whether the monitors that watch them get it right, with code and data.',
   /** The one line of role text on the OG card. */
   role: 'AI engineer · experiments on AI agents and their monitors',
+  /** Admonymous page for anonymous feedback, shown in the footer as "Anonymous feedback".
+   *  null hides the link. Set it to the page made at admonymous.co (e.g. https://www.admonymous.co/<name>). */
+  feedbackUrl: null as string | null,
   analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
 
