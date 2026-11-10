@@ -9,7 +9,7 @@ export const site = {
   role: 'AI engineer · experiments on AI agents and their monitors',
   /** Admonymous page for anonymous feedback, shown in the footer as "Anonymous feedback".
    *  null hides the link. Set it to the page made at admonymous.co (e.g. https://www.admonymous.co/<name>). */
-  feedbackUrl: null as string | null,
+  feedbackUrl: "https://www.admonymous.co/ebin" as string | null,
   analyticsToken: process.env.PUBLIC_CF_ANALYTICS_TOKEN ?? null,
 } as const;
 
