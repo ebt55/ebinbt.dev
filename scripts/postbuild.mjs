@@ -1,18 +1,16 @@
 /**
  * Post-build step, run by `npm run build` after `next build`:
  *
- *   1. out/rss.xml           — the writing feed (feature parity with the
- *                              Astro site's @astrojs/rss output).
- *   2. out/sitemap-index.xml — a sitemap index pointing at sitemap-0.xml,
- *                              matching the filenames public/robots.txt
- *                              already references.
- *   3. out/sitemap-0.xml     — every static route, with lastmod dates.
- *
- * Content is read with the same gray-matter frontmatter the pages use, via
- * the site's own loader logic (schema-light duplicates — these scripts only
- * need title/date/url/summary, which the page build has already validated).
+ *   1. out/_redirects        — appends one line per old /work/<slug>/ page
+ *                              (pre-Nov-2026 site) pointing at its anchor on
+ *                              the home page, skipping slugs that have a new
+ *                              page in src/content/work/.
+ *   2. out/rss.xml           — the article pages (work + hosted writing).
+ *   3. out/sitemap-index.xml — index pointing at sitemap-0.xml (the names
+ *                              public/robots.txt references).
+ *   4. out/sitemap-0.xml     — every static route.
  */
-import { readdir, readFile, writeFile, stat } from 'node:fs/promises';
+import { readdir, readFile, writeFile, appendFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,48 +18,91 @@ import matter from 'gray-matter';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = path.join(root, 'out');
+const contentDir = path.join(root, 'src', 'content');
 
-const site = {
-  name: 'Ebin Babu Thomas',
-  url: 'https://ebinbt.dev',
-  title: 'Independent researcher in AI control and evaluation',
+const site = { name: 'Ebin Babu Thomas', url: 'https://ebinbt.dev' };
+
+/**
+ * Every /work/<slug>/ page the old site published, with the home section to
+ * fall back to if the home page no longer has an entry with that id.
+ */
+const OLD_WORK = {
+  'comfyui-deadmansqueue': 'software',
+  'counterfactual-resampling': 'research',
+  diarist: 'software',
+  'diffing-agent-bench': 'research',
+  'digital-grimace-scale': 'research',
+  'dolos-redteam': 'research',
+  'eval-floor': 'research',
+  exactdoc: 'software',
+  incidentgate: 'research',
+  'kobayashi-maru': 'research',
+  'llm-pricing-hub-remedies': 'research',
+  'odd-number-forensics': 'research',
+  printready: 'software',
+  proofpack: 'software',
+  'whose-voice': 'research',
 };
 
-async function exists(p) {
+async function mdFiles(dir) {
   try {
-    await stat(p);
-    return true;
+    return (await readdir(path.join(contentDir, dir))).filter((f) => f.endsWith('.md')).sort();
   } catch {
-    return false;
+    return [];
   }
 }
 
-async function loadWriting() {
-  const dir = path.join(root, 'src', 'content', 'writing');
-  if (!(await exists(dir))) return [];
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.md'));
-  const items = await Promise.all(
-    files.map(async (file) => {
-      const raw = await readFile(path.join(dir, file), 'utf8');
-      const { data } = matter(raw);
-      const slug = file.replace(/\.md$/, '');
-      // url: null means the piece is hosted on the site at /writing/<slug>/.
-      const hosted = !data.url;
-      const url = hosted ? `${site.url}/writing/${slug}/` : data.url;
-      return { title: data.title, date: new Date(data.date), url, hosted, summary: data.summary, kind: data.kind, venue: data.venue, slug };
+/** Article pages, mirroring src/lib/markdown.ts. */
+async function loadArticles() {
+  const work = await Promise.all(
+    (await mdFiles('work')).map(async (f) => {
+      const { data } = matter(await readFile(path.join(contentDir, 'work', f), 'utf8'));
+      const slug = f.replace(/\.md$/, '');
+      return {
+        slug,
+        loc: `/work/${slug}/`,
+        title: data.title,
+        description: data.context ?? '',
+        date: data.updated ? new Date(data.updated) : null,
+      };
     })
   );
-  return items.filter((i) => i.title && i.date && i.url).sort((a, b) => b.date - a.date);
+  const writing = (
+    await Promise.all(
+      (await mdFiles('writing')).map(async (f) => {
+        const { data } = matter(await readFile(path.join(contentDir, 'writing', f), 'utf8'));
+        if (data.url) return null; // external pieces have no page
+        const slug = f.replace(/\.md$/, '');
+        return {
+          slug,
+          loc: `/writing/${slug}/`,
+          title: data.title,
+          description: data.summary ?? '',
+          date: data.date ? new Date(data.date) : null,
+        };
+      })
+    )
+  ).filter(Boolean);
+  return { work, writing };
 }
 
-async function loadProjectSlugs() {
-  const dir = path.join(root, 'src', 'content', 'projects');
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.md'));
-  // listed: false projects have no page, so they stay out of the sitemap too.
-  const listed = await Promise.all(
-    files.map(async (f) => matter(await readFile(path.join(dir, f), 'utf8')).data.listed !== false)
+/* --------------------------------------------------------------- redirects */
+
+async function writeRedirects(work) {
+  const html = await readFile(path.join(outDir, 'index.html'), 'utf8');
+  const pages = new Set(work.map((w) => w.slug));
+  const lines = [];
+  for (const [slug, section] of Object.entries(OLD_WORK)) {
+    if (pages.has(slug)) continue;
+    const target = html.includes(`id="${slug}"`) ? `/#${slug}` : `/#${section}`;
+    lines.push(`/work/${slug}  ${target}  301`, `/work/${slug}/  ${target}  301`);
+  }
+  await appendFile(
+    path.join(outDir, '_redirects'),
+    `\n# Generated by scripts/postbuild.mjs\n${lines.join('\n')}\n`,
+    'utf8'
   );
-  return files.filter((_, i) => listed[i]).map((f) => f.replace(/\.md$/, ''));
+  console.log(`postbuild: _redirects (+${lines.length} lines)`);
 }
 
 /* --------------------------------------------------------------------- rss */
@@ -73,84 +114,79 @@ const esc = (s) =>
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
 
-async function writeRss(writing) {
-  const feedUrl = `${site.url}/rss.xml`;
-  const items = writing
-    .map(
-      (i) =>
+async function writeRss(articles) {
+  const sorted = [...articles].sort((a, b) => (b.date?.getTime() ?? 0) - (a.date?.getTime() ?? 0));
+  const items = sorted
+    .map((a) => {
+      const url = `${site.url}${a.loc}`;
+      return (
         `    <item>\n` +
-        `      <title>${esc(i.title)}</title>\n` +
-        `      <link>${esc(i.url)}</link>\n` +
-        `      <guid>${esc(i.url)}</guid>\n` +
-        `      <pubDate>${i.date.toUTCString()}</pubDate>\n` +
-        `      <description>${esc(i.summary)}</description>\n` +
-        `      <category>${esc(i.kind)}</category>\n` +
-        `      <category>${esc(i.venue)}</category>\n` +
+        `      <title>${esc(a.title)}</title>\n` +
+        `      <link>${esc(url)}</link>\n` +
+        `      <guid>${esc(url)}</guid>\n` +
+        (a.date ? `      <pubDate>${a.date.toUTCString()}</pubDate>\n` : '') +
+        `      <description>${esc(a.description)}</description>\n` +
         `    </item>`
-    )
+      );
+    })
     .join('\n');
 
   const xml =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n` +
     `  <channel>\n` +
-    `    <title>${esc(site.name)} — Writing</title>\n` +
+    `    <title>${esc(site.name)}</title>\n` +
     `    <link>${site.url}/</link>\n` +
-    `    <description>Reports and write-ups on agent reliability, AI control and model evaluation.</description>\n` +
+    `    <description>Write-ups by ${esc(site.name)}.</description>\n` +
     `    <language>en-gb</language>\n` +
-    `    <atom:link rel="self" href="${feedUrl}" type="application/rss+xml"/>\n` +
+    `    <atom:link rel="self" href="${site.url}/rss.xml" type="application/rss+xml"/>\n` +
     `${items}\n` +
     `  </channel>\n` +
     `</rss>\n`;
 
   await writeFile(path.join(outDir, 'rss.xml'), xml, 'utf8');
-  console.log(`postbuild: rss.xml (${writing.length} items)`);
+  console.log(`postbuild: rss.xml (${sorted.length} items)`);
 }
 
 /* ----------------------------------------------------------------- sitemap */
 
-async function writeSitemap(writing, slugs) {
+async function writeSitemap(articles) {
   const now = new Date().toISOString().slice(0, 10);
   const entries = [
-    { loc: '/', lastmod: now, priority: '1.0' },
-    { loc: '/work/', lastmod: now, priority: '0.9' },
-    { loc: '/now/', lastmod: now, priority: '0.6' },
-    ...(writing.length >= 2 ? [{ loc: '/writing/', lastmod: now, priority: '0.7' }] : []),
-    ...slugs.map((s) => ({ loc: `/work/${s}/`, lastmod: now, priority: '0.8' })),
-    ...writing
-      .filter((w) => w.hosted)
-      .map((w) => ({ loc: `/writing/${w.slug}/`, lastmod: now, priority: '0.7' })),
+    { loc: '/', priority: '1.0' },
+    ...articles.map((a) => ({ loc: a.loc, priority: '0.7' })),
   ];
-
   const urls = entries
     .map(
       (e) =>
         `    <url>\n` +
         `      <loc>${site.url}${e.loc}</loc>\n` +
-        `      <lastmod>${e.lastmod}</lastmod>\n` +
+        `      <lastmod>${now}</lastmod>\n` +
         `      <priority>${e.priority}</priority>\n` +
         `    </url>`
     )
     .join('\n');
 
-  const sitemap0 =
+  await writeFile(
+    path.join(outDir, 'sitemap-0.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
-
-  const index =
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+    'utf8'
+  );
+  await writeFile(
+    path.join(outDir, 'sitemap-index.xml'),
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
-    `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-    `  <sitemap>\n    <loc>${site.url}/sitemap-0.xml</loc>\n    <lastmod>${now}</lastmod>\n  </sitemap>\n` +
-    `</sitemapindex>\n`;
-
-  await writeFile(path.join(outDir, 'sitemap-0.xml'), sitemap0, 'utf8');
-  await writeFile(path.join(outDir, 'sitemap-index.xml'), index, 'utf8');
+      `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+      `  <sitemap>\n    <loc>${site.url}/sitemap-0.xml</loc>\n    <lastmod>${now}</lastmod>\n  </sitemap>\n` +
+      `</sitemapindex>\n`,
+    'utf8'
+  );
   console.log(`postbuild: sitemap-0.xml + sitemap-index.xml (${entries.length} urls)`);
 }
 
 /* --------------------------------------------------------------------- run */
 
-const writing = await loadWriting();
-const slugs = await loadProjectSlugs();
-await writeRss(writing);
-await writeSitemap(writing, slugs);
+const { work, writing } = await loadArticles();
+await writeRedirects(work);
+await writeRss([...work, ...writing]);
+await writeSitemap([...work, ...writing]);

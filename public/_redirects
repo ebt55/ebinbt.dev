@@ -1,0 +1,14 @@
+# Cloudflare Workers static assets redirects: [source] [destination] [code]
+# Old pages from the pre-Nov-2026 site, so links in sent resumes keep working.
+# Both slash forms are listed because redirects run before html_handling.
+#
+# The per-project lines (/work/<slug>/ -> /#<slug>) are appended to
+# out/_redirects by scripts/postbuild.mjs, which skips any slug that now has
+# its own page in src/content/work/ (a redirect would shadow that page).
+
+/now        /#updates   301
+/now/       /#updates   301
+/work       /#research  301
+/work/      /#research  301
+/writing    /           301
+/writing/   /           301

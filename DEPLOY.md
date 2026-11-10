@@ -47,18 +47,24 @@ npm run preview  # sanity-check out/ on localhost before publishing
 
 ```
 out/
-  index.html            / (and one .html per route, trailing-slash directories)
-  work/<slug>/index.html
-  writing/index.html
-  now/index.html
+  index.html            / — the whole site on one page (copy: src/content/home.ts)
+  work/<slug>/index.html     one per src/content/work/*.md
+  writing/<slug>/index.html  one per src/content/writing/*.md with no external url
   404.html              served by not_found_handling
+  _redirects            public/_redirects + per-project lines from postbuild
   rss.xml               written by scripts/postbuild.mjs
   sitemap-0.xml         written by scripts/postbuild.mjs
   sitemap-index.xml     written by scripts/postbuild.mjs
-  _next/                hashed CSS/JS chunks
-  og.png, favicon.ico, resume.pdf, robots.txt
+  _next/                hashed CSS/JS chunks and self-hosted fonts
+  og.png, me.jpg, favicon.ico, robots.txt, _headers
+  resume.pdf, resume/engineer.pdf, resume/research.pdf, cv.pdf
   icon.svg, apple-icon.png   from src/app/ (Next metadata file convention)
 ```
+
+Old URLs (`/now/`, `/work/`, `/writing/`, `/work/<old-slug>/`) are 301s to
+anchors on the home page; see `public/_redirects` and `OLD_WORK` in
+`scripts/postbuild.mjs`. A slug that gets its own page in
+`src/content/work/` is dropped from the redirects automatically.
 
 ## Analytics (optional)
 
