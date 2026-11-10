@@ -1,23 +1,20 @@
 import type { Metadata, Viewport } from 'next';
-import { Instrument_Sans } from 'next/font/google';
+
+import '@fontsource/instrument-sans/400.css';
+import '@fontsource/instrument-sans/400-italic.css';
+import '@fontsource/instrument-sans/500.css';
+import '@fontsource/instrument-sans/600.css';
+import '@fontsource-variable/newsreader/opsz.css';
 
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import { site } from '@/data/site';
 
 import './globals.css';
 
-const instrument = Instrument_Sans({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  display: 'swap',
-  variable: '--font-instrument',
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.title}`,
+    default: site.name,
     template: `%s — ${site.name}`,
   },
   description: site.description,
@@ -25,13 +22,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: site.name,
-    title: `${site.name} — ${site.title}`,
+    title: site.name,
     description: site.description,
+    url: site.url,
     images: [{ url: '/og.png', width: 1200, height: 630, alt: site.name }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — ${site.title}`,
+    title: site.name,
     description: site.description,
     images: ['/og.png'],
   },
@@ -39,43 +37,46 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fcfcfa' },
-    { media: '(prefers-color-scheme: dark)', color: '#101312' },
+    { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
+    { media: '(prefers-color-scheme: dark)', color: '#151412' },
   ],
 };
 
 /**
- * Theme handling, METR-style: two tiny inline scripts, no React hydration.
- * The first runs before paint (no flash); the second wires the toggle, marks
- * the active nav link, and lets Escape dismiss a hover/focus nav menu
- * ([data-menu] in Header): focus goes back to its link and the panel hides
- * until the pointer or focus next crosses into or out of the menu.
+ * Theme: CSS follows prefers-color-scheme on its own (works with JS off).
+ * This script runs before first paint, so there is no flash: it applies a
+ * stored choice, or pins the system theme, as `data-theme` on <html>, and
+ * adds `js` so the toggle button shows.
  */
-const themeInit = `(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');document.documentElement.style.colorScheme=d?'dark':'light';}catch(e){}})();`;
+const themeInit = `(function(){var r=document.documentElement,s=null;r.classList.add('js');try{s=localStorage.getItem('theme')}catch(e){}var t=s==='dark'||s==='light'?s:(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');r.setAttribute('data-theme',t);r.style.colorScheme=t;})();`;
 
-const themeWire = `(function(){function sync(){var d=document.documentElement.classList.contains('dark');document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.setAttribute('aria-pressed',d?'true':'false')});}
-document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-theme-toggle]'):null;if(!b)return;var d=document.documentElement.classList.toggle('dark');try{localStorage.setItem('theme',d?'dark':'light')}catch(_){ }document.documentElement.style.colorScheme=d?'dark':'light';sync();});
-sync();
-var links=document.querySelectorAll('[data-nav]');var p=location.pathname;links.forEach(function(l){var h=l.getAttribute('href')||'';if(h==='/'?p==='/':(p===h||p.indexOf(h)===0)){l.setAttribute('aria-current','page');}});
-document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;document.querySelectorAll('[data-menu]').forEach(function(m){var a=document.activeElement,t=m.querySelector('[data-menu-trigger]'),q=m.querySelector('[data-menu-panel]');if(!q)return;if(t&&a!==t&&m.contains(a))t.focus();q.style.display='none';});});
-['mouseover','mouseout','focusin','focusout'].forEach(function(n){document.addEventListener(n,function(e){var m=e.target&&e.target.closest?e.target.closest('[data-menu]'):null;if(!m||(e.relatedTarget&&m.contains(e.relatedTarget)))return;var q=m.querySelector('[data-menu-panel]');if(q)q.style.display='';});});})();`;
+/**
+ * After the page: wires the toggle (and persists the choice), follows system
+ * changes while no choice is stored, and opens a closed <details> when the
+ * URL fragment points inside one (old /work/<slug>/ links redirect to
+ * /#<slug>, and some of those entries sit under "More").
+ */
+const themeWire = `(function(){var r=document.documentElement;function set(t){r.setAttribute('data-theme',t);r.style.colorScheme=t;document.querySelectorAll('[data-theme-toggle]').forEach(function(b){b.setAttribute('aria-pressed',t==='dark'?'true':'false')})}
+set(r.getAttribute('data-theme')||'light');
+document.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('[data-theme-toggle]'):null;if(!b)return;var t=r.getAttribute('data-theme')==='dark'?'light':'dark';set(t);try{localStorage.setItem('theme',t)}catch(_){}});
+try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(m){var s=null;try{s=localStorage.getItem('theme')}catch(_){}if(!s)set(m.matches?'dark':'light')})}catch(_){}
+function reveal(){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(!el)return;var d=el.closest('details');if(d&&!d.open){d.open=true;el.scrollIntoView()}}
+reveal();window.addEventListener('hashchange',reveal);})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={instrument.variable}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-feature focus:px-4 focus:py-2 focus:text-small focus:font-medium focus:text-on-feature"
-        >
+        <a href="#main" className="skip">
           Skip to content
         </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <div className="page">
+          {children}
+          <Footer />
+        </div>
         <script dangerouslySetInnerHTML={{ __html: themeWire }} />
         {site.analyticsToken && (
           <script
