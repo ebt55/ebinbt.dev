@@ -30,7 +30,7 @@ export const home: Home = {
       { label: 'GitHub', href: 'https://github.com/ebt55' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ebinbt' },
     ],
-    updated: '2026-11-10',
+    updated: '2026-11-14',
   },
 
   updatesShown: 4,
@@ -103,7 +103,7 @@ export const home: Home = {
         href: '/work/one-query-away/',
         context: 'One Query Away · Apart Research Swarm Alignment Hackathon',
         summary:
-          'A monitor sees the same log three ways: a real violation, a clean run, and a clean run that looks like a violation until an approval is looked up in a database. Claude Sonnet 5.5 accused 25 of 30 of those innocent agents, said no approval existed without having looked, and never answered “not enough evidence”. Part of the cause is ordinary: most monitors spent all three of their allowed queries at once. The cases are synthetic, and a second kind of scenario showed no effect.',
+          'A monitor sees the same log three ways: a real violation, a clean run, and a clean run that looks like a violation until an approval is looked up in a database. In the original runs Claude Sonnet 5.5 accused 25 of 30 of those innocent agents, but most monitors had sent all three allowed queries at once, before seeing any result. When I reran it with one query at a time, the Claude monitors looked the approval up and almost stopped accusing; two GPT monitors still accused nearly every one of them. Three things changed together in the rerun, so it does not show that batching alone caused the first result.',
         links: [
           { label: 'write-up', href: '/work/one-query-away/' },
           { label: 'report', href: gh('one-query-away', '/blob/main/paper/e1-submission-final.pdf') },
