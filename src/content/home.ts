@@ -5,8 +5,9 @@
 // /work/<slug>/ URLs redirect to those anchors (public/_redirects).
 //
 // Copy rules (10 Nov 2026): every claim here was checked against the repo's
-// raw data in project-audit-2026-11-10/. Titles say what the project asks or
-// does. Summaries are two or three plain sentences: what I did, what came
+// raw data in project-audit-2026-11-10/ (the two entries added on 16 Nov 2026:
+// "nov 16th rerank and job decision/01-FABLE-RANKING.md"). Titles say what the
+// project asks or does. Summaries are two or three plain sentences: what I did, what came
 // out, and one limit. A number only where it is the result.
 
 import type { Home } from '@/lib/types';
@@ -30,18 +31,22 @@ export const home: Home = {
       { label: 'GitHub', href: 'https://github.com/ebt55' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ebinbt' },
     ],
-    updated: '2026-11-14',
+    updated: '2026-11-16',
   },
 
   updatesShown: 4,
   updates: [
     {
       when: 'Nov 2026',
-      text: 'Took part in Apart Research’s Swarm Alignment Hackathon with [One Query Away](#one-query-away), a test of whether AI monitors accuse agents that did nothing wrong.',
+      text: 'Took part in Apart Research’s AI x Epistemics Research Sprint with [Loud or Right](#loud-or-right), a test of whether models weigh how sure a critic sounds or how often it has been right.',
     },
     {
       when: 'Nov 2026',
-      text: 'Reported a grading bug in two of Lexsi Labs’ model-training libraries. Both fixes are merged and credit the report ([AlignTune](https://github.com/Lexsi-Labs/aligntune/pull/40), [SafeTune](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
+      text: 'Published [Rewards that pay for nothing](#rewards-pay-for-nothing), built for Lexsi Labs’ AI Safety and Alignment Hackathon. It started from a grading bug in two of their model-training libraries; both fixes are merged and credit the report ([AlignTune](https://github.com/Lexsi-Labs/aligntune/pull/40), [SafeTune](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
+    },
+    {
+      when: 'Nov 2026',
+      text: 'Took part in Apart Research’s Swarm Alignment Hackathon with [One Query Away](#one-query-away), a test of whether AI monitors accuse agents that did nothing wrong.',
     },
     {
       when: 'Oct 2026',
@@ -83,6 +88,21 @@ export const home: Home = {
         ],
       },
       {
+        slug: 'rewards-pay-for-nothing',
+        when: 'Nov 2026',
+        title: 'Can code that solves nothing collect full marks from a training reward?',
+        href: gh('rewards-pay-for-nothing', '/blob/main/WRITEUP.md'),
+        context: 'Rewards that pay for nothing · Lexsi Labs AI Safety and Alignment Hackathon',
+        summary:
+          'A code reward runs a model’s answer against tests and pays when they pass. Six reward functions in two of Lexsi Labs’ model-training libraries paid full marks to answers that solve nothing, such as code that exits before the tests run. I reported it privately, and both libraries merged fixes the next day that credit the report. The released graders pay none of 111 answers that exit before the tests run, taken from a small model’s training logs, but the model only wrote those when the prompt hinted at the hole, and the training study meant to show whether a flawed reward teaches the trick was uninformative by its own rule.',
+        links: [
+          { label: 'write-up', href: gh('rewards-pay-for-nothing', '/blob/main/WRITEUP.md') },
+          { label: 'code', href: gh('rewards-pay-for-nothing') },
+          { label: 'data', href: 'https://huggingface.co/datasets/ebt005/p9-reward-hacking-logs' },
+          { label: 'check your own reward', href: gh('rewards-pay-for-nothing', '#check-your-own-reward-in-5-minutes') },
+        ],
+      },
+      {
         slug: 'diffing-agent-bench',
         when: 'Sep 2026',
         title: 'Can an auditing agent find what was changed in a fine-tuned model?',
@@ -121,6 +141,20 @@ export const home: Home = {
         links: [
           { label: 'report', href: gh('whose-voice', '/blob/main/REPORT.md') },
           { label: 'code', href: gh('whose-voice') },
+        ],
+      },
+      {
+        slug: 'loud-or-right',
+        when: 'Nov 2026',
+        title: 'When a critic objects, do models weigh how sure it sounds or how often it has been right?',
+        href: gh('loud-or-right', '/blob/main/paper/report.pdf'),
+        context: 'Loud or Right · Apart Research AI x Epistemics Research Sprint',
+        summary:
+          'Fifteen models each saw a log of a scripted reviewer’s past objections, in which the reviewer had been right only when certain, only when unsure, or always, and then the reviewer’s objection to their own answer. Claude Sonnet 5.5 and GPT-6 Sol followed each voice’s own record. Several open-weight models seemed to trust only the confident voice, but that came mostly from the order of the log’s entries: with the order reversed, the effect flipped in three of them. The order checks were added after the main results were in, so they are exploratory.',
+        links: [
+          { label: 'report', href: gh('loud-or-right', '/blob/main/paper/report.pdf') },
+          { label: 'code and data', href: gh('loud-or-right') },
+          { label: 'pre-registration record', href: gh('loud-or-right', '/blob/main/harness/FREEZE.md') },
         ],
       },
       {
@@ -259,7 +293,7 @@ export const home: Home = {
   },
 
   openSource: [
-    '[AlignTune](https://github.com/Lexsi-Labs/aligntune) and [SafeTune](https://github.com/Lexsi-Labs/SafeTune) (Lexsi Labs, model-training libraries): found that their code-grading rewards gave full marks to code that never passed its tests, and reported it privately with a patch and tests. Lexsi merged fixes for both that credit the report ([#40](https://github.com/Lexsi-Labs/aligntune/pull/40), [#32](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
+    '[AlignTune](https://github.com/Lexsi-Labs/aligntune) and [SafeTune](https://github.com/Lexsi-Labs/SafeTune) (Lexsi Labs, model-training libraries): reported the reward bugs described in [Rewards that pay for nothing](#rewards-pay-for-nothing). Lexsi merged fixes for both that credit the report ([#40](https://github.com/Lexsi-Labs/aligntune/pull/40), [#32](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
     '[NeMo-Speech.cpp](https://github.com/NVIDIA/NeMo-Speech.cpp) (NVIDIA’s speech runtime): reported two bugs found while building Diarist ([#67](https://github.com/NVIDIA/NeMo-Speech.cpp/issues/67), [#81](https://github.com/NVIDIA/NeMo-Speech.cpp/issues/81)). Both were confirmed and fixed by the maintainers.',
   ],
 
