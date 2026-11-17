@@ -7,7 +7,7 @@ summary: "Six habits: know what you want, get a model from another lab to review
 links: []
 ---
 
-AI models write most of my code now. Since March 2026 I have used them to build software and to run small AI safety experiments. These are the six things I pay attention to. They are working habits, not findings, and they do keep changing. The sections are in the order that matters to me, and the figure shows the order the work happens in.
+These are the six things I pay attention to. They are working habits, not findings, and they do keep changing. The sections are in the order that matters to me, and the figure shows the order the work happens in.
 
 ![The order I work in. Green steps are mine. Grey steps belong to the model doing the building. Orange steps belong to a model from a different lab. Anything that fails goes back to be fixed and run again.](/writing/working-with-llms/figure.svg)
 
