@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 544 816" width="544" height="816" role="img" font-family="system-ui, -apple-system, 'Segoe UI', Arial, sans-serif">
+<title>The order I work in</title>
+<desc>Seven steps from top to bottom. I decide what I want. A model brainstorms with all my documents. A model from another lab attacks the plan. The model builds. A model from another lab attacks the code. My tests run on golden data. I check the result against what I wanted. Failures at the last three steps go back to the build step, and a failed plan review goes back to brainstorming.</desc>
+<defs><marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6b645b"/></marker></defs>
+<rect width="544" height="816" fill="#fcfcfb"/>
+<rect x="20" y="20" width="18" height="18" rx="3" fill="#1f5a44" stroke="#1f5a44" stroke-width="1.5"/>
+<text x="45" y="35" font-size="18" fill="#1f1b16">Me</text>
+<rect x="92" y="20" width="18" height="18" rx="3" fill="#efebe2" stroke="#6b645b" stroke-width="1.5"/>
+<text x="117" y="35" font-size="18" fill="#1f1b16">Builder model</text>
+<rect x="254" y="20" width="18" height="18" rx="3" fill="#fbeadb" stroke="#a4521c" stroke-width="1.5"/>
+<text x="279" y="35" font-size="18" fill="#1f1b16">Model from another lab</text>
+<rect x="20" y="64" width="424" height="80" rx="6" fill="#1f5a44" stroke="#1f5a44" stroke-width="1.5"/>
+<text x="38" y="97" font-size="21" font-weight="600" fill="#ffffff">I decide what I want</text>
+<text x="38" y="124" font-size="18" fill="#e3f0e8">Taste: the pain point, what is missing</text>
+<path d="M232.0 146V169" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="172" width="424" height="80" rx="6" fill="#efebe2" stroke="#6b645b" stroke-width="1.5"/>
+<text x="38" y="205" font-size="21" font-weight="600" fill="#1f1b16">A model brainstorms</text>
+<text x="38" y="232" font-size="18" fill="#4a443c">All my documents in. Ranked designs out.</text>
+<path d="M232.0 254V277" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="280" width="424" height="80" rx="6" fill="#fbeadb" stroke="#a4521c" stroke-width="1.5"/>
+<text x="38" y="313" font-size="21" font-weight="600" fill="#1f1b16">Another lab attacks the plan</text>
+<text x="38" y="340" font-size="18" fill="#4a443c">Different family, different blind spots</text>
+<path d="M232.0 362V385" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="388" width="424" height="80" rx="6" fill="#efebe2" stroke="#6b645b" stroke-width="1.5"/>
+<text x="38" y="421" font-size="21" font-weight="600" fill="#1f1b16">The model builds</text>
+<text x="38" y="448" font-size="18" fill="#4a443c">Stuck? Pick a model by its benchmarks.</text>
+<path d="M232.0 470V493" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="496" width="424" height="80" rx="6" fill="#fbeadb" stroke="#a4521c" stroke-width="1.5"/>
+<text x="38" y="529" font-size="21" font-weight="600" fill="#1f1b16">Another lab attacks the code</text>
+<text x="38" y="556" font-size="18" fill="#4a443c">More than one pass, more than one run</text>
+<path d="M232.0 578V601" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="604" width="424" height="80" rx="6" fill="#1f5a44" stroke="#1f5a44" stroke-width="1.5"/>
+<text x="38" y="637" font-size="21" font-weight="600" fill="#ffffff">My tests run on golden data</text>
+<text x="38" y="664" font-size="18" fill="#e3f0e8">Fixed checks, compared with last time</text>
+<path d="M232.0 686V709" stroke="#6b645b" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<rect x="20" y="712" width="424" height="80" rx="6" fill="#1f5a44" stroke="#1f5a44" stroke-width="1.5"/>
+<text x="38" y="745" font-size="21" font-weight="600" fill="#ffffff">I check: is it what I wanted?</text>
+<text x="38" y="772" font-size="18" fill="#e3f0e8">Not it yet? Push again.</text>
+<path d="M444 320.0H482V212.0H448" stroke="#6b645b" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a)"/>
+<path d="M444 752.0H482V428.0H448" stroke="#6b645b" stroke-width="2" fill="none" stroke-dasharray="6 5" marker-end="url(#a)"/>
+<path d="M444 644.0H482M444 536.0H482" stroke="#6b645b" stroke-width="2" fill="none" stroke-dasharray="6 5"/>
+<text x="512" y="266.0" font-size="18" fill="#4a443c" text-anchor="middle" transform="rotate(-90 512 266.0)">redo</text>
+<text x="512" y="590.0" font-size="18" fill="#4a443c" text-anchor="middle" transform="rotate(-90 512 590.0)">fails: fix it and run again</text>
+</svg>
