@@ -5,7 +5,8 @@
 // /work/<slug>/ URLs redirect to those anchors (public/_redirects).
 //
 // Copy rules (10 Nov 2026): every claim here was checked against the repo's
-// raw data in project-audit-2026-11-10/ (the two entries added on 16 Nov 2026:
+// raw data in project-audit-2026-11-10/ (24 Nov 2026 changes: resume-site-review-2026-11-24/;
+// the two entries added on 16 Nov 2026:
 // "nov 16th rerank and job decision/01-FABLE-RANKING.md"). Titles say what the
 // project asks or does. Summaries are two or three plain sentences: what I did, what came
 // out, and one limit. A number only where it is the result.
@@ -31,18 +32,30 @@ export const home: Home = {
       { label: 'GitHub', href: 'https://github.com/ebt55' },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ebinbt' },
     ],
-    updated: '2026-11-16',
+    updated: '2026-11-24',
   },
 
   updatesShown: 4,
   updates: [
     {
       when: 'Nov 2026',
-      text: 'Took part in Apart Research’s AI x Epistemics Research Sprint with [Loud or Right](#loud-or-right), a test of whether models weigh how sure a critic sounds or how often it has been right.',
+      text: '[LLM Pricing Hub Remedies](#llm-pricing-hub-remedies) placed in the top 10% of more than 390 submissions at Apart Research’s AI Collusion sprint.',
     },
     {
       when: 'Nov 2026',
-      text: 'Published [Rewards that pay for nothing](#rewards-pay-for-nothing), built for Lexsi Labs’ AI Safety and Alignment Hackathon. It started from a grading bug in two of their model-training libraries; both fixes are merged and credit the report ([AlignTune](https://github.com/Lexsi-Labs/aligntune/pull/40), [SafeTune](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
+      text: '[Rewards that pay for nothing](#rewards-pay-for-nothing) placed in the top 10% of 369 submissions at Stage 1 of Lexsi Labs’ AI Safety and Alignment Hackathon. It started from a grading bug in two of their model-training libraries; both fixes are merged and credit the report ([AlignTune](https://github.com/Lexsi-Labs/aligntune/pull/40), [SafeTune](https://github.com/Lexsi-Labs/SafeTune/pull/32)).',
+    },
+    {
+      when: 'Nov 2026',
+      text: 'Entered the Mechanistic Interpretability Hackathon 5 with [a test of how much of a neuron a detection score covers](#neuron-detection-kl-audit).',
+    },
+    {
+      when: 'Nov 2026',
+      text: 'Made short video explainers for four studies: [Kobayashi Maru](https://youtu.be/cMrhV7eppbs), [One Query Away](https://youtu.be/76eIGCPWe9c), [Loud or Right](https://youtu.be/JbqzMuXK1OU) and the [neuron detection test](https://youtu.be/pHoC1WHvplQ).',
+    },
+    {
+      when: 'Nov 2026',
+      text: 'Took part in Apart Research’s AI x Epistemics Research Sprint with [Loud or Right](#loud-or-right), a test of whether models weigh how sure a critic sounds or how often it has been right.',
     },
     {
       when: 'Nov 2026',
@@ -55,10 +68,6 @@ export const home: Home = {
     {
       when: 'Oct 2026',
       text: 'Released [Diarist](https://diarist.dev) as a public beta.',
-    },
-    {
-      when: 'Oct 2026',
-      text: 'Ran the [pricing-advisor study](#llm-pricing-hub-remedies) at Apart Research’s AI Collusion sprint.',
     },
     {
       when: 'Sep 2026',
@@ -82,6 +91,7 @@ export const home: Home = {
           'I mixed impossible tasks into coding agents’ work and counted rule-breaking on the tasks they could still solve. Four of six models never broke a rule. On the one that did it most, the habit travelled through the agent’s own notes: with the notes withheld, it stopped (46 of 120 runs down to 0). The tasks are small, and the answer file was left within reach.',
         links: [
           { label: 'write-up', href: '/writing/kobayashi-maru-write-up/' },
+          { label: 'video (3:37)', href: 'https://youtu.be/cMrhV7eppbs' },
           { label: 'report', href: gh('kobayashi-maru', '/blob/main/report/kobayashi-maru-report.pdf') },
           { label: 'code', href: gh('kobayashi-maru') },
           { label: 'data', href: gh('kobayashi-maru', '/releases/tag/freeze-2026-09-14b') },
@@ -92,7 +102,7 @@ export const home: Home = {
         when: 'Nov 2026',
         title: 'Can code that solves nothing collect full marks from a training reward?',
         href: gh('rewards-pay-for-nothing', '/blob/main/WRITEUP.md'),
-        context: 'Rewards that pay for nothing · Lexsi Labs AI Safety and Alignment Hackathon',
+        context: 'Rewards that pay for nothing · Lexsi Labs AI Safety and Alignment Hackathon · top 10% of 369 submissions at Stage 1',
         summary:
           'A code reward runs a model’s answer against tests and pays when they pass. Six reward functions in two of Lexsi Labs’ model-training libraries paid full marks to answers that solve nothing, such as code that exits before the tests run. I reported it privately, and both libraries merged fixes the next day that credit the report. The released graders pay none of 111 answers that exit before the tests run, taken from a small model’s training logs, but the model only wrote those when the prompt hinted at the hole, and the training study meant to show whether a flawed reward teaches the trick was uninformative by its own rule.',
         links: [
@@ -107,7 +117,7 @@ export const home: Home = {
         when: 'Sep 2026',
         title: 'Can an auditing agent find what was changed in a fine-tuned model?',
         href: gh('diffing-agent-bench', '/blob/main/writeup/submission/B13_report.pdf'),
-        context: 'diffing-agent-bench · work sample for MATS 12.0, Neel Nanda’s stream',
+        context: 'diffing-agent-bench · application work sample for MATS 12.0, Neel Nanda’s stream',
         summary:
           'I planted known behaviours in fine-tuned copies of a 9B model, sealed the answer key, and ran a published auditing agent against them blind. It missed a planted preference for one database in all 13 attempts, because it never asked a database question. The “no change” control copy also behaved differently, so it is not a safe baseline. Five or fewer runs per setting.',
         links: [
@@ -126,6 +136,7 @@ export const home: Home = {
           'A monitor sees the same log three ways: a real violation, a clean run, and a clean run that looks like a violation until an approval is looked up in a database. In the original runs Claude Sonnet 5.5 accused 25 of 30 of those innocent agents, but most monitors had sent all three allowed queries at once, before seeing any result. When I reran it with one query at a time, the Claude monitors looked the approval up and almost stopped accusing; two GPT monitors still accused nearly every one of them. Three things changed together in the rerun, so it does not show that batching alone caused the first result.',
         links: [
           { label: 'write-up', href: '/work/one-query-away/' },
+          { label: 'video (5:28)', href: 'https://youtu.be/76eIGCPWe9c' },
           { label: 'report', href: gh('one-query-away', '/blob/main/paper/e1-submission-final.pdf') },
           { label: 'code and data', href: gh('one-query-away') },
         ],
@@ -144,6 +155,33 @@ export const home: Home = {
         ],
       },
       {
+        slug: 'llm-pricing-hub-remedies',
+        when: 'Oct 2026',
+        title: 'Do the RealPage settlement’s rules stop a shared AI pricing advisor?',
+        href: gh('llm-pricing-hub-remedies', '/blob/main/report/draft.md'),
+        context: 'LLM Pricing Hub Remedies · Apart Research AI Collusion sprint · top 10% of more than 390 submissions',
+        summary:
+          'Two AI sellers compete while one AI advisor, told to raise their joint profit, recommends prices to both. Limits modelled on the settlement worked on some models and not on others. The clearest result came from a scripted advisor that asked for one cent more each round: one seller model accepted 12% of those requests and stayed competitive, while two others accepted over 70% and were walked up to monopoly prices. The advisor’s goal is given to it, so this tests the rules, not whether collusion starts unprompted.',
+        links: [
+          { label: 'report', href: gh('llm-pricing-hub-remedies', '/blob/main/report/draft.md') },
+          { label: 'code and data', href: gh('llm-pricing-hub-remedies') },
+        ],
+      },
+      {
+        slug: 'neuron-detection-kl-audit',
+        when: 'Nov 2026',
+        title: 'How much of a neuron does a detection score cover?',
+        href: gh('neuron-detection-kl-audit'),
+        context: 'neuron-detection-kl-audit · Mechanistic Interpretability Hackathon 5',
+        summary:
+          'In Goodfire’s detection test, a judge reads a neuron’s label and two snippets and picks the one where the neuron fires. I ran it band by band on 278 neurons of Qwen3-4B, using labels published by Aayan Rizvi. The judge was right 84% of the time on the strongest activations and 66%, 55% and 50% in the bands below, and about 70% of the neurons’ downstream effect sits below that top band, so a high score shows the label fits the peaks, not most of what the neuron does. In the weaker bands the test is partly unanswerable by design, so part of the drop there comes from the test, not the label.',
+        links: [
+          { label: 'code and data', href: gh('neuron-detection-kl-audit') },
+          { label: 'video (3:56)', href: 'https://youtu.be/pHoC1WHvplQ' },
+          { label: 'hackathon entry', href: 'https://ebinbt.itch.io/neuron-detection-kl-audit' },
+        ],
+      },
+      {
         slug: 'loud-or-right',
         when: 'Nov 2026',
         title: 'When a critic objects, do models weigh how sure it sounds or how often it has been right?',
@@ -153,10 +191,13 @@ export const home: Home = {
           'Fifteen models each saw a log of a scripted reviewer’s past objections, in which the reviewer had been right only when certain, only when unsure, or always, and then the reviewer’s objection to their own answer. Claude Sonnet 5.5 and GPT-6 Sol followed each voice’s own record. Several open-weight models seemed to trust only the confident voice, but that came mostly from the order of the log’s entries: with the order reversed, the effect flipped in three of them. The order checks were added after the main results were in, so they are exploratory.',
         links: [
           { label: 'report', href: gh('loud-or-right', '/blob/main/paper/report.pdf') },
+          { label: 'video (3:34)', href: 'https://youtu.be/JbqzMuXK1OU' },
           { label: 'code and data', href: gh('loud-or-right') },
           { label: 'pre-registration record', href: gh('loud-or-right', '/blob/main/harness/FREEZE.md') },
         ],
       },
+    ],
+    more: [
       {
         slug: 'counterfactual-resampling',
         when: 'Oct 2026',
@@ -170,21 +211,6 @@ export const home: Home = {
           { label: 'results', href: gh('counterfactual-resampling', '/blob/main/results/tables.md') },
         ],
       },
-      {
-        slug: 'llm-pricing-hub-remedies',
-        when: 'Oct 2026',
-        title: 'Do the RealPage settlement’s rules stop a shared AI pricing advisor?',
-        href: gh('llm-pricing-hub-remedies', '/blob/main/report/draft.md'),
-        context: 'LLM Pricing Hub Remedies · Apart Research AI Collusion sprint',
-        summary:
-          'Two AI sellers compete while one AI advisor, told to raise their joint profit, recommends prices to both. Limits modelled on the settlement worked on some models and not on others. The clearest result came from a scripted advisor that asked for one cent more each round: one seller model accepted 12% of those requests and stayed competitive, while two others accepted over 70% and were walked up to monopoly prices. The advisor’s goal is given to it, so this tests the rules, not whether collusion starts unprompted.',
-        links: [
-          { label: 'report', href: gh('llm-pricing-hub-remedies', '/blob/main/report/draft.md') },
-          { label: 'code and data', href: gh('llm-pricing-hub-remedies') },
-        ],
-      },
-    ],
-    more: [
       {
         slug: 'odd-number-forensics',
         when: 'Aug 2026',
@@ -231,7 +257,7 @@ export const home: Home = {
         when: 'Oct 2026',
         title: 'Diarist: meeting transcripts with speaker labels, on your own PC',
         href: 'https://diarist.dev',
-        context: 'Windows app · public beta · six releases, about 300 downloads',
+        context: 'Windows app · public beta · seven releases, about 300 downloads',
         summary:
           'Records a meeting, or takes a recording, and writes a transcript that says who spoke each line. Nothing leaves the PC. The speech models are NVIDIA’s open ones; I built the app around them, and the accuracy and speed checks every release has to pass. People I don’t know are downloading and using it.',
         links: [

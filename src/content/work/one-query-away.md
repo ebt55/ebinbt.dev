@@ -4,6 +4,8 @@ context: One Query Away · Apart Research Swarm Alignment Hackathon
 when: Nov 2026
 updated: 2026-11-14
 links:
+  - label: video (5:28)
+    url: https://youtu.be/76eIGCPWe9c
   - label: report
     url: https://github.com/ebt55/one-query-away/blob/main/paper/e1-submission-final.pdf
   - label: code and data
